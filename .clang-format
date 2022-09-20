@@ -1,0 +1,22 @@
+# clang-format configuration file
+#
+---
+BasedOnStyle: LLVM
+
+TabWidth: 4
+UseTab: Never
+
+ReflowComments: true
+
+NamespaceIndentation: Inner
+IndentWidth: 4
+IndentPPDirectives: None
+
+ConstructorInitializerIndentWidth: 4
+ContinuationIndentWidth: 4
+
+BreakStringLiterals: true
+
+AlignOperands: true
+AlignAfterOpenBracket: true
+...
