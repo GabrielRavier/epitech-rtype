@@ -9,6 +9,10 @@ function(rtype_set_common_target_properties target_name)
       CXX_STANDARD_REQUIRED ON
       CXX_EXTENSIONS OFF
   )
+
+  target_include_directories(${target_name}
+    PRIVATE "${CMAKE_SOURCE_DIR}/include"
+  )
 endfunction()
 
 
