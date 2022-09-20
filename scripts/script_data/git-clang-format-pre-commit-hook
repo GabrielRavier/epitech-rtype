@@ -18,7 +18,7 @@ if [ "$clangformatout" != "" ]
 then
     echo "Format error!"
     echo "Use git clang-format"
-    echo "Note: If you really think the results are completely wrong, you might want to edit the .clang-format file at the top of the repository"
-    echo "Alternatively, you might want to insert '// clang-format off' and '// clang-format on' markers before and after the offending code, but this should practically never occur"
+    echo "Note: If you really think the results are completely wrong, you may want to edit the .clang-format file at the top of the repository"
+    echo "Alternatively, you may want to insert '// clang-format off' and '// clang-format on' markers before and after the offending code, but this should practically never occur"
     exit 1
 fi
