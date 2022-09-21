@@ -1,6 +1,6 @@
 # I started this list by adding every single check supported by clang-tidy
-# If it fires off bad messages, do remove the corresponding warning from this list
-# Although you VERY MUCH SHOULD make sure the warning doesn't actually show a problem when you do so
+# If it fires off bad messages, do remove the corresponding check from this list
+# Although you VERY MUCH SHOULD make sure the error doesn't actually show a problem when you do so
 Checks: "abseil-cleanup-ctad,abseil-duration-addition,abseil-duration-comparison,abseil-duration-conversion-cast,abseil-duration-division,abseil-duration-factory-float,abseil-duration-factory-scale, \
         abseil-duration-subtraction,abseil-duration-unnecessary-conversion,abseil-faster-strsplit-delimiter,abseil-no-internal-dependencies,abseil-no-namespace,abseil-redundant-strcat-calls,abseil-str-cat-append, \
         abseil-string-find-startswith,abseil-string-find-str-contains,abseil-time-comparison,abseil-time-subtraction,abseil-upgrade-duration-conversions,altera-kernel-name-restriction,altera-single-work-item-barrier, \
@@ -74,3 +74,6 @@ Checks: "abseil-cleanup-ctad,abseil-duration-addition,abseil-duration-comparison
         readability-use-anyofallof,security.FloatLoopCounter,security.insecureAPI.bcmp,security.insecureAPI.bcopy,security.insecureAPI.bzero,security.insecureAPI.getpw,security.insecureAPI.gets,security.insecureAPI.mkstemp, \
         security.insecureAPI.mktemp,security.insecureAPI.rand,security.insecureAPI.strcpy,security.insecureAPI.UncheckedReturn,security.insecureAPI.vfork,unix.API,unix.cstring.BadSizeArg,unix.cstring.NullArg,unix.Malloc, \
         unix.MallocSizeof,unix.MismatchedDeallocator,unix.Vfork,zircon-temporary-objects"
+
+# Make sure the checks fire off errors, not just warnings
+WarningsAsErrors: "*"
