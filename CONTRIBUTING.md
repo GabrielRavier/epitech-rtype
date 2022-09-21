@@ -9,7 +9,7 @@ This project uses a few git hooks in order to make it possible to automatically 
 The git hooks can be installed into the `.git` folder with the following command
 
 ```
-pre-commit install
+pre-commit install --hook-type pre-commit --hook-type commit-msg --hook-type pre-push
 ```
 
 (Note: this obviously requires that the pre-commit program be installed)
