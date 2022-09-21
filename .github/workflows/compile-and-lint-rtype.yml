@@ -1,0 +1,23 @@
+name: Compile and Lint R-Type CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: configure
+      run: cmake -B build -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
+    - name: build
+      run: cmake --build build --parallel $(nproc)
+    - name: lint
+      uses: pre-commit/action@v3.0.0
+      with:
+        extra_args: --all-files
