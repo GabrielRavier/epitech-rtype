@@ -6,10 +6,14 @@ While the [README](./README.md) already contains much of the information needed 
 
 This project uses a few git hooks in order to make it possible to automatically review all submitted code for formatting and linting errors, before it even hits the CI (which mostly serves as a backup in case you fail to properly set this up, or if your environment fails to find some errors the CI does (for example if you have an old version of `clang-tidy`/`clang-format`, or even just lack the programs))
 
-The git hooks can be installed into the `.git` folder with the following command, as executed from the top directory of this repository:
+The git hooks can be installed into the `.git` folder with the following command
 
 ```
-./scripts/setup_git_hooks.sh
+pre-commit install
 ```
 
-(Note: this script requires a POSIX environment to execute)
+(Note: this obviously requires that the pre-commit program be installed)
+
+## Guidelines for contributions
+
+It is highly recommended that you run git clang-format on your code before submitting it (the git hook you can set up above is made to remind you of this)
