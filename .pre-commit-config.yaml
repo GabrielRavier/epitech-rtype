@@ -12,3 +12,26 @@ repos:
     rev: v2.34.0
     hooks:
       - id: commitizen
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: main
+    hooks:
+      - id: check-added-large-files
+        args: ['--maxkb=100']   # Obviously modify this if you really need to check-in a very large file
+      - id: check-byte-order-marker
+      - id: check-case-conflict
+      - id: check-executables-have-shebangs
+      - id: check-json
+      - id: check-shebang-scripts-are-executable
+      - id: check-merge-conflict
+      - id: check-symlinks
+      - id: check-toml
+      - id: check-vcs-permalinks
+      - id: check-xml
+      - id: check-yaml
+      - id: destroyed-symlinks
+      - id: detect-private-key
+      - id: end-of-file-fixer
+      - id: fix-byte-order-marker
+      - id: mixed-line-ending
+        args: ['--fix=no']
+      - id: trailing-whitespace
