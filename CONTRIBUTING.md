@@ -16,4 +16,10 @@ pre-commit install
 
 ## Guidelines for contributions
 
-It is highly recommended that you run git clang-format on your code before submitting it (the git hook you can set up above is made to remind you of this)
+It is highly recommended that you run git clang-format, clang-tidy and cppcheck, on your code before submitting it (the git hook you can set up above is made to remind you of this)
+
+You can do this manually, but it should also be noted that, should you have `pre-commit` installed, you can instead run the pre-commit checks without actually committing anything, by just running
+
+```
+pre-commit run
+```
