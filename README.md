@@ -25,4 +25,3 @@ cmake --build build
 ```
 
 Once built, the `r-type_server` and `r-type_client` executables can be found in the `build` folder.
-
