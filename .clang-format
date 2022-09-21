@@ -16,7 +16,10 @@ ConstructorInitializerIndentWidth: 4
 ContinuationIndentWidth: 4
 
 BreakStringLiterals: true
+BreakBeforeBraces: Mozilla  # Perhaps Linux ? Will have to see later...
 
 AlignOperands: true
 AlignAfterOpenBracket: true
+
+AllowShortFunctionsOnASingleLine: Empty
 ...
