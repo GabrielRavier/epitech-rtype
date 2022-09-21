@@ -1,6 +1,6 @@
 # Contributing to this project
 
-While the [README](./README.md) already contains much of the information needed to work in the project, this document will contain a few additional notes, in particular recommendations on how to setup your Git environment in order to be able to make your contributions to the project as good as possible
+While the [README](./README.md) already contains much of the information needed to work in the project, this document contains a few additional notes, in particular recommendations on how to setup your Git environment in order to be able to make your contributions to the project as good as possible
 
 ## Setting up Git
 
