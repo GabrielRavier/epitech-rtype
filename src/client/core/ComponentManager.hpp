@@ -7,8 +7,15 @@
 #include <cassert>
 #include "Types.hpp"
 
+class IComponent
+{
+public:
+    virtual ~IComponent() = default;
+    virtual void EntityDestroyed(Entity entity) = 0;
+};
+
 template <typename T>
-class Component
+class Component : public IComponent
 {
 public:
     ComponentType                   mType;
@@ -45,10 +52,10 @@ public:
     {
         assert((mComponents.find(typeid(T)) == mComponents.end()) && "Registering component type more than once.");
 
-        auto component = new Component<T>();
+        auto component = std::make_shared<Component<T>>();
 
         component->mType = mComponents.size();
-        mComponents.insert(typeid(T), component);
+        mComponents.insert({ typeid(T), component });
     }
 
     /**
@@ -99,5 +106,5 @@ private:
     }
 
 private:
-    std::unordered_map<std::type_index, std::shared_ptr<Component<std::any>>> mComponents{};
+    std::unordered_map<std::type_index, std::shared_ptr<IComponent>> mComponents{};
 };

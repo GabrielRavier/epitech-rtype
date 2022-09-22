@@ -1,8 +1,8 @@
 #pragma once
 
-#include <cmath>
+#define _USE_MATH_DEFINES
 
-using namespace std;
+#include <cmath>
 
 class Vec2
 {
@@ -13,7 +13,7 @@ public:
 
 public:
     Vec2();
-    Vec2(float x_, float y_, float z_);
+    Vec2(float x, float y, float z);
 
     void Add(Vec2 b);
     void Subtract(Vec2 b);
