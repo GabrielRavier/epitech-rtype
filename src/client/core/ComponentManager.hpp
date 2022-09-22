@@ -4,6 +4,7 @@
 #include <typeindex>
 #include <memory>
 #include <unordered_map>
+#include <cassert>
 #include "Types.hpp"
 
 template <typename T>
@@ -21,7 +22,7 @@ public:
 
     void EntityCreate(Entity entity, T data)
     {
-        mEntitiesData.insert(entity, daa);
+        mEntitiesData.insert(entity, data);
     }
 
     void EntityDestroyed(Entity entity)
@@ -47,7 +48,7 @@ public:
         auto component = new Component<T>();
 
         component->mType = mComponents.size();
-        mComponents.insert({ typeid(T), component });
+        mComponents.insert(typeid(T), component);
     }
 
     /**
