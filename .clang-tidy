@@ -4,7 +4,7 @@
 Checks: "abseil-cleanup-ctad,abseil-duration-addition,abseil-duration-comparison,abseil-duration-conversion-cast,abseil-duration-division,abseil-duration-factory-float,abseil-duration-factory-scale, \
         abseil-duration-subtraction,abseil-duration-unnecessary-conversion,abseil-faster-strsplit-delimiter,abseil-no-internal-dependencies,abseil-no-namespace,abseil-redundant-strcat-calls,abseil-str-cat-append, \
         abseil-string-find-startswith,abseil-string-find-str-contains,abseil-time-comparison,abseil-time-subtraction,abseil-upgrade-duration-conversions,altera-kernel-name-restriction,altera-single-work-item-barrier, \
-        android-cloexec-accept,android-cloexec-accept4,android-cloexec-creat,android-cloexec-dup,android-cloexec-epoll-create,android-cloexec-epoll-create1,android-cloexec-fopen,android-cloexec-inotify-init, \
+        android-cloexec-accept,android-cloexec-accept4,android-cloexec-creat,android-cloexec-dup,android-cloexec-epoll-create,android-cloexec-epoll-create1,android-cloexec-inotify-init, \
         android-cloexec-inotify-init1,android-cloexec-memfd-create,android-cloexec-open,android-cloexec-pipe,android-cloexec-pipe2,android-cloexec-socket,android-comparison-in-temp-failure-retry,boost-use-to-string, \
         bugprone-argument-comment,bugprone-assert-side-effect,bugprone-assignment-in-if-condition,bugprone-bad-signal-to-kill-thread,bugprone-bool-pointer-implicit-conversion,bugprone-branch-clone, \
         bugprone-copy-constructor-init,bugprone-dangling-handle,bugprone-dynamic-static-initializers,bugprone-exception-escape,bugprone-fold-init-type, \
@@ -73,7 +73,7 @@ Checks: "abseil-cleanup-ctad,abseil-duration-addition,abseil-duration-comparison
         readability-static-definition-in-anonymous-namespace,readability-string-compare,readability-suspicious-call-argument,readability-uniqueptr-delete-release,readability-uppercase-literal-suffix, \
         readability-use-anyofallof,security.FloatLoopCounter,security.insecureAPI.bcmp,security.insecureAPI.bcopy,security.insecureAPI.bzero,security.insecureAPI.getpw,security.insecureAPI.gets,security.insecureAPI.mkstemp, \
         security.insecureAPI.mktemp,security.insecureAPI.rand,security.insecureAPI.strcpy,security.insecureAPI.UncheckedReturn,security.insecureAPI.vfork,unix.API,unix.cstring.BadSizeArg,unix.cstring.NullArg,unix.Malloc, \
-        unix.MallocSizeof,unix.MismatchedDeallocator,unix.Vfork,zircon-temporary-objects"
+        unix.MallocSizeof,unix.MismatchedDeallocator,unix.Vfork,zircon-temporary-objects,-clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling"
 
 # Make sure the checks fire off errors, not just warnings
 WarningsAsErrors: "*"
