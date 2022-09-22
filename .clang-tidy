@@ -7,7 +7,7 @@ Checks: "abseil-cleanup-ctad,abseil-duration-addition,abseil-duration-comparison
         android-cloexec-accept,android-cloexec-accept4,android-cloexec-creat,android-cloexec-dup,android-cloexec-epoll-create,android-cloexec-epoll-create1,android-cloexec-fopen,android-cloexec-inotify-init, \
         android-cloexec-inotify-init1,android-cloexec-memfd-create,android-cloexec-open,android-cloexec-pipe,android-cloexec-pipe2,android-cloexec-socket,android-comparison-in-temp-failure-retry,boost-use-to-string, \
         bugprone-argument-comment,bugprone-assert-side-effect,bugprone-assignment-in-if-condition,bugprone-bad-signal-to-kill-thread,bugprone-bool-pointer-implicit-conversion,bugprone-branch-clone, \
-        bugprone-copy-constructor-init,bugprone-dangling-handle,bugprone-dynamic-static-initializers,bugprone-easily-swappable-parameters,bugprone-exception-escape,bugprone-fold-init-type, \
+        bugprone-copy-constructor-init,bugprone-dangling-handle,bugprone-dynamic-static-initializers,bugprone-exception-escape,bugprone-fold-init-type, \
         bugprone-forward-declaration-namespace,bugprone-forwarding-reference-overload,bugprone-implicit-widening-of-multiplication-result,bugprone-inaccurate-erase,bugprone-incorrect-roundings, \
         bugprone-infinite-loop,bugprone-integer-division,bugprone-lambda-function-name,bugprone-macro-parentheses,bugprone-macro-repeated-side-effects,bugprone-misplaced-operator-in-strlen-in-alloc, \
         bugprone-misplaced-pointer-arithmetic-in-alloc,bugprone-misplaced-widening-cast,bugprone-move-forwarding-reference,bugprone-multiple-statement-macro,bugprone-narrowing-conversions,bugprone-no-escape, \
@@ -45,7 +45,7 @@ Checks: "abseil-cleanup-ctad,abseil-duration-addition,abseil-duration-comparison
         darwin-dispatch-once-nonstatic,deadcode.DeadStores,fixes,fuchsia-default-arguments-declarations,fuchsia-header-anon-namespaces,fuchsia-multiple-inheritance,fuchsia-overloaded-operator,fuchsia-trailing-return, \
         fuchsia-virtual-inheritance,google-build-explicit-make-pair,google-build-namespaces,google-build-using-namespace,google-default-arguments,google-explicit-constructor,google-global-names-in-headers, \
         google-objc-avoid-nsobject-new,google-objc-avoid-throwing-exception,google-objc-function-naming,google-objc-global-variable-declaration,google-readability-avoid-underscore-in-googletest-name, \
-        google-readability-function-size,google-readability-namespace-comments,google-readability-todo,google-runtime-int,google-runtime-operator,google-upgrade-googletest-case,hicpp-avoid-goto,hicpp-exception-baseclass, \
+        google-readability-function-size,google-readability-namespace-comments,google-readability-todo,google-runtime-operator,google-upgrade-googletest-case,hicpp-avoid-goto,hicpp-exception-baseclass, \
         hicpp-explicit-conversions,hicpp-function-size,hicpp-invalid-access-moved,hicpp-member-init,hicpp-move-const-arg,hicpp-multiway-paths-covered,hicpp-named-parameter,hicpp-new-delete-operators,hicpp-no-assembler, \
         hicpp-noexcept-move,hicpp-no-malloc,hicpp-signed-bitwise,hicpp-special-member-functions,hicpp-static-assert,hicpp-undelegated-constructor,hicpp-uppercase-literal-suffix,hicpp-use-auto,hicpp-use-emplace, \
         hicpp-use-equals-default,hicpp-use-equals-delete,hicpp-use-noexcept,hicpp-use-nullptr,hicpp-use-override,hicpp-vararg,linuxkernel-must-use-errs,llvm-else-after-return,llvm-namespace-comment, \
@@ -66,7 +66,7 @@ Checks: "abseil-cleanup-ctad,abseil-duration-addition,abseil-duration-comparison
         performance-trivially-destructible,performance-type-promotion-in-math-fn,performance-unnecessary-copy-initialization,performance-unnecessary-value-param,portability-restrict-system-includes, \
         portability-simd-intrinsics,portability-std-allocator-const,readability-avoid-const-params-in-decls,readability-const-return-type,readability-container-contains,readability-container-data-pointer, \
         readability-container-size-empty,readability-convert-member-functions-to-static,readability-delete-null-pointer,readability-duplicate-include,readability-else-after-return,readability-function-cognitive-complexity, \
-        readability-function-size,readability-identifier-naming,readability-implicit-bool-conversion,readability-inconsistent-declaration-parameter-name,readability-isolate-declaration,readability-make-member-function-const, \
+        readability-function-size,readability-identifier-naming,readability-implicit-bool-conversion,readability-inconsistent-declaration-parameter-name,readability-make-member-function-const, \
         readability-misleading-indentation,readability-misplaced-array-index,readability-named-parameter,readability-non-const-parameter,readability-qualified-auto,readability-redundant-access-specifiers, \
         readability-redundant-control-flow,readability-redundant-function-ptr-dereference,readability-redundant-member-init,readability-redundant-preprocessor,readability-redundant-smartptr-get, \
         readability-redundant-string-cstr,readability-redundant-string-init,readability-simplify-boolean-expr,readability-simplify-subscript-expr,readability-static-accessed-through-instance, \

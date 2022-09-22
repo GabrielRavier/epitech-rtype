@@ -7,6 +7,9 @@ TabWidth: 4
 UseTab: Never
 
 ReflowComments: true
+SortIncludes: false
+SeparateDefinitionBlocks: Always
+MaxEmptyLinesToKeep: 2
 
 NamespaceIndentation: Inner
 IndentWidth: 4
