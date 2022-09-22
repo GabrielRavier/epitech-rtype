@@ -10,7 +10,7 @@
 class IComponent
 {
 public:
-    virtual ~IComponent() = default;
+    virtual ~IComponent()                       = default;
     virtual void EntityDestroyed(Entity entity) = 0;
 };
 

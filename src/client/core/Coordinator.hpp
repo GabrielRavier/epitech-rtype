@@ -79,6 +79,6 @@ public:
 
 private:
     std::unique_ptr<ComponentManager> mComponentManager = std::make_unique<ComponentManager>();
-    std::unique_ptr<EntityManager> mEntityManager = std::make_unique<EntityManager>();
-    std::unique_ptr<SystemManager> mSystemManager = std::make_unique<SystemManager>();
+    std::unique_ptr<EntityManager> mEntityManager       = std::make_unique<EntityManager>();
+    std::unique_ptr<SystemManager> mSystemManager       = std::make_unique<SystemManager>();
 };
