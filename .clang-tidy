@@ -17,7 +17,7 @@ Checks: "abseil-cleanup-ctad,abseil-duration-addition,abseil-duration-comparison
         bugprone-suspicious-missing-comma,bugprone-suspicious-semicolon,bugprone-suspicious-string-compare,bugprone-swapped-arguments,bugprone-terminating-continue,bugprone-throw-keyword-missing, \
         bugprone-too-small-loop-variable,bugprone-unchecked-optional-access,bugprone-undefined-memory-manipulation,bugprone-undelegated-constructor,bugprone-unhandled-exception-at-new,bugprone-unhandled-self-assignment, \
         bugprone-unused-raii,bugprone-unused-return-value,bugprone-use-after-move,bugprone-virtual-near-miss,cert-con36-c,cert-con54-cpp,cert-dcl03-c,cert-dcl16-c,cert-dcl21-cpp,cert-dcl37-c,cert-dcl50-cpp,cert-dcl51-cpp, \
-        cert-dcl54-cpp,cert-dcl58-cpp,cert-dcl59-cpp,cert-env33-c,cert-err09-cpp,cert-err33-c,cert-err34-c,cert-err52-cpp,cert-err58-cpp,cert-err60-cpp,cert-err61-cpp,cert-exp42-c,cert-fio38-c,cert-flp30-c,cert-flp37-c, \
+        cert-dcl54-cpp,cert-dcl58-cpp,cert-dcl59-cpp,cert-env33-c,cert-err09-cpp,cert-err33-c,cert-err34-c,cert-err52-cpp,cert-err60-cpp,cert-err61-cpp,cert-exp42-c,cert-fio38-c,cert-flp30-c,cert-flp37-c, \
         cert-mem57-cpp,cert-msc30-c,cert-msc32-c,cert-msc50-cpp,cert-msc51-cpp,cert-msc54-cpp,cert-oop11-cpp,cert-oop54-cpp,cert-oop57-cpp,cert-oop58-cpp,cert-pos44-c,cert-pos47-c,cert-sig30-c,cert-str34-c, \
         clang-analyzer-core.CallAndMessage,clang-analyzer-core.DivideZero,clang-analyzer-core.DynamicTypePropagation,clang-analyzer-core.NonNullParamChecker,clang-analyzer-core.NullDereference, \
         clang-analyzer-core.StackAddressEscape,clang-analyzer-core.UndefinedBinaryOperatorResult,clang-analyzer-core.uninitialized.ArraySubscript,clang-analyzer-core.uninitialized.Assign, \
@@ -41,14 +41,14 @@ Checks: "abseil-cleanup-ctad,abseil-duration-addition,abseil-duration-comparison
         cplusplus.NewDeleteLeaks,cppcoreguidelines-avoid-const-or-ref-data-members,cppcoreguidelines-avoid-goto,cppcoreguidelines-c-copy-assignment-signature,cppcoreguidelines-explicit-virtual-functions, \
         cppcoreguidelines-interfaces-global-init,cppcoreguidelines-macro-to-enum,cppcoreguidelines-narrowing-conversions,cppcoreguidelines-no-malloc,cppcoreguidelines-owning-memory,cppcoreguidelines-prefer-member-initializer, \
         cppcoreguidelines-pro-type-const-cast,cppcoreguidelines-pro-type-cstyle-cast,cppcoreguidelines-pro-type-member-init,cppcoreguidelines-pro-type-reinterpret-cast,cppcoreguidelines-pro-type-static-cast-downcast, \
-        cppcoreguidelines-pro-type-union-access,cppcoreguidelines-pro-type-vararg,cppcoreguidelines-slicing,cppcoreguidelines-special-member-functions,cppcoreguidelines-virtual-class-destructor,darwin-avoid-spinlock, \
+        cppcoreguidelines-pro-type-union-access,cppcoreguidelines-slicing,cppcoreguidelines-special-member-functions,cppcoreguidelines-virtual-class-destructor,darwin-avoid-spinlock, \
         darwin-dispatch-once-nonstatic,deadcode.DeadStores,fixes,fuchsia-default-arguments-declarations,fuchsia-header-anon-namespaces,fuchsia-multiple-inheritance,fuchsia-overloaded-operator,fuchsia-trailing-return, \
         fuchsia-virtual-inheritance,google-build-explicit-make-pair,google-build-namespaces,google-build-using-namespace,google-default-arguments,google-explicit-constructor,google-global-names-in-headers, \
         google-objc-avoid-nsobject-new,google-objc-avoid-throwing-exception,google-objc-function-naming,google-objc-global-variable-declaration,google-readability-avoid-underscore-in-googletest-name, \
         google-readability-function-size,google-readability-namespace-comments,google-readability-todo,google-runtime-operator,google-upgrade-googletest-case,hicpp-avoid-goto,hicpp-exception-baseclass, \
         hicpp-explicit-conversions,hicpp-function-size,hicpp-invalid-access-moved,hicpp-member-init,hicpp-move-const-arg,hicpp-multiway-paths-covered,hicpp-named-parameter,hicpp-new-delete-operators,hicpp-no-assembler, \
-        hicpp-noexcept-move,hicpp-no-malloc,hicpp-signed-bitwise,hicpp-special-member-functions,hicpp-static-assert,hicpp-undelegated-constructor,hicpp-uppercase-literal-suffix,hicpp-use-auto,hicpp-use-emplace, \
-        hicpp-use-equals-default,hicpp-use-equals-delete,hicpp-use-noexcept,hicpp-use-nullptr,hicpp-use-override,hicpp-vararg,linuxkernel-must-use-errs,llvm-else-after-return,llvm-namespace-comment, \
+        hicpp-noexcept-move,hicpp-no-malloc,hicpp-signed-bitwise,hicpp-special-member-functions,hicpp-static-assert,hicpp-undelegated-constructor,hicpp-use-auto,hicpp-use-emplace, \
+        hicpp-use-equals-default,hicpp-use-equals-delete,hicpp-use-noexcept,hicpp-use-nullptr,hicpp-use-override,linuxkernel-must-use-errs,llvm-else-after-return,llvm-namespace-comment, \
         llvm-prefer-isa-or-dyn-cast-in-conditionals,llvm-prefer-register-over-unsigned,llvm-qualified-auto,llvm-twine-local,misc-confusable-identifiers,misc-const-correctness,misc-definitions-in-headers, \
         misc-misleading-bidirectional,misc-misleading-identifier,misc-misplaced-const,misc-new-delete-overloads,misc-non-copyable-objects,misc-redundant-expression,misc-static-assert,misc-throw-by-value-catch-by-reference, \
         misc-unconventional-assign-operator,misc-uniqueptr-reset-release,misc-unused-alias-decls,misc-unused-parameters,misc-unused-using-decls,modernize-avoid-bind,modernize-concat-nested-namespaces, \
@@ -70,7 +70,7 @@ Checks: "abseil-cleanup-ctad,abseil-duration-addition,abseil-duration-comparison
         readability-misleading-indentation,readability-misplaced-array-index,readability-named-parameter,readability-non-const-parameter,readability-qualified-auto,readability-redundant-access-specifiers, \
         readability-redundant-control-flow,readability-redundant-function-ptr-dereference,readability-redundant-member-init,readability-redundant-preprocessor,readability-redundant-smartptr-get, \
         readability-redundant-string-cstr,readability-redundant-string-init,readability-simplify-boolean-expr,readability-simplify-subscript-expr,readability-static-accessed-through-instance, \
-        readability-static-definition-in-anonymous-namespace,readability-string-compare,readability-suspicious-call-argument,readability-uniqueptr-delete-release,readability-uppercase-literal-suffix, \
+        readability-static-definition-in-anonymous-namespace,readability-string-compare,readability-suspicious-call-argument,readability-uniqueptr-delete-release, \
         readability-use-anyofallof,security.FloatLoopCounter,security.insecureAPI.bcmp,security.insecureAPI.bcopy,security.insecureAPI.bzero,security.insecureAPI.getpw,security.insecureAPI.gets,security.insecureAPI.mkstemp, \
         security.insecureAPI.mktemp,security.insecureAPI.rand,security.insecureAPI.strcpy,security.insecureAPI.UncheckedReturn,security.insecureAPI.vfork,unix.API,unix.cstring.BadSizeArg,unix.cstring.NullArg,unix.Malloc, \
         unix.MallocSizeof,unix.MismatchedDeallocator,unix.Vfork,zircon-temporary-objects,-clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling"

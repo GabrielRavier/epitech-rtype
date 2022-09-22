@@ -25,4 +25,6 @@ AlignOperands: true
 AlignAfterOpenBracket: true
 
 AllowShortFunctionsOnASingleLine: Empty
+
+ColumnLimit: 120
 ...
