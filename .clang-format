@@ -14,17 +14,21 @@ MaxEmptyLinesToKeep: 2
 NamespaceIndentation: Inner
 IndentWidth: 4
 IndentPPDirectives: None
+IndentAccessModifiers: false
 
 ConstructorInitializerIndentWidth: 4
 ContinuationIndentWidth: 4
 
 BreakStringLiterals: true
-BreakBeforeBraces: Mozilla  # Perhaps Linux ? Will have to see later...
+BreakBeforeBraces: Mozilla  # Potentially Linux might perhaps be a better choice...
+AlwaysBreakTemplateDeclarations: Yes
 
 AlignOperands: true
 AlignAfterOpenBracket: true
 
 AllowShortFunctionsOnASingleLine: Empty
+
+AccessModifierOffset: -4
 
 ColumnLimit: 120
 ...

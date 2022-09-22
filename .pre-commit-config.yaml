@@ -8,7 +8,7 @@ repos:
       - id: clang-tidy
         args: [--config-file=./.clang-tidy]
       - id: cppcheck
-        args: [--suppress=passedByValue]
+        args: [--suppress=passedByValue,--suppress=unusedStructMember,--suppress=unmatchedSuppression,--suppress=missingIncludeSystem,--suppress=unusedFunction]
   - repo: https://github.com/commitizen-tools/commitizen
     rev: v2.34.0
     hooks:

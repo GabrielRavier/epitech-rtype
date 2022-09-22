@@ -16,7 +16,7 @@ Vec2::Vec2() : x(0), y(0) {}
 
 /* Vec2 Constructor
     Set the vector's x and y components to the parameters supplied */
-Vec2::Vec2(float x, float y, float z) : x(x), y(y) {}
+Vec2::Vec2(float x, float y) : x(x), y(y) {}
 
 /* Add Member Function
     Adds the vector's x, y, and z components with the supplied vector's x and z components */
@@ -44,16 +44,16 @@ void Vec2::ScalarMultiplication(float scalar)
 
 /* Mag Member Function
     Calculates and returns the vector's magnitude */
-float Vec2::Mag()
+float Vec2::Mag() const
 {
-    return sqrt(pow(this->x, 2) + pow(this->y, 2));
+    return std::sqrt(std::pow(this->x, 2.f) + std::pow(this->y, 2.f));
 }
 
 /* Normalize Member Function
     Normalizes the vector */
 void Vec2::Normalize()
 {
-    double mag = this->Mag();
+    auto mag = this->Mag();
 
     this->x /= mag;
     this->y /= mag;
@@ -61,7 +61,7 @@ void Vec2::Normalize()
 
 /* Dot Member Function
     Calculates and returns the scalar result for the dot product of the vector and vector supplied */
-float Vec2::Dot(Vec2 vec)
+float Vec2::Dot(Vec2 vec) const
 {
     return ((this->x * vec.x) + (this->y * vec.y));
 }
@@ -72,6 +72,6 @@ void Vec2::RotateZ(float angle)
 {
     float theta = degToRad(angle);
 
-    this->x = (this->x * cos(theta)) - (this->y * sin(theta));
-    this->y = (this->x * sin(theta)) + (this->y * cos(theta));
+    this->x = (this->x * std::cos(theta)) - (this->y * std::sin(theta));
+    this->y = (this->x * std::sin(theta)) + (this->y * std::cos(theta));
 }

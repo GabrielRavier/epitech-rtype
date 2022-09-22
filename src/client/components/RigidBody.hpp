@@ -4,5 +4,5 @@
 
 struct RigidBody
 {
-    Vec2    acceleration;
+    Vec2 acceleration;
 };

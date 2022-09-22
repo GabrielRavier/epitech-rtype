@@ -9,18 +9,16 @@ class Vec2
 public:
     float x;
     float y;
-    float z;
 
-public:
     Vec2();
-    Vec2(float x, float y, float z);
+    Vec2(float x, float y);
 
-    void Add(Vec2 b);
-    void Subtract(Vec2 b);
+    void Add(Vec2 vec);
+    void Subtract(Vec2 vec);
     void ScalarMultiplication(float s);
-    float Mag();
+    [[nodiscard]] float Mag() const;
     void Normalize();
-    float Dot(Vec2 b);
+    [[nodiscard]] float Dot(Vec2 vec) const;
     void Lerp(Vec2 b, float t);
     void RotateZ(float angle);
 };

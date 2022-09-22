@@ -4,7 +4,7 @@
 
 struct Transform
 {
-    Vec2    position;
-    Vec2    scale;
-    float   rotation;
+    Vec2 position;
+    Vec2 scale;
+    float rotation;
 };

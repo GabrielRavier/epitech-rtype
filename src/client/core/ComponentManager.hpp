@@ -18,11 +18,10 @@ template <typename T>
 class Component : public IComponent
 {
 public:
-    ComponentType                   mType;
-    std::unordered_map<Entity, T>   mEntitiesData;
+    ComponentType mType;
+    std::unordered_map<Entity, T> mEntitiesData;
 
-public:
-    T& GetEntityData(Entity entity)
+    T &GetEntityData(Entity entity)
     {
         return mEntitiesData[entity];
     }
@@ -32,7 +31,7 @@ public:
         mEntitiesData.insert(entity, data);
     }
 
-    void EntityDestroyed(Entity entity)
+    void EntityDestroyed(Entity entity) override
     {
         mEntitiesData.erase(entity);
     }
@@ -41,7 +40,6 @@ public:
 class ComponentManager
 {
 public:
-
     /**
      * @brief Registers a new component and assigns it the next available component ID.
      *
@@ -55,15 +53,15 @@ public:
         auto component = std::make_shared<Component<T>>();
 
         component->mType = mComponents.size();
-        mComponents.insert({ typeid(T), component });
+        mComponents.insert({typeid(T), component});
     }
 
     /**
      * @brief Attach component data to a new Entity.
      *
-     * @tparam T 
-     * @param entity 
-     * @param component 
+     * @tparam T
+     * @param entity
+     * @param component
      */
     template <typename T>
     void AddComponent(Entity entity, T component)
@@ -78,7 +76,7 @@ public:
     }
 
     template <typename T>
-    T& GetComponentData(Entity entity)
+    T &GetComponentData(Entity entity)
     {
         return GetComponent<T>()->GetEntityData(entity);
     }
@@ -105,6 +103,5 @@ private:
         return std::static_pointer_cast<Component<T>>(mComponents[typeid(T)]);
     }
 
-private:
     std::unordered_map<std::type_index, std::shared_ptr<IComponent>> mComponents{};
 };

@@ -11,7 +11,6 @@
 class EntityManager
 {
 public:
-
     /**
      * @brief Construct a new Entity Manager.
      */
@@ -79,7 +78,7 @@ public:
     }
 
 private:
-    uint32_t                                mLivingEntityCount{};
-    std::queue<Entity>                      mAvailableEntities{};
-    std::array<Signature, MAX_ENTITIES>     mSignatures{};
+    uint32_t mLivingEntityCount{};
+    std::queue<Entity> mAvailableEntities{};
+    std::array<Signature, MAX_ENTITIES> mSignatures{};
 };

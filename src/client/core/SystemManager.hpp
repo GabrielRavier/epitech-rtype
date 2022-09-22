@@ -13,7 +13,6 @@
 class SystemManager
 {
 public:
-
     /**
      * @brief Register a new system in the manager.
      *
@@ -26,7 +25,7 @@ public:
         assert((mSystems.find(typeid(T)) == mSystems.end()) && "Registering system more than once.");
 
         auto system = std::make_shared<T>();
-        mSystems.insert({ typeid(T), system });
+        mSystems.insert({typeid(T), system});
         return system;
     }
 
@@ -41,7 +40,7 @@ public:
     {
         assert((mSystems.find(typeid(T)) != mSystems.end()) && "System used before registered.");
 
-        mSignatures.insert({ typeid(T), signature });
+        mSignatures.insert({typeid(T), signature});
     }
 
     /**
@@ -77,6 +76,6 @@ public:
     }
 
 private:
-    std::unordered_map<std::type_index, Signature>                  mSignatures{};
-    std::unordered_map<std::type_index, std::shared_ptr<System>>    mSystems{};
+    std::unordered_map<std::type_index, Signature> mSignatures{};
+    std::unordered_map<std::type_index, std::shared_ptr<System>> mSystems{};
 };
