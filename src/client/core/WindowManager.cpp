@@ -9,21 +9,21 @@
 
 void WindowManager::Init(std::string title, int width, int height)
 {
-    _window = std::make_unique<sf::RenderWindow>(sf::VideoMode(width, height), title);
+    this->_window = std::make_unique<sf::RenderWindow>(sf::VideoMode(width, height), title);
 }
 
 void WindowManager::Clear()
 {
-    _window->clear(sf::Color::Black);
+    this->_window->clear(sf::Color::Black);
 }
 
 void WindowManager::RenderSprite(sf::Sprite sprite, Vec2 position)
 {
     sprite.setPosition(sf::Vector2f(position.x, position.y));
-    _window->draw(sprite);
+    this->_window->draw(sprite);
 }
 
 void WindowManager::Update()
 {
-    _window->display();
+    this->_window->display();
 }

@@ -8,6 +8,7 @@
 #pragma once
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
+#include <memory>
 #include "../utils/Vec2.hpp"
 
 class WindowManager
