@@ -2,15 +2,6 @@ cmake_minimum_required(VERSION 3.12)
 
 project(rtype CXX)
 
-include(FetchContent)
-
-FetchContent_Declare(
-  sfml
-  URL "https://github.com/SFML/SFML/archive/2.5.1.zip"
-)
-
-FetchContent_MakeAvailable(sfml)
-
 function(rtype_set_common_target_properties target_name)
   set_target_properties(${target_name}
     PROPERTIES
@@ -24,6 +15,10 @@ function(rtype_set_common_target_properties target_name)
   )
 endfunction()
 
+find_package(SFML 2.5
+  COMPONENTS
+    system window graphics network audio REQUIRED
+)
 
 add_executable(r-type_server
   "src/server/main.cpp"

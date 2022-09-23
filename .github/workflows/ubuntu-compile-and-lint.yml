@@ -1,10 +1,6 @@
-name: Compile and Lint CI
+name: Ubuntu Compile and Lint CI
 
-on:
-  push:
-    branches: [ "main", "add-clang-tooling" ]
-  pull_request:
-    branches: [ "main", "add-clang-tooling" ]
+on: [push, pull_request]
 
 jobs:
   build:
@@ -13,10 +9,11 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+    - uses: lukka/get-cmake@latest
     - name: update apt-get
       run: sudo apt-get update
     - name: install pre-requisites
-      run: sudo apt-get install x11proto-dev libx11-dev libxrandr-dev libopengl-dev libglx-dev libgl-dev libfreetype-dev libopenal-dev libogg-dev libvorbis-dev libflac-dev libudev-dev cppcheck
+      run: sudo apt-get install cppcheck
     - name: configure
       run: cmake -B build -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
     - name: build

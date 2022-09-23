@@ -1,0 +1,14 @@
+name: Windows Compile CI
+
+on: [push, pull_request]
+
+jobs:
+  build:
+
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - uses: lukka/get-cmake@latest
+    - name: Run CMake
+      uses: lukka/run-cmake@v10

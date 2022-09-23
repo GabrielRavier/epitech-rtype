@@ -4,9 +4,27 @@ This project is a multithreaded server and a graphical client for the game R-Typ
 
 ## Dependencies
 
-TODO !!!!!
+Either:
+- Install vcpkg
+Or:
+- Install SFML manually (On Linux, likely through your package manager)
 
-Other than this, the dependencies will be automatically installed as part of the build process.
+### Installing vcpkg
+
+vcpkg is a submodule of this repository (note: if you did not clone this repository with `--recurse-submodules`, please run `git submodule update --init` before continuing).
+You can prepare it for useusing the following command:
+
+```
+./vcpkg/bootstrap-vcpkg.sh
+```
+
+on Linux/MacOS, and
+
+```
+./vcpkg/bootstrap-vcpkg.bat
+```
+
+on Windows.
 
 ## Building
 
@@ -17,6 +35,14 @@ Generating files for your build system is as simple as executing the following c
 ```
 cmake -B build
 ```
+
+without vcpkg, and
+
+```
+cmake -B build -DCMAKE_TOOLCHAIN_FILE=./vcpkg/scripts/buildsystems/vcpkg.cmake
+```
+
+if you are using vcpkg.
 
 You can then compile the project with this command (again, from the top directory of this repository):
 
