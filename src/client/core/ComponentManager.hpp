@@ -18,9 +18,10 @@ template <typename T>
 class Component : public IComponent
 {
 public:
-    ComponentType mType;
+    ComponentType                 mType;
     std::unordered_map<Entity, T> mEntitiesData;
 
+public:
     T &GetEntityData(Entity entity)
     {
         return mEntitiesData[entity];
@@ -28,7 +29,7 @@ public:
 
     void EntityCreate(Entity entity, T data)
     {
-        mEntitiesData.insert(entity, data);
+        mEntitiesData.insert({entity, data});
     }
 
     void EntityDestroyed(Entity entity) override
@@ -103,5 +104,6 @@ private:
         return std::static_pointer_cast<Component<T>>(mComponents[typeid(T)]);
     }
 
+private:
     std::unordered_map<std::type_index, std::shared_ptr<IComponent>> mComponents{};
 };

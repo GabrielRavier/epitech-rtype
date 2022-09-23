@@ -26,6 +26,7 @@ AlwaysBreakTemplateDeclarations: Yes
 AlignOperands: true
 AlignAfterOpenBracket: true
 AlignConsecutiveAssignments: true
+AlignConsecutiveDeclarations: true
 
 AllowShortFunctionsOnASingleLine: Empty
 
