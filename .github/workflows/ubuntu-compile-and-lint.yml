@@ -17,8 +17,7 @@ jobs:
     - name: Run CMake consuming vcpkg.json by mean of vcpkg.
       uses: lukka/run-cmake@v10
       with:
-          configurePreset: 'ninja-multi-vcpkg'
-          buildPreset: 'ninja-multi-vcpkg'
+          configurePreset: ''
     - name: Install linting pre-requisites
       run: sudo apt-get install cppcheck
     - name: Prepare compile_commands.json for linting
