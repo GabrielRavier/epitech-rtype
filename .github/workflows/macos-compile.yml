@@ -16,3 +16,6 @@ jobs:
       uses: lukka/run-vcpkg@v10
     - name: Run CMake consuming vcpkg.json by mean of vcpkg.
       uses: lukka/run-cmake@v10
+      with:
+          configurePreset: 'ninja-multi-vcpkg'
+          buildPreset: 'ninja-multi-vcpkg'
