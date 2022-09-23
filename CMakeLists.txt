@@ -23,9 +23,10 @@ rtype_set_common_target_properties(r-type_server)
 
 add_executable(r-type_client
   "src/client/main.cpp"
+  "src/client/core/WindowManager.cpp"
+  "src/client/systems/BackgroundSystem.cpp"
   "src/client/systems/PhysicsSystem.cpp"
   "src/client/systems/RenderSystem.cpp"
-  "src/client/systems/WindowSystem.cpp"
   "src/client/utils/Vec2.cpp"
 )
 target_link_libraries(r-type_client PRIVATE sfml-graphics)

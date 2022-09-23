@@ -29,7 +29,7 @@ public:
 
     void EntityCreate(Entity entity, T data)
     {
-        mEntitiesData.insert(entity, data);
+        mEntitiesData.insert({entity, data});
     }
 
     void EntityDestroyed(Entity entity)

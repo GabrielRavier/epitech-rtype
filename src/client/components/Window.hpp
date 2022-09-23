@@ -5,5 +5,5 @@
 
 struct Window
 {
-    sf::RenderWindow window;
+    std::shared_ptr<sf::RenderWindow> window;
 };
