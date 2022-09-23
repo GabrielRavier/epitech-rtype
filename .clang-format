@@ -8,7 +8,7 @@ UseTab: Never
 
 ReflowComments: true
 SortIncludes: false
-SeparateDefinitionBlocks: Always
+# SeparateDefinitionBlocks: Always # Unknown to old versions of clang-format present in Ubuntu 20
 MaxEmptyLinesToKeep: 2
 
 NamespaceIndentation: Inner

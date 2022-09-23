@@ -16,7 +16,7 @@ jobs:
     - name: update apt
       run: sudo apt update
     - name: install pre-requisites
-      run: sudo apt install x11proto-dev libx11-dev libxrandr-dev libopengl-dev libglx-dev libgl-dev libfreetype-dev libopenal-dev libogg-dev libvorbis-dev libflac-dev libudev-dev
+      run: sudo apt install x11proto-dev libx11-dev libxrandr-dev libopengl-dev libglx-dev libgl-dev libfreetype-dev libopenal-dev libogg-dev libvorbis-dev libflac-dev libudev-dev cppcheck
     - name: configure
       run: cmake -B build -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
     - name: build
