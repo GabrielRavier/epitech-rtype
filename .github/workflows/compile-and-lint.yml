@@ -1,10 +1,10 @@
-name: Compile and Lint R-Type CI
+name: Compile and Lint CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main", "add-clang-tooling" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "main", "add-clang-tooling" ]
 
 jobs:
   build:
