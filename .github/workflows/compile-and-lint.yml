@@ -9,18 +9,20 @@ on:
 jobs:
   build:
 
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     steps:
     - uses: actions/checkout@v3
-    - name: update apt
-      run: sudo apt update
+    - name: update apt-get
+      run: sudo apt-get update
     - name: install pre-requisites
-      run: sudo apt install x11proto-dev libx11-dev libxrandr-dev libopengl-dev libglx-dev libgl-dev libfreetype-dev libopenal-dev libogg-dev libvorbis-dev libflac-dev libudev-dev cppcheck
+      run: sudo apt-get install x11proto-dev libx11-dev libxrandr-dev libopengl-dev libglx-dev libgl-dev libfreetype-dev libopenal-dev libogg-dev libvorbis-dev libflac-dev libudev-dev cppcheck
     - name: configure
       run: cmake -B build -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
     - name: build
       run: cmake --build build --parallel $(nproc)
+    - name: pre-lint
+      run: mv ./build/compile_commands.json ./compile_commands.json
     - name: lint
       uses: pre-commit/action@v3.0.0
       with:
