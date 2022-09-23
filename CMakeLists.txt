@@ -21,14 +21,14 @@ add_executable(r-type_server
 )
 rtype_set_common_target_properties(r-type_server)
 
-find_package(SFML 2.5
-  COMPONENTS
-    system window graphics network audio REQUIRED
-)
-
 add_executable(r-type_client
   "src/client/main.cpp"
   "src/client/systems/PhysicsSystem.cpp"
+  "src/client/systems/RenderSystem.cpp"
+  "src/client/systems/WindowSystem.cpp"
   "src/client/utils/Vec2.cpp"
 )
+target_link_libraries(r-type_client PRIVATE sfml-graphics)
+target_link_libraries(r-type_client PRIVATE sfml-system)
+target_link_libraries(r-type_client PRIVATE sfml-window)
 rtype_set_common_target_properties(r-type_client)

@@ -16,7 +16,7 @@ Vec2::Vec2() : x(0), y(0) {}
 
 /* Vec2 Constructor
     Set the vector's x and y components to the parameters supplied */
-Vec2::Vec2(float x, float y, float z) : x(x), y(y) {}
+Vec2::Vec2(float x, float y) : x(x), y(y) {}
 
 /* Add Member Function
     Adds the vector's x, y, and z components with the supplied vector's x and z components */

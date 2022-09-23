@@ -13,7 +13,7 @@ public:
 
 public:
     Vec2();
-    Vec2(float x, float y, float z);
+    Vec2(float x, float y);
 
     void Add(Vec2 b);
     void Subtract(Vec2 b);
