@@ -9,12 +9,6 @@
 
 extern Coordinator gCoordinator;
 
-void RenderSystem::Init()
-{
+void RenderSystem::Init() {}
 
-}
-
-void RenderSystem::Update(float dt)
-{
-    
-}
+void RenderSystem::Update(float dt) {}

@@ -78,7 +78,7 @@ public:
     }
 
 private:
-    uint32_t mLivingEntityCount{};
-    std::queue<Entity> mAvailableEntities{};
+    uint32_t                            mLivingEntityCount{};
+    std::queue<Entity>                  mAvailableEntities{};
     std::array<Signature, MAX_ENTITIES> mSignatures{};
 };

@@ -7,7 +7,7 @@
 
 #include "WindowManager.hpp"
 
-void WindowManager::Init(std::string title, int width, int height)
+void WindowManager::Init(const sf::String &title, int width, int height)
 {
     this->_window = std::make_unique<sf::RenderWindow>(sf::VideoMode(width, height), title);
 }

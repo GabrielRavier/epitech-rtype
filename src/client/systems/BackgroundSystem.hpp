@@ -17,8 +17,9 @@ class BackgroundSystem : public System
 public:
     void Init();
     void Update(float dt);
+
 private:
     Entity _firstBackground;
     Entity _secondBackground;
-    int _oldDt = 0;
+    float  _oldDt = 0;
 };
