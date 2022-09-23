@@ -13,6 +13,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+    - name: install pre-requisites
+      run: apt install x11proto-dev libx11-dev libxrandr-dev libopengl-dev libglx-dev libgl-dev libfreetype-dev libopenal-dev libogg-dev libvorbis-dev libflac-dev
     - name: configure
       run: cmake -B build -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
     - name: build
