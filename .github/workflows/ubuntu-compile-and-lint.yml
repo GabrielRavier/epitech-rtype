@@ -10,17 +10,15 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - uses: lukka/get-cmake@latest
-    - name: update apt-get
-      run: sudo apt-get update
-    - name: install pre-requisites
+    - name: Restore artifacts, or setup vcpkg (does not install any package)
+      uses: lukka/run-vcpkg@v10
+    - name: Run CMake consuming vcpkg.json by mean of vcpkg.
+      uses: lukka/run-cmake@v10
+    - name: Install linting pre-requisites
       run: sudo apt-get install cppcheck
-    - name: configure
-      run: cmake -B build -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
-    - name: build
-      run: cmake --build build --parallel $(nproc)
-    - name: pre-lint
+    - name: Prepare compile_commands.json for linting
       run: mv ./build/compile_commands.json ./compile_commands.json
-    - name: lint
+    - name: Lint
       uses: pre-commit/action@v3.0.0
       with:
         extra_args: --all-files
