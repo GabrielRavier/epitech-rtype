@@ -16,7 +16,7 @@ Checks: "abseil-cleanup-ctad,abseil-duration-addition,abseil-duration-comparison
         bugprone-string-literal-with-embedded-nul,bugprone-stringview-nullptr,bugprone-suspicious-enum-usage,bugprone-suspicious-include,bugprone-suspicious-memory-comparison,bugprone-suspicious-memset-usage, \
         bugprone-suspicious-missing-comma,bugprone-suspicious-semicolon,bugprone-suspicious-string-compare,bugprone-swapped-arguments,bugprone-terminating-continue,bugprone-throw-keyword-missing, \
         bugprone-too-small-loop-variable,bugprone-unchecked-optional-access,bugprone-undefined-memory-manipulation,bugprone-undelegated-constructor,bugprone-unhandled-exception-at-new,bugprone-unhandled-self-assignment, \
-        bugprone-unused-raii,bugprone-unused-return-value,bugprone-use-after-move,bugprone-virtual-near-miss,cert-con36-c,cert-con54-cpp,cert-dcl03-c,cert-dcl16-c,cert-dcl21-cpp,cert-dcl50-cpp, \
+        bugprone-unused-raii,bugprone-unused-return-value,bugprone-use-after-move,bugprone-virtual-near-miss,cert-con36-c,cert-con54-cpp,cert-dcl03-c,cert-dcl21-cpp,cert-dcl50-cpp, \
         cert-dcl54-cpp,cert-dcl58-cpp,cert-dcl59-cpp,cert-env33-c,cert-err09-cpp,cert-err33-c,cert-err34-c,cert-err52-cpp,cert-err60-cpp,cert-err61-cpp,cert-exp42-c,cert-fio38-c,cert-flp30-c,cert-flp37-c, \
         cert-mem57-cpp,cert-msc30-c,cert-msc32-c,cert-msc50-cpp,cert-msc51-cpp,cert-msc54-cpp,cert-oop11-cpp,cert-oop54-cpp,cert-oop57-cpp,cert-oop58-cpp,cert-pos44-c,cert-pos47-c,cert-sig30-c,cert-str34-c, \
         clang-analyzer-core.CallAndMessage,clang-analyzer-core.DivideZero,clang-analyzer-core.DynamicTypePropagation,clang-analyzer-core.NonNullParamChecker,clang-analyzer-core.NullDereference, \
