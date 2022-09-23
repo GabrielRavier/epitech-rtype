@@ -9,6 +9,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+      with:
+        submodules: recursive
     - uses: lukka/get-cmake@latest
     - name: Restore artifacts, or setup vcpkg (does not install any package)
       uses: lukka/run-vcpkg@v10
