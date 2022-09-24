@@ -22,10 +22,10 @@ jobs:
       uses: lukka/run-cmake@v10
       with:
           configurePreset: 'use-vcpkg'
+    - name: Build
+      run: cmake --build . --parallel $(nproc)
     - name: Install linting pre-requisites
       run: sudo apt-get install cppcheck
-    - name: Prepare compile_commands.json for linting
-      run: mv ./build/compile_commands.json ./compile_commands.json
     - name: Lint
       uses: pre-commit/action@v3.0.0
       with:

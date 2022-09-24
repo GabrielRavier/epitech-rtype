@@ -18,3 +18,5 @@ jobs:
       uses: lukka/run-cmake@v10
       with:
           configurePreset: 'use-vcpkg'
+    - name: Build
+      run: cmake --build . --parallel $(nproc)
