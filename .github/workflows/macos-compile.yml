@@ -17,4 +17,4 @@ jobs:
     - name: Run CMake consuming vcpkg.json by mean of vcpkg.
       uses: lukka/run-cmake@v10
       with:
-          configurePreset: ''
+          configurePreset: 'use-vcpkg'
