@@ -14,6 +14,10 @@ jobs:
     - uses: lukka/get-cmake@latest
     - name: Restore artifacts, or setup vcpkg (does not install any package)
       uses: lukka/run-vcpkg@v10
+    - name: Setup apt-get for installing SFML dependencies
+      run: sudo apt-get update
+    - name: Install SFML dependencies via apt-get # (yes even vcpkg's version needs those)
+      run: sudo apt-get install libx11-dev libxrandr-dev libxi-dev libudev-dev libgl1-mesa-dev
     - name: Run CMake consuming vcpkg.json by mean of vcpkg.
       uses: lukka/run-cmake@v10
       with:
