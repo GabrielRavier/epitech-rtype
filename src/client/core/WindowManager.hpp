@@ -19,7 +19,7 @@ public:
     void Init(const sf::String &title, int width, int height);
     void Clear();
     void Update();
-    void RenderSprite(sf::Sprite sprite, Vec2 position);
+    void RenderSprite(const std::shared_ptr<sf::Sprite> &sprite, Vec2 position);
 
 private:
     std::unique_ptr<sf::RenderWindow> _window;
