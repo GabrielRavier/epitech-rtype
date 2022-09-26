@@ -12,7 +12,7 @@ The git hooks can be installed into the `.git` folder with the following command
 pre-commit install --hook-type pre-commit --hook-type commit-msg --hook-type pre-push
 ```
 
-(Note: this obviously requires that the pre-commit program be installed)
+(Note: this obviously requires that the pre-commit program be installed: under most environments, it can easily be installed using `pip install pre-commit` (although this itself requires pip...))
 
 ## Guidelines for contributions
 
