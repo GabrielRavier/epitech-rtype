@@ -1,0 +1,36 @@
+# clang-format configuration file
+#
+---
+BasedOnStyle: LLVM
+
+TabWidth: 4
+UseTab: Never
+
+ReflowComments: true
+SortIncludes: false
+SeparateDefinitionBlocks: Always # Unknown to old versions of clang-format present in Ubuntu 20
+MaxEmptyLinesToKeep: 2
+
+NamespaceIndentation: Inner
+IndentWidth: 4
+IndentPPDirectives: None
+IndentAccessModifiers: false # Unknown to old versions of clang-format present in Ubuntu 20
+
+ConstructorInitializerIndentWidth: 4
+ContinuationIndentWidth: 4
+
+BreakStringLiterals: true
+BreakBeforeBraces: Mozilla  # Potentially Linux might perhaps be a better choice...
+AlwaysBreakTemplateDeclarations: Yes
+
+AlignOperands: true
+AlignAfterOpenBracket: true
+AlignConsecutiveAssignments: true
+AlignConsecutiveDeclarations: true
+
+AllowShortFunctionsOnASingleLine: Empty
+
+AccessModifierOffset: -4
+
+ColumnLimit: 120
+...
