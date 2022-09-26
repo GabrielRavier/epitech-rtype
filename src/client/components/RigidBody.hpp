@@ -1,8 +1,8 @@
 #pragma once
 
-#include "../utils/Vec2.hpp"
+#include <SFML/Graphics.hpp>
 
 struct RigidBody
 {
-    Vec2    acceleration;
+    sf::Vector2f acceleration;
 };

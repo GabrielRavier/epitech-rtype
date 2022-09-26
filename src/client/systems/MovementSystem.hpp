@@ -10,18 +10,13 @@
 #include "../core/System.hpp"
 #include "../core/Coordinator.hpp"
 #include "../components/Movement.hpp"
-#include "../components/Sprite.hpp"
 #include "../components/Transform.hpp"
-#include <memory>
-#include <iostream>
 
-class BackgroundSystem : public System
+class MovementSystem : public System
 {
 public:
     void Init();
     void Update(float dt);
 private:
-    Entity _firstBackground;
-    Entity _secondBackground;
     float _oldDt = 0;
 };

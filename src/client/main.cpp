@@ -1,11 +1,13 @@
 #include "core/Coordinator.hpp"
 #include "core/WindowManager.hpp"
+#include "components/Movement.hpp"
 #include "components/Player.hpp"
 #include "components/RigidBody.hpp"
 #include "components/Sprite.hpp"
 #include "components/Transform.hpp"
 #include "systems/BackgroundSystem.hpp"
 #include "systems/RenderSystem.hpp"
+#include "systems/MovementSystem.hpp"
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
 #include <chrono>
@@ -19,6 +21,7 @@ int main()
     std::shared_ptr<WindowManager> windowManager = std::make_shared<WindowManager>();
     windowManager->Init("R-Type", 1080, 720);
 
+    gCoordinator.RegisterComponent<Movement>();
     gCoordinator.RegisterComponent<Player>();
     gCoordinator.RegisterComponent<RigidBody>();
     gCoordinator.RegisterComponent<Sprite>();
@@ -35,17 +38,27 @@ int main()
 
     auto backgroundSystem = gCoordinator.RegisterSystem<BackgroundSystem>();
     {
-		Signature signature;
+        Signature signature;
         signature.set(gCoordinator.GetComponentType<Transform>());
-		gCoordinator.SetSystemSignature<BackgroundSystem>(signature);
-	}
+        gCoordinator.SetSystemSignature<BackgroundSystem>(signature);
+    }
     backgroundSystem->Init();
+
+    auto movementSystem = gCoordinator.RegisterSystem<MovementSystem>();
+    {
+        Signature signature;
+        signature.set(gCoordinator.GetComponentType<Movement>());
+        signature.set(gCoordinator.GetComponentType<Transform>());
+        gCoordinator.SetSystemSignature<MovementSystem>(signature);
+    }
+    movementSystem->Init();
 
     float dt = 0.0f;
 
     while (true) {
         auto startTime = std::chrono::high_resolution_clock::now();
         windowManager->Clear();
+        movementSystem->Update(dt);
         backgroundSystem->Update(dt);
         renderSystem->Update(dt, windowManager);
         windowManager->Update();

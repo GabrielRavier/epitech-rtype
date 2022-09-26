@@ -6,8 +6,6 @@
 */
 
 #include "BackgroundSystem.hpp"
-#include <memory>
-#include <iostream>
 
 extern Coordinator gCoordinator;
 
@@ -28,17 +26,24 @@ void BackgroundSystem::Init()
         Sprite{
             .texture = backgroundTexture,
             .sprite = backgroundSprite,
-            .rectSize = Vec2(960, 540),
-            .rectPos = Vec2(0, 0),
+            .rectSize = sf::Vector2i(960, 540),
+            .rectPos = sf::Vector2i(0, 0),
             .layer = 0
         }
     );
     gCoordinator.AddComponent(
         _firstBackground,
         Transform{
-            .position = Vec2(0, 0),
-            .scale = Vec2(1, 1),
+            .position = sf::Vector2f(0, 0),
+            .scale = sf::Vector2f(1, 1),
             .rotation = 0
+        }
+    );
+    gCoordinator.AddComponent(
+        _firstBackground,
+        Movement{
+            .movement = sf::Vector2f(-1, 0),
+            .speed = 10
         }
     );
 
@@ -48,35 +53,38 @@ void BackgroundSystem::Init()
         Sprite{
             .texture = secTexture,
             .sprite = secSprite,
-            .rectSize = Vec2(960, 540),
-            .rectPos = Vec2(0, 0),
+            .rectSize = sf::Vector2i(960, 540),
+            .rectPos = sf::Vector2i(0, 0),
             .layer = 0
         }
     );
     gCoordinator.AddComponent(
         _secondBackground,
         Transform{
-            .position = Vec2(960, 0),
-            .scale = Vec2(1, 1),
+            .position = sf::Vector2f(960, 0),
+            .scale = sf::Vector2f(1, 1),
             .rotation = 0
+        }
+    );
+    gCoordinator.AddComponent(
+        _secondBackground,
+        Movement{
+            .movement = sf::Vector2f(-1, 0),
+            .speed = 10
         }
     );
 }
 
 void BackgroundSystem::Update(float dt)
 {
-    if (dt * 1000 + _oldDt > 2) {
+    /*if (dt * 1000 + _oldDt > 2) {
         _oldDt = _oldDt + dt * 1000 - 2;
         auto& firstB = gCoordinator.GetComponent<Transform>(_firstBackground);
         auto& secondB = gCoordinator.GetComponent<Transform>(_secondBackground);
         if (firstB.position.x - 10 <= -960)
             firstB.position.x = 960;
-        else
-            firstB.position.x -= 10;
         if (secondB.position.x - 10 <= -960)
             secondB.position.x = 960;
-        else
-            secondB.position.x -= 10;
     } else
-        _oldDt += dt * 1000;
+        _oldDt += dt * 1000;*/
 }

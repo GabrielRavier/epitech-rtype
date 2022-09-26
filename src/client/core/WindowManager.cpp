@@ -17,9 +17,9 @@ void WindowManager::Clear()
     this->_window->clear(sf::Color::Black);
 }
 
-void WindowManager::RenderSprite(std::shared_ptr<sf::Sprite> sprite, Vec2 position)
+void WindowManager::RenderSprite(std::shared_ptr<sf::Sprite> sprite, sf::Vector2f position)
 {
-    sprite->setPosition(sf::Vector2f(position.x, position.y));
+    sprite->setPosition(position);
     this->_window->draw(*sprite);
 }
 

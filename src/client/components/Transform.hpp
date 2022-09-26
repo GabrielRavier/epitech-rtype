@@ -1,10 +1,10 @@
 #pragma once
 
-#include "../utils/Vec2.hpp"
+#include <SFML/Graphics.hpp>
 
 struct Transform
 {
-    Vec2    position;
-    Vec2    scale;
-    float   rotation;
+    sf::Vector2f position;
+    sf::Vector2f scale;
+    float rotation;
 };

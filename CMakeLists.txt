@@ -24,6 +24,7 @@ rtype_set_common_target_properties(r-type_server)
 add_executable(r-type_client
   "src/client/main.cpp"
   "src/client/core/WindowManager.cpp"
+  "src/client/systems/MovementSystem.cpp"
   "src/client/systems/BackgroundSystem.cpp"
   "src/client/systems/PhysicsSystem.cpp"
   "src/client/systems/RenderSystem.cpp"

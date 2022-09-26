@@ -9,7 +9,6 @@
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
 #include <memory>
-#include "../utils/Vec2.hpp"
 
 class WindowManager
 {
@@ -17,7 +16,7 @@ public:
     void Init(std::string title, int width, int height);
     void Clear();
     void Update();
-    void RenderSprite(std::shared_ptr<sf::Sprite> sprite, Vec2 position);
+    void RenderSprite(std::shared_ptr<sf::Sprite> sprite, sf::Vector2f position);
 private:
     std::unique_ptr<sf::RenderWindow> _window;
 };
