@@ -45,7 +45,7 @@ Checks: "abseil-cleanup-ctad,abseil-duration-addition,abseil-duration-comparison
         darwin-dispatch-once-nonstatic,deadcode.DeadStores,fixes,fuchsia-default-arguments-declarations,fuchsia-header-anon-namespaces,fuchsia-multiple-inheritance,fuchsia-overloaded-operator,fuchsia-trailing-return, \
         fuchsia-virtual-inheritance,google-build-explicit-make-pair,google-build-namespaces,google-build-using-namespace,google-default-arguments,google-explicit-constructor,google-global-names-in-headers, \
         google-objc-avoid-nsobject-new,google-objc-avoid-throwing-exception,google-objc-function-naming,google-objc-global-variable-declaration,google-readability-avoid-underscore-in-googletest-name, \
-        google-readability-function-size,google-readability-namespace-comments,google-readability-todo,google-runtime-operator,google-upgrade-googletest-case,hicpp-avoid-goto,hicpp-exception-baseclass, \
+        google-readability-function-size,google-readability-namespace-comments,google-runtime-operator,google-upgrade-googletest-case,hicpp-avoid-goto,hicpp-exception-baseclass, \
         hicpp-explicit-conversions,hicpp-function-size,hicpp-invalid-access-moved,hicpp-move-const-arg,hicpp-multiway-paths-covered,hicpp-named-parameter,hicpp-new-delete-operators,hicpp-no-assembler, \
         hicpp-noexcept-move,hicpp-no-malloc,hicpp-signed-bitwise,hicpp-static-assert,hicpp-undelegated-constructor,hicpp-use-auto,hicpp-use-emplace, \
         hicpp-use-equals-default,hicpp-use-equals-delete,hicpp-use-noexcept,hicpp-use-nullptr,hicpp-use-override,linuxkernel-must-use-errs,llvm-else-after-return,llvm-namespace-comment, \

@@ -6,8 +6,6 @@
 */
 
 #include "BackgroundSystem.hpp"
-#include <memory>
-#include <iostream>
 
 extern Coordinator gCoordinator;
 
@@ -24,47 +22,51 @@ void BackgroundSystem::Init()
 
     _firstBackground = gCoordinator.CreateEntity();
     gCoordinator.AddComponent(_firstBackground, Sprite{
-                                                    backgroundTexture, /* texture */
-                                                    backgroundSprite,  /* sprite */
-                                                    Vec2(960, 540),    /* rectSize */
-                                                    Vec2(0, 0),        /* rectPos */
-                                                    0,                 /* layer */
+                                                    backgroundTexture,      /* texture */
+                                                    backgroundSprite,       /* sprite */
+                                                    sf::Vector2i(960, 540), /* rectSize */
+                                                    sf::Vector2i(0, 0),     /* rectPos */
+                                                    0,                      /* layer */
                                                 });
     gCoordinator.AddComponent(_firstBackground, Transform{
-                                                    Vec2(0, 0), /* position */
-                                                    Vec2(1, 1), /* scale */
-                                                    0,          /* rotation */
+                                                    sf::Vector2f(0, 0), /* position */
+                                                    sf::Vector2f(1, 1), /* scale */
+                                                    0,                  /* rotation */
+                                                });
+    gCoordinator.AddComponent(_firstBackground, Movement{
+                                                    sf::Vector2f(-1, 0), /* movement */
+                                                    10,                  /* speed */
                                                 });
 
     _secondBackground = gCoordinator.CreateEntity();
     gCoordinator.AddComponent(_secondBackground, Sprite{
-                                                     secTexture,     /* texture */
-                                                     secSprite,      /* sprite */
-                                                     Vec2(960, 540), /* rectSize */
-                                                     Vec2(0, 0),     /* rectPos */
-                                                     0,              /* layer */
+                                                     secTexture,             /* texture */
+                                                     secSprite,              /* sprite */
+                                                     sf::Vector2i(960, 540), /* rectSize */
+                                                     sf::Vector2i(0, 0),     /* rectPos */
+                                                     0,                      /* layer */
                                                  });
     gCoordinator.AddComponent(_secondBackground, Transform{
-                                                     Vec2(960, 0), /* position */
-                                                     Vec2(1, 1),   /* scale */
-                                                     0,            /* rotation */
+                                                     sf::Vector2f(960, 0), /* position */
+                                                     sf::Vector2f(1, 1),   /* scale */
+                                                     0,                    /* rotation */
+                                                 });
+    gCoordinator.AddComponent(_secondBackground, Movement{
+                                                     sf::Vector2f(-1, 0), /* movement */
+                                                     10,                  /* speed */
                                                  });
 }
 
 void BackgroundSystem::Update(float dt)
 {
-    if (dt * 1000 + _oldDt > 2) {
-        _oldDt        = _oldDt + dt * 1000 - 2;
-        auto &firstB  = gCoordinator.GetComponent<Transform>(_firstBackground);
-        auto &secondB = gCoordinator.GetComponent<Transform>(_secondBackground);
+    /*if (dt * 1000 + _oldDt > 2) {
+        _oldDt = _oldDt + dt * 1000 - 2;
+        auto& firstB = gCoordinator.GetComponent<Transform>(_firstBackground);
+        auto& secondB = gCoordinator.GetComponent<Transform>(_secondBackground);
         if (firstB.position.x - 10 <= -960)
             firstB.position.x = 960;
-        else
-            firstB.position.x -= 10;
         if (secondB.position.x - 10 <= -960)
             secondB.position.x = 960;
-        else
-            secondB.position.x -= 10;
     } else
-        _oldDt += dt * 1000;
+        _oldDt += dt * 1000;*/
 }
