@@ -12,16 +12,12 @@ extern Coordinator gCoordinator;
 
 void MovementSystem::Init() {}
 
-void MovementSystem::Update(float dt)
+void MovementSystem::Update()
 {
-    if (dt * 1000 + _oldDt > 2) {
-        _oldDt = _oldDt + dt * 1000 - 2;
-        for (auto const &entity : mEntities) {
-            auto &move      = gCoordinator.GetComponent<Movement>(entity);
-            auto &transform = gCoordinator.GetComponent<Transform>(entity);
-            transform.position.x += move.movement.x * move.speed;
-            transform.position.y += move.movement.y * move.speed;
-        }
-    } else
-        _oldDt += dt * 1000;
+    for (auto const &entity : mEntities) {
+        auto &move      = gCoordinator.GetComponent<Movement>(entity);
+        auto &transform = gCoordinator.GetComponent<Transform>(entity);
+        transform.position.x += move.movement.x * move.speed;
+        transform.position.y += move.movement.y * move.speed;
+    }
 }

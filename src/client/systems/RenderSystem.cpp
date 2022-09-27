@@ -12,9 +12,8 @@ extern Coordinator gCoordinator;
 
 void RenderSystem::Init() {}
 
-void RenderSystem::Update(float dt, const std::shared_ptr<WindowManager> &windowManager)
+void RenderSystem::Update(const std::shared_ptr<WindowManager> &windowManager) const
 {
-    (void)dt; // TODO: Shouldn't this be used ?
     for (auto const &entity : mEntities) {
         auto const &transform = gCoordinator.GetComponent<Transform>(entity);
         auto const &sprite    = gCoordinator.GetComponent<Sprite>(entity);

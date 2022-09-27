@@ -16,8 +16,5 @@ class MovementSystem : public System
 {
 public:
     void Init();
-    void Update(float dt);
-
-private:
-    float _oldDt = 0;
+    void Update();
 };

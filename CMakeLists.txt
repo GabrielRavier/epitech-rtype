@@ -31,6 +31,7 @@ add_executable(r-type_client
   "src/client/systems/MovementSystem.cpp"
   "src/client/systems/BackgroundSystem.cpp"
   "src/client/systems/PhysicsSystem.cpp"
+  "src/client/systems/PlayerSystem.cpp"
   "src/client/systems/RenderSystem.cpp"
   "src/client/utils/Vec2.cpp"
 )

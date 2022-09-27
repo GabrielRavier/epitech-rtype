@@ -2,21 +2,25 @@
 ** EPITECH PROJECT, 2022
 ** B-CPP-500-STG-5-1-rtype-gabriel.ravier
 ** File description:
-** RenderSystem
+** PlayerSystem
 */
 
 #pragma once
 
 #include "../core/System.hpp"
 #include "../core/Coordinator.hpp"
-#include "../core/WindowManager.hpp"
+#include "../components/Player.hpp"
+#include "../components/Movement.hpp"
+#include "../components/RigidBody.hpp"
 #include "../components/Transform.hpp"
 #include "../components/Sprite.hpp"
-#include <memory>
 
-class RenderSystem : public System
+class PlayerSystem : public System
 {
 public:
     void Init();
-    void Update(const std::shared_ptr<WindowManager> &windowManager) const;
+    void Update();
+
+private:
+    Entity _player;
 };

@@ -19,10 +19,9 @@ class BackgroundSystem : public System
 {
 public:
     void Init();
-    void Update(float dt);
+    void Update() const;
 
 private:
     Entity _firstBackground;
     Entity _secondBackground;
-    float  _oldDt = 0;
 };
