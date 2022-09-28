@@ -19,7 +19,7 @@ class PlayerSystem : public System
 {
 public:
     void Init();
-    void Update();
+    void Update(std::unordered_map<sf::Keyboard::Key, bool> buttonsPressed) const;
 
 private:
     Entity _player;

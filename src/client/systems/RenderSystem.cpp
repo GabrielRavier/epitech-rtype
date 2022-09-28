@@ -14,6 +14,7 @@ void RenderSystem::Init() {}
 
 void RenderSystem::Update(const std::shared_ptr<WindowManager> &windowManager) const
 {
+    windowManager->Clear();
     for (auto const &entity : mEntities) {
         auto const &transform = gCoordinator.GetComponent<Transform>(entity);
         auto const &sprite    = gCoordinator.GetComponent<Sprite>(entity);

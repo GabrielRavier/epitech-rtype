@@ -6,12 +6,13 @@
 #include "components/Sprite.hpp"
 #include "components/Transform.hpp"
 #include "systems/BackgroundSystem.hpp"
+#include "systems/PhysicsSystem.hpp"
 #include "systems/PlayerSystem.hpp"
 #include "systems/RenderSystem.hpp"
 #include "systems/MovementSystem.hpp"
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
-#include <chrono>
+#include <ctime>
 
 Coordinator gCoordinator;
 
@@ -19,8 +20,8 @@ int main()
 {
     printf("Starting client\n");
 
-    std::shared_ptr<WindowManager> windowManager = std::make_shared<WindowManager>();
-    windowManager->Init("R-Type", 1920, 1080);
+    const std::shared_ptr<WindowManager> windowManager = std::make_shared<WindowManager>();
+    windowManager->Init("R-Type", 1920, 700);
 
     gCoordinator.RegisterComponent<Movement>();
     gCoordinator.RegisterComponent<Player>();
@@ -46,11 +47,17 @@ int main()
     }
     movementSystem->Init();
 
-    auto playerSystem = gCoordinator.RegisterSystem<PlayerSystem>();
+    auto physicsSystem = gCoordinator.RegisterSystem<PhysicsSystem>();
     {
         Signature signature;
-        gCoordinator.SetSystemSignature<PlayerSystem>(signature);
+        signature.set(gCoordinator.GetComponentType<Movement>());
+        signature.set(gCoordinator.GetComponentType<Transform>());
+        signature.set(gCoordinator.GetComponentType<RigidBody>());
+        gCoordinator.SetSystemSignature<PhysicsSystem>(signature);
     }
+    physicsSystem->Init(1920, 700);
+
+    auto playerSystem = gCoordinator.RegisterSystem<PlayerSystem>();
     playerSystem->Init();
 
     auto backgroundSystem = gCoordinator.RegisterSystem<BackgroundSystem>();
@@ -61,21 +68,25 @@ int main()
     }
     backgroundSystem->Init();
 
-    float delta = 0.0f;
-    auto  last  = std::chrono::high_resolution_clock::now();
+    bool       running = true;
+    const long temp    = (1000l / 60l) * 1000000l;
+    timespec   oldtime;
 
-    while (true) {
-        auto now = std::chrono::high_resolution_clock::now();
-        delta += std::chrono::duration<float, std::chrono::seconds::period>(now - last).count() * 1000;
-        last = now;
-        while (delta >= 1) {
-            windowManager->Clear();
-            movementSystem->Update();
-            backgroundSystem->Update();
-            renderSystem->Update(windowManager);
-            windowManager->Update();
-            delta -= 1;
+    while (running) {
+        clock_gettime(CLOCK_REALTIME, &oldtime);
+        oldtime.tv_nsec += temp;
+        if (oldtime.tv_nsec > 999999999) {
+            oldtime.tv_nsec -= 1000000000;
+            oldtime.tv_sec++;
         }
+        running = windowManager->ManageEvent();
+        playerSystem->Update(windowManager->GetPressedButtons());
+        backgroundSystem->Update();
+        movementSystem->Update();
+        physicsSystem->Update();
+        renderSystem->Update(windowManager);
+        windowManager->Update();
+        clock_nanosleep(CLOCK_REALTIME, TIMER_ABSTIME, &oldtime, nullptr);
     }
     return (0);
 }

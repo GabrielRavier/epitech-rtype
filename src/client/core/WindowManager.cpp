@@ -27,3 +27,23 @@ void WindowManager::Update()
 {
     this->_window->display();
 }
+
+bool WindowManager::ManageEvent()
+{
+    sf::Event event;
+
+    while (_window->pollEvent(event)) {
+        if (event.type == sf::Event::KeyPressed)
+            _buttonsPressed[event.key.code] = true;
+        else if (event.type == sf::Event::KeyReleased)
+            _buttonsPressed[event.key.code] = false;
+        else if (event.type == sf::Event::Closed)
+            return (false);
+    }
+    return (true);
+}
+
+std::unordered_map<sf::Keyboard::Key, bool> WindowManager::GetPressedButtons() const
+{
+    return (_buttonsPressed);
+}

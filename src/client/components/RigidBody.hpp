@@ -4,5 +4,5 @@
 
 struct RigidBody
 {
-    sf::Vector2f acceleration;
+    sf::Vector2f hitbox;
 };
