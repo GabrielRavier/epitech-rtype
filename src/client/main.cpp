@@ -6,6 +6,7 @@
 #include "components/Sprite.hpp"
 #include "components/Transform.hpp"
 #include "systems/BackgroundSystem.hpp"
+#include "systems/PlayerSystem.hpp"
 #include "systems/RenderSystem.hpp"
 #include "systems/MovementSystem.hpp"
 #include <SFML/Window.hpp>
@@ -19,7 +20,7 @@ int main()
     printf("Starting client\n");
 
     std::shared_ptr<WindowManager> windowManager = std::make_shared<WindowManager>();
-    windowManager->Init("R-Type", 1080, 720);
+    windowManager->Init("R-Type", 1920, 1080);
 
     gCoordinator.RegisterComponent<Movement>();
     gCoordinator.RegisterComponent<Player>();
@@ -36,14 +37,6 @@ int main()
     }
     renderSystem->Init();
 
-    auto backgroundSystem = gCoordinator.RegisterSystem<BackgroundSystem>();
-    {
-        Signature signature;
-        signature.set(gCoordinator.GetComponentType<Transform>());
-        gCoordinator.SetSystemSignature<BackgroundSystem>(signature);
-    }
-    backgroundSystem->Init();
-
     auto movementSystem = gCoordinator.RegisterSystem<MovementSystem>();
     {
         Signature signature;
@@ -53,17 +46,36 @@ int main()
     }
     movementSystem->Init();
 
-    float dt = 0.0f;
+    auto playerSystem = gCoordinator.RegisterSystem<PlayerSystem>();
+    {
+        Signature signature;
+        gCoordinator.SetSystemSignature<PlayerSystem>(signature);
+    }
+    playerSystem->Init();
+
+    auto backgroundSystem = gCoordinator.RegisterSystem<BackgroundSystem>();
+    {
+        Signature signature;
+        signature.set(gCoordinator.GetComponentType<Transform>());
+        gCoordinator.SetSystemSignature<BackgroundSystem>(signature);
+    }
+    backgroundSystem->Init();
+
+    float delta = 0.0f;
+    auto  last  = std::chrono::high_resolution_clock::now();
 
     while (true) {
-        auto startTime = std::chrono::high_resolution_clock::now();
-        windowManager->Clear();
-        movementSystem->Update(dt);
-        backgroundSystem->Update(dt);
-        renderSystem->Update(dt, windowManager);
-        windowManager->Update();
-        auto stopTime = std::chrono::high_resolution_clock::now();
-        dt            = std::chrono::duration<float, std::chrono::seconds::period>(stopTime - startTime).count();
+        auto now = std::chrono::high_resolution_clock::now();
+        delta += std::chrono::duration<float, std::chrono::seconds::period>(now - last).count() * 1000;
+        last = now;
+        while (delta >= 1) {
+            windowManager->Clear();
+            movementSystem->Update();
+            backgroundSystem->Update();
+            renderSystem->Update(windowManager);
+            windowManager->Update();
+            delta -= 1;
+        }
     }
     return (0);
 }
