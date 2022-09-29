@@ -13,6 +13,8 @@
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
 #include <ctime>
+#include <chrono>
+#include <thread>
 
 Coordinator gCoordinator;
 
@@ -68,17 +70,11 @@ int main()
     }
     backgroundSystem->Init();
 
-    bool       running = true;
-    const long temp    = (1000l / 60l) * 1000000l;
-    timespec   oldtime;
-
+    bool                                  running = true;
+    const double                          fps     = 60;
+    std::chrono::system_clock::time_point start;
     while (running) {
-        clock_gettime(CLOCK_REALTIME, &oldtime);
-        oldtime.tv_nsec += temp;
-        if (oldtime.tv_nsec > 999999999) {
-            oldtime.tv_nsec -= 1000000000;
-            oldtime.tv_sec++;
-        }
+        start   = std::chrono::system_clock::now();
         running = windowManager->ManageEvent();
         playerSystem->Update(windowManager->GetPressedButtons());
         backgroundSystem->Update();
@@ -86,7 +82,11 @@ int main()
         physicsSystem->Update();
         renderSystem->Update(windowManager);
         windowManager->Update();
-        clock_nanosleep(CLOCK_REALTIME, TIMER_ABSTIME, &oldtime, nullptr);
+
+        const std::chrono::duration<double, std::milli> work_time = std::chrono::system_clock::now() - start;
+        const std::chrono::duration<double, std::milli> delta_ms((1000 / fps) - work_time.count());
+        auto delta_ms_duration = std::chrono::duration_cast<std::chrono::milliseconds>(delta_ms);
+        std::this_thread::sleep_for(std::chrono::milliseconds(delta_ms_duration.count()));
     }
     return (0);
 }
