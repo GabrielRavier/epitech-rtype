@@ -24,7 +24,7 @@ cmake -B build
 without vcpkg, and
 
 ```
-cmake -B build -DCMAKE_TOOLCHAIN_FILE=./vcpkg/scripts/buildsystems/vcpkg.cmake
+cmake -B build "-DCMAKE_TOOLCHAIN_FILE=./vcpkg/scripts/buildsystems/vcpkg.cmake"
 ```
 
 if you are using vcpkg (this will automatically install all necessary dependencies).
@@ -36,3 +36,9 @@ cmake --build build
 ```
 
 Once built, the `r-type_server` and `r-type_client` executables can be found in the `build` folder.
+
+## Other resources
+
+[This page contains general recommendations to anyone who wants to contribute to this project](./CONTRIBUTING.md)
+
+[Programmer documentation (i.e. information for people who want to dive into the project's code) is here](./docs/INTRO.md)
