@@ -11,13 +11,13 @@ extern Coordinator gCoordinator;
 
 void BackgroundSystem::Init()
 {
-    std::shared_ptr<sf::Texture> firTexture = std::make_shared<sf::Texture>();
-    firTexture->loadFromFile("./assets/background.png");
-    std::shared_ptr<sf::Sprite> firSprite = std::make_shared<sf::Sprite>();
+    const std::shared_ptr<sf::Texture> firTexture = std::make_shared<sf::Texture>();
+    firTexture->loadFromFile("../assets/background.png");
+    const std::shared_ptr<sf::Sprite> firSprite = std::make_shared<sf::Sprite>();
     firSprite->setTexture(*firTexture, false);
-    std::shared_ptr<sf::Texture> secTexture = std::make_shared<sf::Texture>();
-    secTexture->loadFromFile("./assets/background.png");
-    std::shared_ptr<sf::Sprite> secSprite = std::make_shared<sf::Sprite>();
+    const std::shared_ptr<sf::Texture> secTexture = std::make_shared<sf::Texture>();
+    secTexture->loadFromFile("../assets/background.png");
+    const std::shared_ptr<sf::Sprite> secSprite = std::make_shared<sf::Sprite>();
     secSprite->setTexture(*secTexture, false);
     firSprite->setScale(sf::Vector2f(2, 2));
     secSprite->setScale(sf::Vector2f(2, 2));
@@ -37,7 +37,7 @@ void BackgroundSystem::Init()
                                                 });
     gCoordinator.AddComponent(_firstBackground, Movement{
                                                     sf::Vector2f(-1, 0), /* movement */
-                                                    1,                   /* speed */
+                                                    5,                   /* speed */
                                                 });
 
     _secondBackground = gCoordinator.CreateEntity();
@@ -55,7 +55,7 @@ void BackgroundSystem::Init()
                                                  });
     gCoordinator.AddComponent(_secondBackground, Movement{
                                                      sf::Vector2f(-1, 0), /* movement */
-                                                     1,                   /* speed */
+                                                     5,                   /* speed */
                                                  });
 }
 
