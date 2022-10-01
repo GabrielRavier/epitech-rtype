@@ -1,3 +1,4 @@
 # Files produced by us
 /build/
-.vscode
+/.vscode/
+/r-type_client.log

@@ -20,6 +20,8 @@ find_package(SFML 2.5
     system window graphics network audio REQUIRED
 )
 
+find_package(loguru CONFIG REQUIRED)
+
 add_executable(r-type_server
   "src/server/main.cpp"
 )
@@ -35,7 +37,8 @@ add_executable(r-type_client
   "src/client/systems/RenderSystem.cpp"
   "src/client/utils/Vec2.cpp"
 )
+rtype_set_common_target_properties(r-type_client)
 target_link_libraries(r-type_client PRIVATE sfml-graphics)
 target_link_libraries(r-type_client PRIVATE sfml-system)
 target_link_libraries(r-type_client PRIVATE sfml-window)
-rtype_set_common_target_properties(r-type_client)
+target_link_libraries(r-type_client PRIVATE loguru)
