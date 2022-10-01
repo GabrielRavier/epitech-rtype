@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.12)
 
 project(rtype CXX)
 
+include(CTest)
+
 function(rtype_set_common_target_properties target_name)
   set_target_properties(${target_name}
     PROPERTIES
@@ -57,3 +59,10 @@ if (WIN32)
 else()
   target_link_libraries(r-type_client PRIVATE loguru)
 endif()
+
+add_executable(basic-ecs-test
+  "src/tests/basic-ecs.cpp"
+)
+rtype_set_common_target_properties(basic-ecs-test)
+
+add_test(NAME basic-ecs-test COMMAND basic-ecs-test)
