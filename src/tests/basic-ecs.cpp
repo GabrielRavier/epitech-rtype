@@ -29,9 +29,11 @@ int main()
     gCoordinator.AddComponent(entity3, TestComponent{421});
 
     auto foundEntities = testSystem->mEntities.begin();
-    if (gCoordinator.GetComponent<TestComponent>(*foundEntities++).x != 421)
-        std::abort();
-    if (gCoordinator.GetComponent<TestComponent>(*foundEntities++).x != 124)
+
+    // The order is unpredicable, as mEntities is an unordered_set
+    int x1 = gCoordinator.GetComponent<TestComponent>(*foundEntities++).x;
+    int x2 = gCoordinator.GetComponent<TestComponent>(*foundEntities++).x;
+    if (!((x1 == 421 && x2 == 124) || (x1 == 124 && x2 == 421)))
         std::abort();
     if (foundEntities != testSystem->mEntities.end())
         std::abort();
