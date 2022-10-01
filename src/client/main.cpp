@@ -12,15 +12,18 @@
 #include "systems/MovementSystem.hpp"
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
+#include <loguru.hpp>
 #include <ctime>
 #include <chrono>
 #include <thread>
 
 Coordinator gCoordinator;
 
-int main()
+int main(int argc, char *argv[])
 {
-    printf("Starting client\n");
+    loguru::init(argc, argv);
+    loguru::add_file("r-type_client.log", loguru::Append, loguru::Verbosity_MAX);
+    LOG_F(INFO, "Starting client");
 
     const std::shared_ptr<WindowManager> windowManager = std::make_shared<WindowManager>();
     windowManager->Init("R-Type", 1920, 700);
