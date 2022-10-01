@@ -20,3 +20,5 @@ jobs:
           configurePreset: 'vcpkg'
     - name: Build
       run: cmake --build . --parallel $(nproc)
+    - name: Test
+      run: cmake --build . --target test

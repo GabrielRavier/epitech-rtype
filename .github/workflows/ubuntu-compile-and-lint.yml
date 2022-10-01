@@ -24,6 +24,8 @@ jobs:
           configurePreset: 'vcpkg-and-compile-commands'
     - name: Build
       run: cmake --build . --parallel $(nproc)
+    - name: Test
+      run: cmake --build . --target test
     - name: Install linting pre-requisites
       run: sudo apt-get install cppcheck
     - name: Lint
