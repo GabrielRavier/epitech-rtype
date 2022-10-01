@@ -21,4 +21,4 @@ jobs:
     - name: Build
       run: cmake --build . --parallel $(nproc)
     - name: Test
-      run: cmake --build . --target test
+      run: cmake --build . --target RUN_TESTS
