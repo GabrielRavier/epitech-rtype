@@ -22,7 +22,7 @@ find_package(SFML 2.5
 
 # I do not comprehend why vcpkg is setup like it is but it makes it so we have to do this cursed stuff depending on whether this is a Windows build
 if (WIN32)
-  find_path(LOGURU_INCLUDE_DIRS "loguru.hpp")
+  find_path(LOGURU_INCLUDE_DIRS "loguru/loguru.hpp")
 else()
   find_package(loguru CONFIG REQUIRED)
 endif()
