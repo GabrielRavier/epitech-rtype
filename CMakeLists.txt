@@ -20,14 +20,20 @@ find_package(SFML 2.5
     system window graphics network audio REQUIRED
 )
 
-find_package(loguru CONFIG REQUIRED)
+# I do not comprehend why vcpkg is setup like it is but it makes it so we have to do this cursed stuff depending on whether this is a Windows build
+if (WIN32)
+  find_path(LOGURU_INCLUDE_DIRS "loguru.hpp")
+else()
+  find_package(loguru CONFIG REQUIRED)
+endif()
 
 add_executable(r-type_server
   "src/server/main.cpp"
 )
 rtype_set_common_target_properties(r-type_server)
 
-add_executable(r-type_client
+# Go complain to whoever set up vcpkg like it is if you think this is bad
+set(r_type_client_SOURCES
   "src/client/main.cpp"
   "src/client/core/WindowManager.cpp"
   "src/client/systems/MovementSystem.cpp"
@@ -37,8 +43,17 @@ add_executable(r-type_client
   "src/client/systems/RenderSystem.cpp"
   "src/client/utils/Vec2.cpp"
 )
+if (WIN32)
+  list(APPEND r_type_client_SOURCES "${LOGURU_INCLUDE_DIRS}/loguru/loguru.cpp")
+endif()
+
+add_executable(r-type_client "${r_type_client_SOURCES}")
 rtype_set_common_target_properties(r-type_client)
 target_link_libraries(r-type_client PRIVATE sfml-graphics)
 target_link_libraries(r-type_client PRIVATE sfml-system)
 target_link_libraries(r-type_client PRIVATE sfml-window)
-target_link_libraries(r-type_client PRIVATE loguru)
+if (WIN32)
+  target_include_directories(r-type_client PRIVATE ${LOGURU_INCLUDE_DIRS})
+else()
+  target_link_libraries(r-type_client PRIVATE loguru)
+endif()

@@ -4,7 +4,10 @@ This project is a multithreaded server and a graphical client for the game R-Typ
 
 ## Dependencies
 
-- SFML, which can be installed either through vcpkg or through your local package manager.
+These dependencies can be installed either through vcpkg or through your local package manager:
+
+- SFML
+- Loguru
 
 ### Installing vcpkg
 
