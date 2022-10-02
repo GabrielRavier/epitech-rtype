@@ -6,7 +6,7 @@ This documentation assumes that you know the general concepts relating to an ECS
 
 ## The coordinator
 
-This project defines a global variable called `gCoordinator`, of `Coordinator`. It contains all of the entities in the game, and is implemented using the `EntityManager`, `ComponentManager`, and `SystemManager` classes, which each manage the entities, components and systems of the game.
+This project defines a global variable called `gCoordinator`, of type `Coordinator`. It contains all of the entities in the game, and is implemented using the `EntityManager`, `ComponentManager`, and `SystemManager` classes, which each manage the entities, components and systems of the game.
 
 ## Components
 
@@ -14,7 +14,7 @@ This project implements components as arbitrary data types that may contain any 
 
 ## Systems
 
-This project implements systems as types implementing the `System` interface. To add a system, you just need to define a class inheriting from `System`, i.e. like `class MyNewSystem : public System`. It is then registered with the coordinator using `gCoordinator.RegisterSystem<MyNewSystem>()`. The `System` interface provides an `mEntities` member that one can iterate over to act on certain entities. Which entities `mEntities` will contain depends on the signature of the system.
+This project implements systems as types inheriting from the `System` [class](../src/client/core/System.hpp). To add a system, you just need to define a class inheriting from `System`, i.e. like `class MyNewSystem : public System`. It is then registered with the coordinator using `gCoordinator.RegisterSystem<MyNewSystem>()`. The `System` interface provides an `mEntities` member that one can iterate over to act on certain entities. Which entities `mEntities` will contain depends on the signature of the system.
 A signature is represented as a bitset of component types that one wants to use with a given system. Component types are obtained using `gCoordinator.GetComponentType<SomeComponent>()`, and a complete signature is then set as the signature for a given system using `gCoordinator.SetSystemSignature<SomeSystem>(theSignatureFilledWithTheWantedComponentTypes)`. As a complete example, a signature might be setup as such:
 
 ```cpp
