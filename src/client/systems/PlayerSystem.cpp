@@ -14,7 +14,7 @@ void PlayerSystem::Init()
 {
     const std::shared_ptr<sf::Texture> texture = std::make_shared<sf::Texture>();
     const std::shared_ptr<sf::Sprite>  sprite  = std::make_shared<sf::Sprite>();
-    texture->loadFromFile("../assets/players.gif");
+    texture->loadFromFile("./assets/players.gif");
     sprite->setTexture(*texture, false);
     sprite->setScale(sf::Vector2f(3, 3));
     sprite->setTextureRect(sf::IntRect(0, 0, 33, 17));

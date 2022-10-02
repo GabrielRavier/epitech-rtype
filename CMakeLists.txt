@@ -4,13 +4,24 @@ project(rtype CXX)
 
 include(CTest)
 
-function(rtype_set_common_target_properties target_name)
-  set_target_properties(${target_name}
-    PROPERTIES
-      CXX_STANDARD 17
-      CXX_STANDARD_REQUIRED ON
-      CXX_EXTENSIONS OFF
-  )
+function(rtype_set_common_target_properties target_name is_top_directory)
+  if (${is_top_directory})
+    set_target_properties(${target_name}
+      PROPERTIES
+        CXX_STANDARD 17
+        CXX_STANDARD_REQUIRED ON
+        CXX_EXTENSIONS OFF
+
+        RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/"
+    )
+  else()
+    set_target_properties(${target_name}
+      PROPERTIES
+        CXX_STANDARD 17
+        CXX_STANDARD_REQUIRED ON
+        CXX_EXTENSIONS OFF
+    )
+  endif()
 
   target_include_directories(${target_name}
     PRIVATE "${CMAKE_SOURCE_DIR}/include"
@@ -32,7 +43,7 @@ endif()
 add_executable(r-type_server
   "src/server/main.cpp"
 )
-rtype_set_common_target_properties(r-type_server)
+rtype_set_common_target_properties(r-type_server ON)
 
 # Go complain to whoever set up vcpkg like it is if you think this is bad
 set(r_type_client_SOURCES
@@ -50,7 +61,7 @@ if (WIN32)
 endif()
 
 add_executable(r-type_client "${r_type_client_SOURCES}")
-rtype_set_common_target_properties(r-type_client)
+rtype_set_common_target_properties(r-type_client ON)
 target_link_libraries(r-type_client PRIVATE sfml-graphics)
 target_link_libraries(r-type_client PRIVATE sfml-system)
 target_link_libraries(r-type_client PRIVATE sfml-window)
@@ -63,6 +74,6 @@ endif()
 add_executable(basic-ecs-test
   "src/tests/basic-ecs.cpp"
 )
-rtype_set_common_target_properties(basic-ecs-test)
+rtype_set_common_target_properties(basic-ecs-test OFF)
 
 add_test(NAME basic-ecs-test COMMAND basic-ecs-test)

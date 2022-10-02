@@ -12,11 +12,11 @@ extern Coordinator gCoordinator;
 void BackgroundSystem::Init()
 {
     const std::shared_ptr<sf::Texture> firTexture = std::make_shared<sf::Texture>();
-    firTexture->loadFromFile("../assets/background.png");
+    firTexture->loadFromFile("./assets/background.png");
     const std::shared_ptr<sf::Sprite> firSprite = std::make_shared<sf::Sprite>();
     firSprite->setTexture(*firTexture, false);
     const std::shared_ptr<sf::Texture> secTexture = std::make_shared<sf::Texture>();
-    secTexture->loadFromFile("../assets/background.png");
+    secTexture->loadFromFile("./assets/background.png");
     const std::shared_ptr<sf::Sprite> secSprite = std::make_shared<sf::Sprite>();
     secSprite->setTexture(*secTexture, false);
     firSprite->setScale(sf::Vector2f(2, 2));
