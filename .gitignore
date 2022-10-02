@@ -2,3 +2,7 @@
 /build/
 /.vscode/
 /r-type_client.log
+/r-type_client
+/r-type_client.exe
+/r-type_server
+/r-type_server.exe
