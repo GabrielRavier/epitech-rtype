@@ -32,7 +32,9 @@ add_executable(r-type_client
   "src/client/systems/BackgroundSystem.cpp"
   "src/client/systems/PhysicsSystem.cpp"
   "src/client/systems/PlayerSystem.cpp"
+  "src/client/systems/ProjectileSystem.cpp"
   "src/client/systems/RenderSystem.cpp"
+  "src/client/systems/WeaponSystem.cpp"
   "src/client/utils/Vec2.cpp"
 )
 target_link_libraries(r-type_client PRIVATE sfml-graphics)
