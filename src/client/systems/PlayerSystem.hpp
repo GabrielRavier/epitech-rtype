@@ -14,12 +14,15 @@
 #include "../components/RigidBody.hpp"
 #include "../components/Transform.hpp"
 #include "../components/Sprite.hpp"
+#include "../components/Weapon.hpp"
 
 class PlayerSystem : public System
 {
 public:
     void Init();
     void Update(std::unordered_map<sf::Keyboard::Key, bool> buttonsPressed) const;
+    void Shoot() const;
+    void ChangeWeaponsPosition() const;
 
 private:
     Entity _player;

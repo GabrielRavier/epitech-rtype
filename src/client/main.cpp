@@ -5,11 +5,14 @@
 #include "components/RigidBody.hpp"
 #include "components/Sprite.hpp"
 #include "components/Transform.hpp"
+#include "components/Weapon.hpp"
 #include "systems/BackgroundSystem.hpp"
 #include "systems/PhysicsSystem.hpp"
 #include "systems/PlayerSystem.hpp"
+#include "systems/ProjectileSystem.hpp"
 #include "systems/RenderSystem.hpp"
 #include "systems/MovementSystem.hpp"
+#include "systems/WeaponSystem.hpp"
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
 #include <loguru.hpp>
@@ -31,8 +34,10 @@ int main(int argc, char *argv[])
     gCoordinator.RegisterComponent<Movement>();
     gCoordinator.RegisterComponent<Player>();
     gCoordinator.RegisterComponent<RigidBody>();
+    gCoordinator.RegisterComponent<Projectile>();
     gCoordinator.RegisterComponent<Sprite>();
     gCoordinator.RegisterComponent<Transform>();
+    gCoordinator.RegisterComponent<Weapon>();
 
     auto renderSystem = gCoordinator.RegisterSystem<RenderSystem>();
     {
@@ -52,6 +57,15 @@ int main(int argc, char *argv[])
     }
     movementSystem->Init();
 
+    auto weaponSystem = gCoordinator.RegisterSystem<WeaponSystem>();
+    {
+        Signature signature;
+        signature.set(gCoordinator.GetComponentType<Weapon>());
+        signature.set(gCoordinator.GetComponentType<Transform>());
+        gCoordinator.SetSystemSignature<WeaponSystem>(signature);
+    }
+    weaponSystem->Init();
+
     auto physicsSystem = gCoordinator.RegisterSystem<PhysicsSystem>();
     {
         Signature signature;
@@ -61,6 +75,14 @@ int main(int argc, char *argv[])
         gCoordinator.SetSystemSignature<PhysicsSystem>(signature);
     }
     physicsSystem->Init(1920, 700);
+
+    auto projectileSystem = gCoordinator.RegisterSystem<ProjectileSystem>();
+    {
+        Signature signature;
+        signature.set(gCoordinator.GetComponentType<Projectile>());
+        gCoordinator.SetSystemSignature<ProjectileSystem>(signature);
+    }
+    projectileSystem->Init();
 
     auto playerSystem = gCoordinator.RegisterSystem<PlayerSystem>();
     playerSystem->Init();
@@ -80,6 +102,7 @@ int main(int argc, char *argv[])
         start   = std::chrono::system_clock::now();
         running = windowManager->ManageEvent();
         playerSystem->Update(windowManager->GetPressedButtons());
+        weaponSystem->Update();
         backgroundSystem->Update();
         movementSystem->Update();
         physicsSystem->Update();
