@@ -1,0 +1,99 @@
+\hypertarget{classEntityManager}{}\doxysection{Entity\+Manager Class Reference}
+\label{classEntityManager}\index{EntityManager@{EntityManager}}
+
+
+Manager that manages available Entity I\+Ds and signatures.
+
+
+
+
+{\ttfamily \#include $<$Entity\+Manager.\+hpp$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item
+\mbox{\Hypertarget{classEntityManager_a7555637657d090171be6ceee8451de0a}\label{classEntityManager_a7555637657d090171be6ceee8451de0a}}
+\mbox{\hyperlink{classEntityManager_a7555637657d090171be6ceee8451de0a}{Entity\+Manager}} ()
+\begin{DoxyCompactList}\small\item\em Construct a new Entity Manager. \end{DoxyCompactList}\item
+Entity \mbox{\hyperlink{classEntityManager_ab991c19abfa8d1a3f5ca279f53ad2e38}{Create\+Entity}} ()
+\begin{DoxyCompactList}\small\item\em Get an available Entity ID. \end{DoxyCompactList}\item
+void \mbox{\hyperlink{classEntityManager_a69236b0746036486d2f453ee2ca4e695}{Destroy\+Entity}} (Entity entity)
+\begin{DoxyCompactList}\small\item\em Release an Entity ID. \end{DoxyCompactList}\item
+void \mbox{\hyperlink{classEntityManager_a7f9db9e75cdfec20699ef63b5950ee69}{Set\+Signature}} (Entity entity, Signature signature)
+\begin{DoxyCompactList}\small\item\em Set the Signature of the Entity. \end{DoxyCompactList}\item
+Signature \mbox{\hyperlink{classEntityManager_a1efb5b7374faa8fb18b67a3a53f5ac7e}{Get\+Signature}} (Entity entity)
+\begin{DoxyCompactList}\small\item\em Get the Signature of the Entity. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Manager that manages available Entity I\+Ds and signatures.
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classEntityManager_ab991c19abfa8d1a3f5ca279f53ad2e38}\label{classEntityManager_ab991c19abfa8d1a3f5ca279f53ad2e38}}
+\index{EntityManager@{EntityManager}!CreateEntity@{CreateEntity}}
+\index{CreateEntity@{CreateEntity}!EntityManager@{EntityManager}}
+\doxysubsubsection{\texorpdfstring{CreateEntity()}{CreateEntity()}}
+{\footnotesize\ttfamily Entity Entity\+Manager\+::\+Create\+Entity (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Get an available Entity ID.
+
+\begin{DoxyReturn}{Returns}
+Entity ID
+\end{DoxyReturn}
+\mbox{\Hypertarget{classEntityManager_a69236b0746036486d2f453ee2ca4e695}\label{classEntityManager_a69236b0746036486d2f453ee2ca4e695}}
+\index{EntityManager@{EntityManager}!DestroyEntity@{DestroyEntity}}
+\index{DestroyEntity@{DestroyEntity}!EntityManager@{EntityManager}}
+\doxysubsubsection{\texorpdfstring{DestroyEntity()}{DestroyEntity()}}
+{\footnotesize\ttfamily void Entity\+Manager\+::\+Destroy\+Entity (\begin{DoxyParamCaption}\item[{Entity}]{entity }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Release an Entity ID.
+
+
+\begin{DoxyParams}{Parameters}
+{\em entity} & Entity ID \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classEntityManager_a1efb5b7374faa8fb18b67a3a53f5ac7e}\label{classEntityManager_a1efb5b7374faa8fb18b67a3a53f5ac7e}}
+\index{EntityManager@{EntityManager}!GetSignature@{GetSignature}}
+\index{GetSignature@{GetSignature}!EntityManager@{EntityManager}}
+\doxysubsubsection{\texorpdfstring{GetSignature()}{GetSignature()}}
+{\footnotesize\ttfamily Signature Entity\+Manager\+::\+Get\+Signature (\begin{DoxyParamCaption}\item[{Entity}]{entity }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Get the Signature of the Entity.
+
+
+\begin{DoxyParams}{Parameters}
+{\em entity} & Entity ID \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Entity Signature
+\end{DoxyReturn}
+\mbox{\Hypertarget{classEntityManager_a7f9db9e75cdfec20699ef63b5950ee69}\label{classEntityManager_a7f9db9e75cdfec20699ef63b5950ee69}}
+\index{EntityManager@{EntityManager}!SetSignature@{SetSignature}}
+\index{SetSignature@{SetSignature}!EntityManager@{EntityManager}}
+\doxysubsubsection{\texorpdfstring{SetSignature()}{SetSignature()}}
+{\footnotesize\ttfamily void Entity\+Manager\+::\+Set\+Signature (\begin{DoxyParamCaption}\item[{Entity}]{entity,  }\item[{Signature}]{signature }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Set the Signature of the Entity.
+
+
+\begin{DoxyParams}{Parameters}
+{\em entity} & Entity ID \\
+\hline
+{\em signature} & Entity Signature \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item
+src/client/core/Entity\+Manager.\+hpp\end{DoxyCompactItemize}
