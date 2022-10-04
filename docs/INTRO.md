@@ -15,3 +15,6 @@ This page, along with other pages down this hierarchy, contains information usef
 [src/client/utils](../src/client/utils) contains code for a few miscellaneous things used all throughout the project but aren't some "core" part of it like the [ECS](./ECS.md)
 
 [src/server/](../src/server/) contains all R-Type server code
+
+
+Note: Need to add UML or something like that, see if we can generate it with Doxygen

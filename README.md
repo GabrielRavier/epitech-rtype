@@ -2,6 +2,12 @@
 
 This project is a multithreaded server and a graphical client for the game R-Type, using an engine of our own design.
 
+## Supported compilers
+
+This project is tested and known to be able to be compiled on:
+- Visual Studio 2022
+- GCC 11.2 on Ubuntu 22.04
+
 ## Dependencies
 
 These dependencies can be installed either through vcpkg (see setup instructions later in this README) or through your local package manager:

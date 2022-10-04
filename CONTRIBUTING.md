@@ -23,3 +23,14 @@ You can do this manually, but it should also be noted that, should you have `pre
 ```
 pre-commit run
 ```
+
+
+
+
+
+
+
+
+
+(branch naming norm, say what CI there is, etc.)
+(actually pretty much everything related to general project handling)
