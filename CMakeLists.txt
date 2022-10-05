@@ -55,6 +55,7 @@ set(r_type_client_SOURCES
   "src/client/systems/PlayerSystem.cpp"
   "src/client/systems/ProjectileSystem.cpp"
   "src/client/systems/RenderSystem.cpp"
+  "src/client/systems/WaveSystem.cpp"
   "src/client/systems/WeaponSystem.cpp"
   "src/client/utils/Vec2.cpp"
 )

@@ -22,7 +22,7 @@ void PlayerSystem::Init()
     _player = gCoordinator.CreateEntity();
     std::vector<Entity> weapons;
     auto                weapon = gCoordinator.CreateEntity();
-    gCoordinator.AddComponent(weapon, Weapon{30, 10, 0, Weapon::Type::MISSILETHROWER, Weapon::Team::PLAYERS, false});
+    gCoordinator.AddComponent(weapon, Weapon{30, 0, Weapon::Type::MISSILETHROWER, Weapon::Team::PLAYERS, false});
     gCoordinator.AddComponent(weapon, Transform{sf::Vector2f(50, 50), sf::Vector2f(1, 1), 0});
     weapons.push_back(weapon);
     gCoordinator.AddComponent(_player, Sprite{texture, sprite, sf::Vector2i(33, 17), sf::Vector2i(0, 0), 1});

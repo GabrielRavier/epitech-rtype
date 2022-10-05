@@ -1,5 +1,6 @@
 #include "core/Coordinator.hpp"
 #include "core/WindowManager.hpp"
+#include "components/Enemy.hpp"
 #include "components/Movement.hpp"
 #include "components/Player.hpp"
 #include "components/RigidBody.hpp"
@@ -12,6 +13,7 @@
 #include "systems/ProjectileSystem.hpp"
 #include "systems/RenderSystem.hpp"
 #include "systems/MovementSystem.hpp"
+#include "systems/WaveSystem.hpp"
 #include "systems/WeaponSystem.hpp"
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
@@ -31,10 +33,11 @@ int main(int argc, char *argv[])
     const std::shared_ptr<WindowManager> windowManager = std::make_shared<WindowManager>();
     windowManager->Init("R-Type", 1920, 700);
 
+    gCoordinator.RegisterComponent<Enemy>();
     gCoordinator.RegisterComponent<Movement>();
     gCoordinator.RegisterComponent<Player>();
-    gCoordinator.RegisterComponent<RigidBody>();
     gCoordinator.RegisterComponent<Projectile>();
+    gCoordinator.RegisterComponent<RigidBody>();
     gCoordinator.RegisterComponent<Sprite>();
     gCoordinator.RegisterComponent<Transform>();
     gCoordinator.RegisterComponent<Weapon>();
@@ -76,6 +79,15 @@ int main(int argc, char *argv[])
     }
     physicsSystem->Init(1920, 700);
 
+    auto waveSystem = gCoordinator.RegisterSystem<WaveSystem>();
+    {
+        Signature signature;
+        signature.set(gCoordinator.GetComponentType<Enemy>());
+        signature.set(gCoordinator.GetComponentType<Weapon>());
+        gCoordinator.SetSystemSignature<WaveSystem>(signature);
+    }
+    waveSystem->Init();
+
     auto projectileSystem = gCoordinator.RegisterSystem<ProjectileSystem>();
     {
         Signature signature;
@@ -102,6 +114,7 @@ int main(int argc, char *argv[])
         start   = std::chrono::system_clock::now();
         running = windowManager->ManageEvent();
         playerSystem->Update(windowManager->GetPressedButtons());
+        waveSystem->Update();
         weaponSystem->Update();
         backgroundSystem->Update();
         movementSystem->Update();

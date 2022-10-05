@@ -28,17 +28,16 @@ void WeaponSystem::Update() const
 
 void WeaponSystem::createMissileProjectile(Weapon weapon, Transform transform)
 {
-    const std::shared_ptr<sf::Texture> texture  = std::make_shared<sf::Texture>();
-    const std::shared_ptr<sf::Sprite>  sprite   = std::make_shared<sf::Sprite>();
-    sf::Vector2f                       position = transform.position;
-    position.x += 20;
+    const std::shared_ptr<sf::Texture> texture = std::make_shared<sf::Texture>();
+    const std::shared_ptr<sf::Sprite>  sprite  = std::make_shared<sf::Sprite>();
+    const sf::Vector2f                 scale   = sf::Vector2f(float(3 - (6 * weapon.team)), 3.f);
     texture->loadFromFile("./assets/projectiles.gif");
     sprite->setTexture(*texture, false);
-    sprite->setScale(sf::Vector2f(3, 3));
+    sprite->setScale(scale);
     sprite->setTextureRect(sf::IntRect(248, 100, 16, 16));
     auto tprojectile = gCoordinator.CreateEntity();
     gCoordinator.AddComponent(tprojectile, Projectile{10, weapon.team});
-    gCoordinator.AddComponent(tprojectile, Movement{sf::Vector2f(1, 0), 40});
+    gCoordinator.AddComponent(tprojectile, Movement{sf::Vector2f(float(1 - (2 * weapon.team)), 0), 40});
     gCoordinator.AddComponent(tprojectile, Sprite{texture, sprite, sf::Vector2i(50, 50), sf::Vector2i(250, 100), 1});
-    gCoordinator.AddComponent(tprojectile, Transform{transform.position, sf::Vector2f(3, 3), 0});
+    gCoordinator.AddComponent(tprojectile, Transform{transform.position, scale, 0});
 }
