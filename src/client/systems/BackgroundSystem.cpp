@@ -37,7 +37,7 @@ void BackgroundSystem::Init()
                                                 });
     gCoordinator.AddComponent(_firstBackground, Movement{
                                                     sf::Vector2f(-1, 0), /* movement */
-                                                    5,                   /* speed */
+                                                    1,                   /* speed */
                                                 });
 
     _secondBackground = gCoordinator.CreateEntity();
@@ -55,7 +55,7 @@ void BackgroundSystem::Init()
                                                  });
     gCoordinator.AddComponent(_secondBackground, Movement{
                                                      sf::Vector2f(-1, 0), /* movement */
-                                                     5,                   /* speed */
+                                                     1,                   /* speed */
                                                  });
 }
 

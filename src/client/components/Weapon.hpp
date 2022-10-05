@@ -9,13 +9,12 @@ struct Weapon
 
     enum Team
     {
-        PLAYERS,
-        ENEMY,
+        PLAYERS = 0,
+        ENEMY   = 1,
     };
 
     int          rateOfFire;
     int          shootTimer;
-    int          damage;
     Weapon::Type type;
     Weapon::Team team;
     bool         haveShot;
