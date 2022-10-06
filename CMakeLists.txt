@@ -80,3 +80,9 @@ add_executable(basic-ecs-test
 rtype_set_common_target_properties(basic-ecs-test OFF)
 
 add_test(NAME basic-ecs-test COMMAND basic-ecs-test)
+
+install(TARGETS r-type_client r-type_server RUNTIME DESTINATION .)
+install(DIRECTORY ./assets/ DESTINATION ./assets/)
+
+set(CPACK_SOURCE_IGNORE_FILES "/CVS/;/\.svn/;\.swp$;\.#;/#;/\.git/;/build/;/vcpkg/downloads/;/vcpkg/packages/;/\.cache;/compile_commands.json$;/.*~$;/r-type_client$;/r-type_server$;/r-type_client.log$")
+include(CPack)
