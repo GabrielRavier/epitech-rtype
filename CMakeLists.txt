@@ -81,8 +81,23 @@ rtype_set_common_target_properties(basic-ecs-test OFF)
 
 add_test(NAME basic-ecs-test COMMAND basic-ecs-test)
 
-install(TARGETS r-type_client r-type_server RUNTIME DESTINATION .)
+# This RUNTIME_DEPENDENCIES+EXCLUDE_REGEXES mess is done so that DLL dependencies from Windows are copied
+# We filter out .so so that we don't uselessly try to copy dependencies on Linux
+list(APPEND RTYPE_INSTALL_PRE_EXCLUDE_REGEXES "api-ms-win-.*")
+list(APPEND RTYPE_INSTALL_PRE_EXCLUDE_REGEXES "ext-ms-win.*")
+list(APPEND RTYPE_INSTALL_PRE_EXCLUDE_REGEXES "ext-ms-onecore-.*")
+list(APPEND RTYPE_INSTALL_PRE_EXCLUDE_REGEXES ".*.so")
+list(APPEND RTYPE_INSTALL_POST_EXCLUDE_REGEXES ".*WINDOWS[\\/]system32.*")
+
+install(
+  TARGETS r-type_client r-type_server
+  RUNTIME_DEPENDENCIES
+    PRE_EXCLUDE_REGEXES ${RTYPE_INSTALL_PRE_EXCLUDE_REGEXES}
+    POST_EXCLUDE_REGEXES ${RTYPE_INSTALL_POST_EXCLUDE_REGEXES}
+  RUNTIME
+  DESTINATION .)
 install(DIRECTORY ./assets/ DESTINATION ./assets/)
 
+# Ignore a bunch of files w.r.t. CPack source packaging - a mess to do properly, this probably doesn't work on Windows... but at least it works on my setup on Linux (probably a better way to package the source code itself would be to use git archive...)
 set(CPACK_SOURCE_IGNORE_FILES "/CVS/;/\.svn/;\.swp$;\.#;/#;/\.git/;/build/;/vcpkg/downloads/;/vcpkg/packages/;/\.cache;/compile_commands.json$;/.*~$;/r-type_client$;/r-type_server$;/r-type_client.log$")
 include(CPack)
