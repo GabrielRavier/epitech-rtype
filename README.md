@@ -44,10 +44,16 @@ You can then compile the project with this command (again, from the top director
 cmake --build build
 ```
 
-Once built, the `r-type_server` and `r-type_client` executables can be found in the `build` folder.
+Once built, the `r-type_server` and `r-type_client` executables can be found in the top directory.
 
 ## Other resources
 
 [This page contains general recommendations to anyone who wants to contribute to this project](./CONTRIBUTING.md)
 
 [Programmer documentation (i.e. information for people who want to dive into the project's code) is here](./docs/INTRO.md)
+
+[Doxygen-generated documentation](https://gabrielravier.github.io/epitech-rtype/)
+
+
+add docs about how to generate packages (and packages source) probably to CONTRIBUTING.md
+just go look in the subject on how to do pretty much all of these things basically
