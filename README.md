@@ -5,7 +5,7 @@ This project is a multithreaded server and a graphical client for the game R-Typ
 ## Supported compilers
 
 This project is tested and known to be able to be compiled on:
-- Visual Studio 2022
+- Visual Studio 2022 on Windows
 - GCC 11.2 on Ubuntu 22.04
 
 ## Dependencies
@@ -24,7 +24,7 @@ If you wish to use vcpkg and did not clone this repository with `--recurse-submo
 
 This project uses CMake, allowing it to be built with a large range of compilers.
 
-Generating files for your build system is as simple as executing the following command, from the top directory of this repository:
+Generating files for your build system is as simple as executing the following command, from the top directory of this repository (i.e. the folder containing this README file):
 
 ```
 cmake -B build
@@ -44,16 +44,42 @@ You can then compile the project with this command (again, from the top director
 cmake --build build
 ```
 
-Once built, the `r-type_server` and `r-type_client` executables can be found in the top directory.
+## Running the game
+
+Once built, the `r-type_server` and `r-type_client` executables can be found in the top directory. It should be noted that on certain environments, such as Visual Studio, the output location is unpredictable, with the executables often ending up in locations such as `Debug/r-type_client.exe` or `Release/r-type_client.exe`.
+
+In all cases, when running the game, the executables should be ran the top directory of this repository.
+
+## Running tests
+
+Should you have followed the previous instructions, running tests should be as simple as using either the following command (everywhere but on Windows):
+
+```
+cmake --build build --target test
+```
+
+or the following command (only on Windows):
+
+```
+cmake --build build --target RUN_TESTS
+```
+
+This will run tests set up for this project, and will report the results (success is normally signified by text stating "100% tests passed" somewhere in the output)
+
+## Making a binary package
+
+(preliminary note: this does not aim to make a package containing the source code. To do so, you should probably just use `git archive`)
+
+Should you have followed the previous instructions, creating a binary package for the project should be as simple as using the following command:
+
+```
+cmake --build build --target package
+```
 
 ## Other resources
 
 [This page contains general recommendations to anyone who wants to contribute to this project](./CONTRIBUTING.md)
 
-[Programmer documentation (i.e. information for people who want to dive into the project's code) is here](./docs/INTRO.md)
+[Programmer documentation (i.e. information for people who want to dive into the project's code) is here](./docs/INTRODUCTION.md)
 
 [Doxygen-generated documentation](https://gabrielravier.github.io/epitech-rtype/)
-
-
-add docs about how to generate packages (and packages source) probably to CONTRIBUTING.md
-just go look in the subject on how to do pretty much all of these things basically
