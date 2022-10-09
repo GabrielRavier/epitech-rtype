@@ -23,3 +23,13 @@ You can do this manually, but it should also be noted that, should you have `pre
 ```
 pre-commit run
 ```
+
+It should be noted that alongside clang-format, clang-tidy and cppcheck, a few other minor checks (like trailing whitespace at the end of lines/files, or extremely large files) and a check on the commit message itself (mandating a format resembling `feat: some new thing` or `fix: an annoying bug` as the first line of the commit messages)
+
+### Branch management
+
+When directly contributing to this repository, it is also recommended that you never directly commit to `main`, unless some sort of emergency requires it.
+
+Instead, create separate branches for each new feature or fix you want to add to the project and create a pull request based on that branch before merging it, to allow other contributors to review the changes if needed.
+
+Branches pushed onto the main repository should have names that correspond to the commit convention, i.e. with names like `feat/some-new-feature` or `fix/some-annoying-bug`.
