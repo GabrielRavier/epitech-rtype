@@ -1,9 +1,0 @@
-<map id="System" name="System">
-<area shape="rect" id="node1" title=" " alt="" coords="437,5,508,32"/>
-<area shape="rect" id="node2" href="$classBackgroundSystem.html" title=" " alt="" coords="5,80,153,107"/>
-<area shape="rect" id="node3" href="$classMovementSystem.html" title=" " alt="" coords="178,80,319,107"/>
-<area shape="rect" id="node4" href="$classPhysicsSystem.html" title=" " alt="" coords="343,80,463,107"/>
-<area shape="rect" id="node5" href="$classPlayerSystem.html" title=" " alt="" coords="487,80,599,107"/>
-<area shape="rect" id="node6" href="$classRenderSystem.html" title=" " alt="" coords="623,80,741,107"/>
-<area shape="rect" id="node7" href="$structTestSystem.html" title=" " alt="" coords="765,80,863,107"/>
-</map>
