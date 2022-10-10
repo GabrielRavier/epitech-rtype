@@ -77,6 +77,17 @@ public:
         mSystemManager->SetSignature<T>(signature);
     }
 
+    /**
+       @brief Clear out everything relating to the coordinator, i.e. reset everything to its initial state as if the
+       program had just started
+     */
+    void Clear()
+    {
+        this->mComponentManager = std::make_unique<ComponentManager>();
+        this->mEntityManager    = std::make_unique<EntityManager>();
+        this->mSystemManager    = std::make_unique<SystemManager>();
+    }
+
 private:
     std::unique_ptr<ComponentManager> mComponentManager = std::make_unique<ComponentManager>();
     std::unique_ptr<EntityManager>    mEntityManager    = std::make_unique<EntityManager>();

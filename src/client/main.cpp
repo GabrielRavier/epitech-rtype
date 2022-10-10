@@ -127,5 +127,9 @@ int main(int argc, char *argv[])
         auto delta_ms_duration = std::chrono::duration_cast<std::chrono::milliseconds>(delta_ms);
         std::this_thread::sleep_for(std::chrono::milliseconds(delta_ms_duration.count()));
     }
+
+    // We call gCoordinator.Clear() before exiting the program, so as to make sure that destructors for the game objects
+    // run before the SFML is destroyed at the global level
+    gCoordinator.Clear();
     return (0);
 }
