@@ -33,6 +33,8 @@ find_package(SFML 2.5
     system window graphics network audio REQUIRED
 )
 
+find_package(boost REQUIRED)
+
 # I do not comprehend why vcpkg is setup like it is but it makes it so we have to do this cursed stuff depending on whether this is a Windows build
 if (WIN32)
   find_path(LOGURU_INCLUDE_DIRS "loguru/loguru.hpp")
