@@ -12,16 +12,18 @@
 #include "../components/Movement.hpp"
 #include "../components/Sprite.hpp"
 #include "../components/Transform.hpp"
-#include <memory>
+#include <chrono>
+#include <optional>
 #include <iostream>
 
 class BackgroundSystem : public System
 {
 public:
     void Init();
-    void Update() const;
+    void Update();
 
 private:
-    Entity _firstBackground;
-    Entity _secondBackground;
+    Entity                                               _firstBackground;
+    Entity                                               _secondBackground;
+    std::optional<std::chrono::steady_clock::time_point> _previousUpdateTime;
 };

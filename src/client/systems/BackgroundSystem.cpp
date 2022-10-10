@@ -35,10 +35,6 @@ void BackgroundSystem::Init()
                                                     sf::Vector2f(1, 1), /* scale */
                                                     0,                  /* rotation */
                                                 });
-    gCoordinator.AddComponent(_firstBackground, Movement{
-                                                    sf::Vector2f(-1, 0), /* movement */
-                                                    1,                   /* speed */
-                                                });
 
     _secondBackground = gCoordinator.CreateEntity();
     gCoordinator.AddComponent(_secondBackground, Sprite{
@@ -53,16 +49,22 @@ void BackgroundSystem::Init()
                                                      sf::Vector2f(1, 1),    /* scale */
                                                      0,                     /* rotation */
                                                  });
-    gCoordinator.AddComponent(_secondBackground, Movement{
-                                                     sf::Vector2f(-1, 0), /* movement */
-                                                     1,                   /* speed */
-                                                 });
 }
 
-void BackgroundSystem::Update() const
+void BackgroundSystem::Update()
 {
     auto &firstB  = gCoordinator.GetComponent<Transform>(_firstBackground);
     auto &secondB = gCoordinator.GetComponent<Transform>(_secondBackground);
+
+    if (!_previousUpdateTime.has_value())
+        _previousUpdateTime = std::chrono::steady_clock::now();
+    else
+        while (*_previousUpdateTime + std::chrono::milliseconds(16) < std::chrono::steady_clock::now()) {
+            firstB.position.x -= 1;
+            secondB.position.x -= 1;
+            *_previousUpdateTime += std::chrono::milliseconds(16);
+        }
+
     if (firstB.position.x <= -1920)
         firstB.position.x = 1920;
     if (secondB.position.x <= -1920)
