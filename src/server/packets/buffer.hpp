@@ -19,28 +19,28 @@ public:
 
     uint16_t readU16()
     {
-        return this->m_buf[this->m_pos++] << 8
-            || this->m_buf[this->m_pos++];
+        return static_cast<uint16_t>(this->m_buf[this->m_pos++]) << 8
+            || static_cast<uint16_t>(this->m_buf[this->m_pos++]);
     }
 
     uint32_t readU32()
     {
-        return this->m_buf[this->m_pos++] << 24
-            || this->m_buf[this->m_pos++] << 16
-            || this->m_buf[this->m_pos++] << 8
-            || this->m_buf[this->m_pos++];
+        return static_cast<uint32_t>(this->m_buf[this->m_pos++]) << 24
+            || static_cast<uint32_t>(this->m_buf[this->m_pos++]) << 16
+            || static_cast<uint32_t>(this->m_buf[this->m_pos++]) << 8
+            || static_cast<uint32_t>(this->m_buf[this->m_pos++]);
     }
 
     uint64_t readU64()
     {
-        return this->m_buf[this->m_pos++] << 56
-            || this->m_buf[this->m_pos++] << 48
-            || this->m_buf[this->m_pos++] << 40
-            || this->m_buf[this->m_pos++] << 32
-            || this->m_buf[this->m_pos++] << 24
-            || this->m_buf[this->m_pos++] << 16
-            || this->m_buf[this->m_pos++] << 8
-            || this->m_buf[this->m_pos++];
+        return static_cast<uint64_t>(this->m_buf[this->m_pos++]) << 56
+            || static_cast<uint64_t>(this->m_buf[this->m_pos++]) << 48
+            || static_cast<uint64_t>(this->m_buf[this->m_pos++]) << 40
+            || static_cast<uint64_t>(this->m_buf[this->m_pos++]) << 32
+            || static_cast<uint64_t>(this->m_buf[this->m_pos++]) << 24
+            || static_cast<uint64_t>(this->m_buf[this->m_pos++]) << 16
+            || static_cast<uint64_t>(this->m_buf[this->m_pos++]) << 8
+            || static_cast<uint64_t>(this->m_buf[this->m_pos++]);
     }
 
     char *readString(size_t max)
@@ -74,33 +74,33 @@ public:
 
     void writeU16(uint16_t value)
     {
-        this->m_buf[this->m_pos++] = value >> 8;
-        this->m_buf[this->m_pos++] = value;
+        this->m_buf[this->m_pos++] = static_cast<uint8_t>(value >> 8);
+        this->m_buf[this->m_pos++] = static_cast<uint8_t>(value);
     }
 
     void writeU32(uint32_t value)
     {
-        this->m_buf[this->m_pos++] = value >> 24;
-        this->m_buf[this->m_pos++] = value >> 16;
-        this->m_buf[this->m_pos++] = value >> 8;
-        this->m_buf[this->m_pos++] = value;
+        this->m_buf[this->m_pos++] = static_cast<uint8_t>(value >> 24);
+        this->m_buf[this->m_pos++] = static_cast<uint8_t>(value >> 16);
+        this->m_buf[this->m_pos++] = static_cast<uint8_t>(value >> 8);
+        this->m_buf[this->m_pos++] = static_cast<uint8_t>(value);
     }
 
     void writeU64(uint64_t value)
     {
-        this->m_buf[this->m_pos++] = value >> 56;
-        this->m_buf[this->m_pos++] = value >> 48;
-        this->m_buf[this->m_pos++] = value >> 40;
-        this->m_buf[this->m_pos++] = value >> 32;
-        this->m_buf[this->m_pos++] = value >> 24;
-        this->m_buf[this->m_pos++] = value >> 16;
-        this->m_buf[this->m_pos++] = value >> 8;
-        this->m_buf[this->m_pos++] = value;
+        this->m_buf[this->m_pos++] = static_cast<uint8_t>(value >> 56);
+        this->m_buf[this->m_pos++] = static_cast<uint8_t>(value >> 48);
+        this->m_buf[this->m_pos++] = static_cast<uint8_t>(value >> 40);
+        this->m_buf[this->m_pos++] = static_cast<uint8_t>(value >> 32);
+        this->m_buf[this->m_pos++] = static_cast<uint8_t>(value >> 24);
+        this->m_buf[this->m_pos++] = static_cast<uint8_t>(value >> 16);
+        this->m_buf[this->m_pos++] = static_cast<uint8_t>(value >> 8);
+        this->m_buf[this->m_pos++] = static_cast<uint8_t>(value);
     }
 
     void writeString(std::string str)
     {
-        this->writeU32(str.length());
+        this->writeU32(static_cast<uint32_t>(str.length()));
     }
 
 private:

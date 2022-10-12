@@ -2,12 +2,15 @@
 #include <thread>
 #include <chrono>
 #include <ctime>
+#include <map>
+#include <string>
 #include <boost/asio.hpp>
 #include "network_manager.hpp"
 #include "sync_queue.hpp"
-#include "packet.hpp"
+#include "packets/packet.hpp"
 
 SynchronisedQueue<Packet> queue;
+std::map<std::string, NetworkManager> managers;
 
 void NetworkLoop(uint16_t port)
 {
@@ -16,12 +19,11 @@ void NetworkLoop(uint16_t port)
         ip::udp::socket         socket(io_context, ip::udp::endpoint(ip::udp::v4(), port));
         ip::udp::endpoint       remote_endpoint;
 
-        // @REWORK IN PROGRESS : We probably have to maintain a list of "NetworkManager", one per user (connection) in a map.
-        // Key is "source ip + source port" and value is "NetworkManager"
         while (true) {
             char *packet = new char[199];
-            std::cout << "TEST." << std::endl;
             socket.receive_from(boost::asio::buffer(packet, 199), remote_endpoint);
+            std::string address = remote_endpoint.address().to_string() + std::to_string(remote_endpoint.port());
+            std::cout << "TEST." << std::endl << address << std::endl;
         }
 
     } catch (std::exception &e) {
@@ -36,7 +38,7 @@ void GameLoop()
     std::chrono::system_clock::time_point start;
 
     while (running) {
-        start   = std::chrono::system_clock::now();
+        start = std::chrono::system_clock::now();
 
         std::cout << "TEST." << std::endl;
 

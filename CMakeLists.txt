@@ -33,7 +33,7 @@ find_package(SFML 2.5
     system window graphics network audio REQUIRED
 )
 
-find_package(boost REQUIRED)
+find_package(Boost REQUIRED COMPONENTS thread)
 
 # I do not comprehend why vcpkg is setup like it is but it makes it so we have to do this cursed stuff depending on whether this is a Windows build
 if (WIN32)
@@ -42,10 +42,14 @@ else()
   find_package(loguru CONFIG REQUIRED)
 endif()
 
-add_executable(r-type_server
+# Go complain to whoever set up vcpkg like it is if you think this is bad
+set(r_type_server_SOURCES
   "src/server/main.cpp"
 )
+
+add_executable(r-type_server "${r_type_server_SOURCES}")
 rtype_set_common_target_properties(r-type_server ON)
+target_link_libraries(r-type_server PRIVATE Boost::boost Boost::thread)
 
 # Go complain to whoever set up vcpkg like it is if you think this is bad
 set(r_type_client_SOURCES

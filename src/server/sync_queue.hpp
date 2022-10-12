@@ -1,5 +1,6 @@
 #pragma once
 
+#include <queue>
 #include <boost/thread.hpp>
 
 template <typename T>
