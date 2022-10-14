@@ -71,6 +71,7 @@ endif()
 
 add_executable(r-type_client "${r_type_client_SOURCES}")
 rtype_set_common_target_properties(r-type_client ON)
+target_link_libraries(r-type_client PRIVATE Boost::boost Boost::thread)
 target_link_libraries(r-type_client PRIVATE sfml-graphics)
 target_link_libraries(r-type_client PRIVATE sfml-system)
 target_link_libraries(r-type_client PRIVATE sfml-window)
