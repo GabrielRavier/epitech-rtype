@@ -1,5 +1,6 @@
 #include "core/Coordinator.hpp"
 #include "core/WindowManager.hpp"
+#include "core/NetworkManager.hpp"
 #include "components/Enemy.hpp"
 #include "components/Movement.hpp"
 #include "components/Player.hpp"
@@ -21,50 +22,20 @@
 #include <ctime>
 #include <chrono>
 #include <thread>
-#include <boost/asio.hpp>
-#include <boost/array.hpp>
-#include "../server/sync_queue.hpp"
-#include "../server/packets/packet.hpp"
 
-boost::asio::ip::udp::socket *_socket;
-SynchronisedQueue<Packet> queue;
 Coordinator gCoordinator;
 
-void NetworkLoop(const char *host, uint16_t port)
+void NetworkLoop(NetworkManager *networkManager)
 {
-    try {
-        boost::asio::io_service io_service;
-        boost::asio::ip::udp::resolver resolver(io_service);
-        boost::asio::ip::udp::resolver::query query(boost::asio::ip::udp::v4(), host, "");
-        boost::asio::ip::udp::endpoint target_endpoint = *resolver.resolve(query);
-        boost::asio::ip::udp::endpoint sender_endpoint;
-
-        _socket = new boost::asio::ip::udp::socket(io_service);
-        _socket->open(boost::asio::ip::udp::v4());
-
-        // Set port of connection.
-        target_endpoint.port(port);
-
-        boost::array<char, 1> send_buf = { 10 };
-        _socket->send_to(boost::asio::buffer(send_buf), target_endpoint);
-
-        while (_socket->is_open()) {
-            char *packet = new char[199];
-            _socket->receive_from(boost::asio::buffer(packet, 199), sender_endpoint);
-            std::string address = sender_endpoint.address().to_string() + std::to_string(sender_endpoint.port());
-            std::cout << "TEST." << std::endl << address << std::endl;
-        }
-
-    } catch (std::exception &e) {
-        std::cerr << e.what() << std::endl;
-    }
+    networkManager->run();
 }
 
 void GameLoop(const char *host, uint16_t port)
 {
-    std::thread threadNetworkLoop(NetworkLoop, host, port);
-
+    NetworkManager networkManager(host, port);
+    std::thread threadNetworkLoop(NetworkLoop, &networkManager);
     const std::shared_ptr<WindowManager> windowManager = std::make_shared<WindowManager>();
+
     windowManager->Init("R-Type", 1920, 700);
 
     gCoordinator.RegisterComponent<Enemy>();
@@ -162,8 +133,7 @@ void GameLoop(const char *host, uint16_t port)
         std::this_thread::sleep_for(std::chrono::milliseconds(delta_ms_duration.count()));
     }
 
-    // Close socket and wait network thread stop.
-    _socket->close();
+    networkManager.close();
     threadNetworkLoop.join();
 
     // We call gCoordinator.Clear() before exiting the program, so as to make sure that destructors for the game objects
@@ -183,7 +153,7 @@ int main(int argc, char *argv[])
         return (0);
     }
 
-    // Start network and game.
+    // Start game.
     GameLoop(argv[1], std::atoi(argv[2]));
 
     return (0);

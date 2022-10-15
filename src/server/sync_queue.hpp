@@ -14,7 +14,7 @@ private:
 public:
 
     // Add data to the queue and notify others
-    void Enqueue(const T& data)
+    void enqueue(const T& data)
     {
         // Acquire lock on the queue
         boost::unique_lock<boost::mutex> lock(m_mutex);
@@ -28,7 +28,7 @@ public:
     } // Lock is automatically released here
 
     // Get data from the queue. Wait for data if not available
-    T Dequeue()
+    T dequeue()
     {
         // Acquire lock on the queue
         boost::unique_lock<boost::mutex> lock(m_mutex);
@@ -43,4 +43,9 @@ public:
         return result;
 
     } // Lock is automatically released here
+
+    int count()
+    {
+        return m_queue.size();
+    }
 };
