@@ -53,7 +53,7 @@ public:
 
         auto component = std::make_shared<Component<T>>();
 
-        component->mType = mComponents.size();
+        component->mType = static_cast<ComponentType>(mComponents.size());
         mComponents.insert({typeid(T), component});
     }
 

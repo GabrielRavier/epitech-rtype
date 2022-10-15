@@ -1,6 +1,7 @@
 #pragma once
 
 #include "packet.hpp"
+#include "network_handler.hpp"
 
 enum EntityType
 {
@@ -28,21 +29,26 @@ public:
     PacketServerEntityCreate()     = default;
     ~PacketServerEntityCreate()    = default;
 
-    void readPacket(Buffer buf)
+    void readPacket(Buffer *buffer)
     {
-        this->entityType    = static_cast<EntityType>(buf.readU8());
-        this->entityId      = buf.readU16();
-        this->posX          = buf.readU16();
-        this->posY          = buf.readU16();
-        this->life          = buf.readU16();
+        this->entityType    = static_cast<EntityType>(buffer->readU8());
+        this->entityId      = buffer->readU16();
+        this->posX          = buffer->readU16();
+        this->posY          = buffer->readU16();
+        this->life          = buffer->readU16();
     };
 
-    void writePacket(Buffer buf)
+    void writePacket(Buffer *buffer)
     {
-        buf.writeU8(this->entityType);
-        buf.writeU16(this->entityId);
-        buf.writeU16(this->posX);
-        buf.writeU16(this->posY);
-        buf.writeU16(this->life);
+        buffer->writeU8(this->entityType);
+        buffer->writeU16(this->entityId);
+        buffer->writeU16(this->posX);
+        buffer->writeU16(this->posY);
+        buffer->writeU16(this->life);
+    };
+
+    void processPacket(INetworkHandler *handler)
+    {
+        handler->processServerEntityCreate(this);
     };
 };

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "packet.hpp"
+#include "network_handler.hpp"
 
 class PacketServerUpdateHealth : public Packet
 {
@@ -13,15 +14,20 @@ public:
     PacketServerUpdateHealth()  = default;
     ~PacketServerUpdateHealth() = default;
 
-    void readPacket(Buffer buf)
+    void readPacket(Buffer *buffer)
     {
-        this->entityId  = buf.readU16();
-        this->life      = buf.readU16();
+        this->entityId  = buffer->readU16();
+        this->life      = buffer->readU16();
     };
 
-    void writePacket(Buffer buf)
+    void writePacket(Buffer *buffer)
     {
-        buf.writeU16(this->entityId);
-        buf.writeU16(this->life);
+        buffer->writeU16(this->entityId);
+        buffer->writeU16(this->life);
+    };
+
+    void processPacket(INetworkHandler *handler)
+    {
+        handler->processServerUpdateHealth(this);
     };
 };

@@ -1,13 +1,8 @@
 #pragma once
 
-#include <chrono>
 #include "packet.hpp"
-
-uint64_t timeSinceEpochMillisec()
-{
-    using namespace std::chrono;
-    return duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count();
-}
+#include "network_handler.hpp"
+#include "../utils.hpp"
 
 class PacketClientKeepAlive: public Packet
 {
@@ -15,16 +10,21 @@ public:
     uint64_t timestamp;
 
 public:
-    PacketClientKeepAlive() : timestamp(timeSinceEpochMillisec()) {}
+    PacketClientKeepAlive() : timestamp(getCurrentTimeEpoch()) {}
     ~PacketClientKeepAlive() = default;
 
-    void readPacket(Buffer buf)
+    void readPacket(Buffer *buffer)
     {
-        this->timestamp = buf.readU64();
+        this->timestamp = buffer->readU64();
     };
 
-    void writePacket(Buffer buf)
+    void writePacket(Buffer *buffer)
     {
-        buf.writeU64(this->timestamp);
+        buffer->writeU64(this->timestamp);
+    };
+
+    void processPacket(INetworkHandler *handler)
+    {
+        handler->processClientKeepAlive(this);
     };
 };

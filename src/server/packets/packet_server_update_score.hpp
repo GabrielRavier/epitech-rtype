@@ -1,6 +1,7 @@
 #pragma once
 
 #include "packet.hpp"
+#include "network_handler.hpp"
 
 class PacketServerUpdateScore : public Packet
 {
@@ -12,13 +13,18 @@ public:
     PacketServerUpdateScore()  = default;
     ~PacketServerUpdateScore() = default;
 
-    void readPacket(Buffer buf)
+    void readPacket(Buffer *buffer)
     {
-        this->score = buf.readU64();
+        this->score = buffer->readU64();
     };
 
-    void writePacket(Buffer buf)
+    void writePacket(Buffer *buffer)
     {
-        buf.writeU64(this->score);
+        buffer->writeU64(this->score);
+    };
+
+    void processPacket(INetworkHandler *handler)
+    {
+        handler->processServerUpdateScore(this);
     };
 };

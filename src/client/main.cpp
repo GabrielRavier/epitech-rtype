@@ -117,8 +117,8 @@ void GameLoop(const char *host, uint16_t port)
     std::chrono::system_clock::time_point start;
     while (running) {
         start   = std::chrono::system_clock::now();
-        running = windowManager->ManageEvent();
-        playerSystem->Update(windowManager->GetPressedButtons());
+        running = windowManager->ManageEvent(networkManager);
+        playerSystem->Update(windowManager->GetInputs());
         waveSystem->Update();
         weaponSystem->Update();
         backgroundSystem->Update();

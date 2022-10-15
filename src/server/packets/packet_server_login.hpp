@@ -1,6 +1,7 @@
 #pragma once
 
 #include "packet.hpp"
+#include "network_handler.hpp"
 
 enum LoginState
 {
@@ -18,13 +19,18 @@ public:
     PacketServerLogin()     = default;
     ~PacketServerLogin()    = default;
 
-    void readPacket(Buffer buf)
+    void readPacket(Buffer *buffer)
     {
-        this->state = static_cast<LoginState>(buf.readU8());
+        this->state = static_cast<LoginState>(buffer->readU8());
     };
 
-    void writePacket(Buffer buf)
+    void writePacket(Buffer *buffer)
     {
-        buf.writeU8(this->state);
+        buffer->writeU8(this->state);
+    };
+
+    void processPacket(INetworkHandler *handler)
+    {
+        handler->processServerLogin(this);
     };
 };

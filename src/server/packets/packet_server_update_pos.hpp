@@ -1,6 +1,7 @@
 #pragma once
 
 #include "packet.hpp"
+#include "network_handler.hpp"
 
 class PacketServerUpdatePos : public Packet
 {
@@ -17,17 +18,22 @@ public:
     PacketServerUpdatePos()     = default;
     ~PacketServerUpdatePos()    = default;
 
-    void readPacket(Buffer buf)
+    void readPacket(Buffer *buffer)
     {
-        this->entityId      = buf.readU16();
-        this->posX          = buf.readU16();
-        this->posY          = buf.readU16();
+        this->entityId      = buffer->readU16();
+        this->posX          = buffer->readU16();
+        this->posY          = buffer->readU16();
     };
 
-    void writePacket(Buffer buf)
+    void writePacket(Buffer *buffer)
     {
-        buf.writeU16(this->entityId);
-        buf.writeU16(this->posX);
-        buf.writeU16(this->posY);
+        buffer->writeU16(this->entityId);
+        buffer->writeU16(this->posX);
+        buffer->writeU16(this->posY);
+    };
+
+    void processPacket(INetworkHandler *handler)
+    {
+        handler->processServerUpdatePos(this);
     };
 };

@@ -5,8 +5,9 @@
 ** PlayerSystem
 */
 
-#include "PlayerSystem.hpp"
 #include <iostream>
+#include "PlayerSystem.hpp"
+#include "../../server/packets/packet_client_input.hpp"
 
 extern Coordinator gCoordinator;
 
@@ -32,21 +33,21 @@ void PlayerSystem::Init()
     gCoordinator.AddComponent(_player, RigidBody{sf::Vector2f(33, 17)});
 }
 
-void PlayerSystem::Update(std::unordered_map<sf::Keyboard::Key, bool> buttonsPressed) const
+void PlayerSystem::Update(std::bitset<8> inputs) const
 {
     auto &movement = gCoordinator.GetComponent<Movement>(_player);
     float x        = 0;
     float y        = 0;
 
-    if (buttonsPressed[sf::Keyboard::Key::Right])
+    if (inputs.test(InputType::RIGHT))
         x += 1;
-    if (buttonsPressed[sf::Keyboard::Key::Left])
+    if (inputs.test(InputType::LEFT))
         x -= 1;
-    if (buttonsPressed[sf::Keyboard::Key::Down])
+    if (inputs.test(InputType::DOWN))
         y += 1;
-    if (buttonsPressed[sf::Keyboard::Key::Up])
+    if (inputs.test(InputType::UP))
         y -= 1;
-    if (buttonsPressed[sf::Keyboard::Key::Space])
+    if (inputs.test(InputType::SHOOT))
         this->Shoot();
     movement.movement.x = x;
     movement.movement.y = y;

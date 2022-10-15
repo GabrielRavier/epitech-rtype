@@ -2,13 +2,15 @@
 
 #include <bitset>
 #include "packet.hpp"
+#include "network_handler.hpp"
 
 enum InputType
 {
-    LEFT    = 1 << 0,
-    TOP     = 1 << 1,
-    RIGHT   = 1 << 2,
-    BOTTOM  = 1 << 3,
+    LEFT,
+    RIGHT,
+    UP,
+    DOWN,
+    SHOOT,
 };
 
 class PacketClientInput : public Packet
@@ -21,13 +23,18 @@ public:
     PacketClientInput()     = default;
     ~PacketClientInput()    = default;
 
-    void readPacket(Buffer buf)
+    void readPacket(Buffer *buffer)
     {
-        this->inputs = buf.readU8();
+        this->inputs = buffer->readU8();
     };
 
-    void writePacket(Buffer buf)
+    void writePacket(Buffer *buffer)
     {
-        buf.writeU8(this->inputs.to_ulong());
+        buffer->writeU8(static_cast<uint8_t>(this->inputs.to_ulong()));
+    };
+
+    void processPacket(INetworkHandler *handler)
+    {
+        handler->processClientInput(this);
     };
 };

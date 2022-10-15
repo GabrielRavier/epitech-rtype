@@ -21,17 +21,20 @@ void NetworkLoop(uint16_t port)
         ip::udp::socket         socket(io_context, ip::udp::endpoint(ip::udp::v4(), port));
         ip::udp::endpoint       remote_endpoint;
 
-        while (true) {
+        while (socket.is_open()) {
             socket.receive_from(buffer, remote_endpoint);
             std::string address = remote_endpoint.address().to_string() + std::to_string(remote_endpoint.port());
+                std::cout << address << std::endl;
 
             if (managers.find(address) == managers.end()) {
                 managers[address] = NetworkManager();
+
 
             } else {
 
             }
         }
+        std::cerr << "DISCONNECTED." << std::endl;
 
     } catch (std::exception &e) {
         std::cerr << e.what() << std::endl;

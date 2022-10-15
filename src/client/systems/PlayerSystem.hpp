@@ -7,6 +7,7 @@
 
 #pragma once
 
+#include <bitset>
 #include "../core/System.hpp"
 #include "../core/Coordinator.hpp"
 #include "../components/Player.hpp"
@@ -20,7 +21,7 @@ class PlayerSystem : public System
 {
 public:
     void Init();
-    void Update(std::unordered_map<sf::Keyboard::Key, bool> buttonsPressed) const;
+    void Update(std::bitset<8> inputs) const;
     void Shoot() const;
     void ChangeWeaponsPosition() const;
 
