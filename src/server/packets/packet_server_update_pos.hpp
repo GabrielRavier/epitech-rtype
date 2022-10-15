@@ -1,7 +1,6 @@
 #pragma once
 
 #include "packet.hpp"
-#include "network_handler.hpp"
 
 class PacketServerUpdatePos : public Packet
 {
@@ -32,8 +31,5 @@ public:
         buffer->writeU16(this->posY);
     };
 
-    void processPacket(INetworkHandler *handler)
-    {
-        handler->processServerUpdatePos(this);
-    };
+    void processPacket(INetworkHandler *handler);
 };

@@ -7,7 +7,7 @@
 #include <boost/asio.hpp>
 #include "network_manager.hpp"
 #include "sync_queue.hpp"
-#include "packets/packet.hpp"
+#include "packets/connection_state.hpp"
 
 SynchronisedQueue<Packet> queue;
 std::map<std::string, NetworkManager> managers;
@@ -15,25 +15,58 @@ std::map<std::string, NetworkManager> managers;
 void NetworkLoop(uint16_t port)
 {
     try {
-        uint8_t buf[4096];
-        boost::asio::mutable_buffer buffer = boost::asio::buffer(buf, 4096);
         boost::asio::io_context io_context;
         ip::udp::socket         socket(io_context, ip::udp::endpoint(ip::udp::v4(), port));
         ip::udp::endpoint       remote_endpoint;
+        Buffer buffer(4096);
 
         while (socket.is_open()) {
-            socket.receive_from(buffer, remote_endpoint);
-            std::string address = remote_endpoint.address().to_string() + std::to_string(remote_endpoint.port());
-                std::cout << address << std::endl;
+            try {
+                size_t len = buffer.pos() + socket.receive_from(
+                    boost::asio::buffer(buffer.data() + buffer.pos(), buffer.capacity() - buffer.pos()),
+                    remote_endpoint
+                );
 
-            if (managers.find(address) == managers.end()) {
-                managers[address] = NetworkManager();
+                // Set buffer to begin.
+                buffer.setPos(0);
 
+                // Decode packets.
+                while (buffer.pos() < len) {
+                    uint16_t packet_len = buffer.readU16();
 
-            } else {
+                    // Ensure packet size.
+                    if ((packet_len + 2) > buffer.capacity())
+                        throw std::exception("Too big packet.");
 
+                    // Ensure packet entirety.
+                    if ((buffer.pos() + packet_len) > len) {
+                        buffer.setPos(buffer.pos() - 2);
+                        break;
+                    }
+
+                    // Read packet header.
+                    uint16_t seq_client = buffer.readU16();
+                    uint16_t seq_server = buffer.readU16();
+                    uint8_t packet_id   = buffer.readU8();
+                    Packet *packet      = CreateClientPacket(packet_id);
+
+                    // Read packet data.
+                    packet->readPacket(&buffer);
+
+                    // Enqueue packet.
+                    // m_queue_in.enqueue(packet);
+                    std::cerr << std::to_string(packet_id) << std::endl;
+                    delete packet;
+                }
+
+                // Move remaining to front.
+                buffer.moveToFront(len);
+
+            } catch (std::exception &e) {
+                std::cerr << "ERR: " << e.what() << std::endl;
             }
         }
+
         std::cerr << "DISCONNECTED." << std::endl;
 
     } catch (std::exception &e) {

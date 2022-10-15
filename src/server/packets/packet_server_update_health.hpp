@@ -1,7 +1,6 @@
 #pragma once
 
 #include "packet.hpp"
-#include "network_handler.hpp"
 
 class PacketServerUpdateHealth : public Packet
 {
@@ -26,8 +25,5 @@ public:
         buffer->writeU16(this->life);
     };
 
-    void processPacket(INetworkHandler *handler)
-    {
-        handler->processServerUpdateHealth(this);
-    };
+    void processPacket(INetworkHandler *handler);
 };

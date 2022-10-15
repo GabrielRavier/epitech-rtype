@@ -2,7 +2,6 @@
 
 #include <bitset>
 #include "packet.hpp"
-#include "network_handler.hpp"
 
 enum InputType
 {
@@ -33,8 +32,5 @@ public:
         buffer->writeU8(static_cast<uint8_t>(this->inputs.to_ulong()));
     };
 
-    void processPacket(INetworkHandler *handler)
-    {
-        handler->processClientInput(this);
-    };
+    void processPacket(INetworkHandler *handler);
 };

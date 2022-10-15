@@ -1,7 +1,6 @@
 #pragma once
 
 #include "packet.hpp"
-#include "network_handler.hpp"
 
 enum EntityType
 {
@@ -47,8 +46,5 @@ public:
         buffer->writeU16(this->life);
     };
 
-    void processPacket(INetworkHandler *handler)
-    {
-        handler->processServerEntityCreate(this);
-    };
+    void processPacket(INetworkHandler *handler);
 };

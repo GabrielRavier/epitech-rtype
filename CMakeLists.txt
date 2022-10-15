@@ -45,6 +45,18 @@ endif()
 # Go complain to whoever set up vcpkg like it is if you think this is bad
 set(r_type_server_SOURCES
   "src/server/main.cpp"
+  "src/server/utils.cpp"
+  "src/server/packets/connection_state.cpp"
+  "src/server/packets/packet_client_input.cpp"
+  "src/server/packets/packet_client_keep_alive.cpp"
+  "src/server/packets/packet_client_login.cpp"
+  "src/server/packets/packet_server_entity_create.cpp"
+  "src/server/packets/packet_server_keep_alive.cpp"
+  "src/server/packets/packet_server_keep_alive.cpp"
+  "src/server/packets/packet_server_login.cpp"
+  "src/server/packets/packet_server_update_health.cpp"
+  "src/server/packets/packet_server_update_pos.cpp"
+  "src/server/packets/packet_server_update_score.cpp"
 )
 
 add_executable(r-type_server "${r_type_server_SOURCES}")
@@ -64,6 +76,18 @@ set(r_type_client_SOURCES
   "src/client/systems/WaveSystem.cpp"
   "src/client/systems/WeaponSystem.cpp"
   "src/client/utils/Vec2.cpp"
+  "src/server/utils.cpp"
+  "src/server/packets/connection_state.cpp"
+  "src/server/packets/packet_client_input.cpp"
+  "src/server/packets/packet_client_keep_alive.cpp"
+  "src/server/packets/packet_client_login.cpp"
+  "src/server/packets/packet_server_entity_create.cpp"
+  "src/server/packets/packet_server_keep_alive.cpp"
+  "src/server/packets/packet_server_keep_alive.cpp"
+  "src/server/packets/packet_server_login.cpp"
+  "src/server/packets/packet_server_update_health.cpp"
+  "src/server/packets/packet_server_update_pos.cpp"
+  "src/server/packets/packet_server_update_score.cpp"
 )
 if (WIN32)
   list(APPEND r_type_client_SOURCES "${LOGURU_INCLUDE_DIRS}/loguru/loguru.cpp")

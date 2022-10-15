@@ -1,7 +1,6 @@
 #pragma once
 
 #include "packet.hpp"
-#include "network_handler.hpp"
 
 class PacketServerUpdateScore : public Packet
 {
@@ -23,8 +22,5 @@ public:
         buffer->writeU64(this->score);
     };
 
-    void processPacket(INetworkHandler *handler)
-    {
-        handler->processServerUpdateScore(this);
-    };
+    void processPacket(INetworkHandler *handler);
 };

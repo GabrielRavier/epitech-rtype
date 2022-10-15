@@ -1,7 +1,6 @@
 #pragma once
 
 #include "packet.hpp"
-#include "network_handler.hpp"
 
 class PacketClientLogin : public Packet
 {
@@ -23,8 +22,5 @@ public:
         buffer->writeString(this->username);
     };
 
-    void processPacket(INetworkHandler *handler)
-    {
-        handler->processClientLogin(this);
-    };
+    void processPacket(INetworkHandler *handler);
 };

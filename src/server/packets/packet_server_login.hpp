@@ -1,7 +1,6 @@
 #pragma once
 
 #include "packet.hpp"
-#include "network_handler.hpp"
 
 enum LoginState
 {
@@ -29,8 +28,5 @@ public:
         buffer->writeU8(this->state);
     };
 
-    void processPacket(INetworkHandler *handler)
-    {
-        handler->processServerLogin(this);
-    };
+    void processPacket(INetworkHandler *handler);
 };

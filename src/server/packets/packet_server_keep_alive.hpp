@@ -1,7 +1,6 @@
 #pragma once
 
 #include "packet.hpp"
-#include "network_handler.hpp"
 #include "../utils.hpp"
 
 class PacketServerKeepAlive: public Packet
@@ -23,8 +22,5 @@ public:
         buffer->writeU64(this->timestamp);
     };
 
-    void processPacket(INetworkHandler *handler)
-    {
-        handler->processServerKeepAlive(this);
-    };
+    void processPacket(INetworkHandler *handler);
 };
