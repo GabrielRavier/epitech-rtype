@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['icomponent_195',['IComponent',['../classIComponent.html',1,'']]]
+  ['icomponent_212',['IComponent',['../classIComponent.html',1,'']]],
+  ['inetworkhandler_213',['INetworkHandler',['../classINetworkHandler.html',1,'']]]
 ];

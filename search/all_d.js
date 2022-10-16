@@ -1,10 +1,10 @@
 var searchData=
 [
-  ['scripts_20tree_20extraction_68',['Scripts Tree Extraction',['../md_vcpkg_docs_specifications_scripts-extraction.html',1,'']]],
-  ['selecting_20library_20features_69',['Selecting Library Features',['../md_vcpkg_docs_users_selecting-library-features.html',1,'']]],
-  ['security_70',['SECURITY',['../md_vcpkg_SECURITY.html',1,'']]],
-  ['setsignature_71',['SetSignature',['../classEntityManager.html#a7f9db9e75cdfec20699ef63b5950ee69',1,'EntityManager::SetSignature()'],['../classSystemManager.html#a2341e940193aa38ccd868d72bf0b3af8',1,'SystemManager::SetSignature()']]],
-  ['sprite_72',['Sprite',['../structSprite.html',1,'']]],
-  ['system_73',['System',['../classSystem.html',1,'']]],
-  ['systemmanager_74',['SystemManager',['../classSystemManager.html',1,'']]]
+  ['r_2dtype_74',['R-Type',['../md_README.html',1,'']]],
+  ['registries_3a_20take_202_20_28including_20git_20registries_29_75',['Registries: Take 2 (including Git Registries)',['../md_vcpkg_docs_specifications_registries-2.html',1,'']]],
+  ['readme_76',['README',['../md_vcpkg_scripts_azure-pipelines_windows-unstable_README.html',1,'']]],
+  ['registercomponent_77',['RegisterComponent',['../classComponentManager.html#a309d22744c09d34d4672f52ef56124db',1,'ComponentManager']]],
+  ['registersystem_78',['RegisterSystem',['../classSystemManager.html#ae2d7e27ffe9923a53f20feee24105b4b',1,'SystemManager']]],
+  ['rendersystem_79',['RenderSystem',['../classRenderSystem.html',1,'']]],
+  ['rigidbody_80',['RigidBody',['../structRigidBody.html',1,'']]]
 ];
