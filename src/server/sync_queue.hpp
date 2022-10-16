@@ -44,7 +44,7 @@ public:
 
     } // Lock is automatically released here
 
-    int count()
+    size_t count()
     {
         return m_queue.size();
     }
