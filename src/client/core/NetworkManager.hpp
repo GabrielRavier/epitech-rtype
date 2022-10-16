@@ -22,11 +22,6 @@ public:
         m_socket.open(boost::asio::ip::udp::v4());
     }
 
-    void send(const uint8_t *data, size_t size)
-    {
-        m_socket.send_to(boost::asio::buffer(data, size), m_target_endpoint);
-    }
-
     void send(Packet *packet)
     {
         Buffer *buffer = new Buffer(1024);
@@ -44,7 +39,7 @@ public:
         buffer->setPos(packetSize);
 
         // Send packet.
-        this->send(buffer->data(), packetSize);
+        m_socket.send_to(boost::asio::buffer(buffer->data(), packetSize), m_target_endpoint);
 
         // Queue packet for acknowledgment.
         m_queue_out.enqueue(buffer);

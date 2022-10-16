@@ -29,7 +29,7 @@ public:
 
                 // Create a new manager.
                 if (m_client_managers.find(address) == m_client_managers.end())
-                    m_client_managers[address] = new NetworkClientManager(remote_endpoint);
+                    m_client_managers[address] = new NetworkClientManager(this, remote_endpoint);
 
                 // Set buffer to begin.
                 buffer.setPos(0);
@@ -72,10 +72,11 @@ public:
         std::cerr << "DISCONNECTED." << std::endl;
     }
 
-    void close()
+    void broadcast(Packet *packet)
     {
-        m_socket.shutdown(boost::asio::ip::udp::socket::shutdown_receive);
-        m_socket.close();
+        for (std::pair<std::string, NetworkClientManager*> entry : m_client_managers) {
+            entry.second->send(packet);
+        }
     }
 
     void processPackets()
@@ -83,6 +84,17 @@ public:
         for (std::pair<std::string, NetworkClientManager*> entry : m_client_managers) {
             entry.second->processPackets();
         }
+    }
+
+    void close()
+    {
+        m_socket.shutdown(boost::asio::ip::udp::socket::shutdown_receive);
+        m_socket.close();
+    }
+
+    boost::asio::ip::udp::socket &socket()
+    {
+        return m_socket;
     }
 
 private:

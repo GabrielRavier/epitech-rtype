@@ -1,16 +1,17 @@
 #pragma once
 
-#include <iostream>
 #include <cstdint>
 #include <boost/asio.hpp>
 #include "../packets/network_handler.hpp"
 #include "../sync_queue.hpp"
 
+class NetworkServerManager;
+
 class NetworkClientManager : private INetworkHandler
 {
 public:
-    NetworkClientManager(boost::asio::ip::udp::endpoint endpoint)
-        : m_remote_endpoint(endpoint)
+    NetworkClientManager(NetworkServerManager *server, boost::asio::ip::udp::endpoint endpoint)
+        : m_server(server), m_remote_endpoint(endpoint)
     {}
 
     ~NetworkClientManager() = default;
@@ -19,6 +20,8 @@ public:
     {
         m_queue_in.enqueue(packet);
     }
+
+    void send(Packet *packet);
 
     void processPackets()
     {
@@ -30,20 +33,9 @@ public:
     }
 
 private:
-    void processClientLogin(PacketClientLogin *packet)
-    {
-
-    }
-
-    void processClientKeepAlive(PacketClientKeepAlive *packet)
-    {
-
-    }
-
-    void processClientInput(PacketClientInput *packet)
-    {
-        std::cerr << packet->inputs.to_string() << std::endl;
-    }
+    void processClientLogin(PacketClientLogin *packet);
+    void processClientKeepAlive(PacketClientKeepAlive *packet);
+    void processClientInput(PacketClientInput *packet);
 
     void processServerLogin(PacketServerLogin *packet) {}
     void processServerKeepAlive(PacketServerKeepAlive *packet) {}
@@ -53,6 +45,7 @@ private:
     void processServerUpdateScore(PacketServerUpdateScore *packet) {}
 
 private:
+    NetworkServerManager            *m_server;
     SynchronisedQueue<Packet*>      m_queue_in;
     boost::asio::ip::udp::endpoint  m_remote_endpoint;
     uint16_t                        m_entity_id;

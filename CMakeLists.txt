@@ -46,6 +46,7 @@ endif()
 set(r_type_server_SOURCES
   "src/server/main.cpp"
   "src/server/utils.cpp"
+  "src/server/core/NetworkClientManager.cpp"
   "src/server/packets/connection_state.cpp"
   "src/server/packets/packet_client_input.cpp"
   "src/server/packets/packet_client_keep_alive.cpp"
