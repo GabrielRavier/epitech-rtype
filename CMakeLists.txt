@@ -67,6 +67,7 @@ target_link_libraries(r-type_server PRIVATE Boost::boost Boost::thread)
 # Go complain to whoever set up vcpkg like it is if you think this is bad
 set(r_type_client_SOURCES
   "src/client/main.cpp"
+  "src/client/core/NetworkManager.cpp"
   "src/client/core/WindowManager.cpp"
   "src/client/systems/MovementSystem.cpp"
   "src/client/systems/BackgroundSystem.cpp"

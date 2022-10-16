@@ -5,8 +5,9 @@
 #include <boost/array.hpp>
 #include "../../server/sync_queue.hpp"
 #include "../../server/packets/connection_state.hpp"
+#include "../../serveR/packets/network_handler.hpp"
 
-class NetworkManager
+class NetworkManager : private INetworkHandler
 {
 public:
     NetworkManager(const char *host, uint16_t port)
@@ -20,29 +21,6 @@ public:
 
         // Open socket.
         m_socket.open(boost::asio::ip::udp::v4());
-    }
-
-    void send(Packet *packet)
-    {
-        Buffer *buffer = new Buffer(1024);
-        size_t packetSize;
-
-        // Encode packet to buffer.
-        buffer->setPos(2);
-        buffer->writeU16(m_seq_client++);
-        buffer->writeU16(m_seq_server);
-        buffer->writeU8(GetClientPacketId(packet));
-        packet->writePacket(buffer);
-        packetSize = buffer->pos();
-        buffer->setPos(0);
-        buffer->writeU16(static_cast<uint16_t>(packetSize - 2));
-        buffer->setPos(packetSize);
-
-        // Send packet.
-        m_socket.send_to(boost::asio::buffer(buffer->data(), packetSize), m_target_endpoint);
-
-        // Queue packet for acknowledgment.
-        m_queue_out.enqueue(buffer);
     }
 
     void run()
@@ -97,11 +75,58 @@ public:
         std::cerr << "DISCONNECTED." << std::endl;
     }
 
+    void send(Packet *packet)
+    {
+        Buffer *buffer = new Buffer(1024);
+        size_t packetSize;
+
+        // Encode packet to buffer.
+        buffer->setPos(2);
+        buffer->writeU16(m_seq_client++);
+        buffer->writeU16(m_seq_server);
+        buffer->writeU8(GetClientPacketId(packet));
+        packet->writePacket(buffer);
+        packetSize = buffer->pos();
+        buffer->setPos(0);
+        buffer->writeU16(static_cast<uint16_t>(packetSize - 2));
+        buffer->setPos(packetSize);
+
+        // Send packet.
+        m_socket.send_to(boost::asio::buffer(buffer->data(), packetSize), m_target_endpoint);
+
+        // Delete buffer.
+        delete buffer;
+
+        // Queue packet for acknowledgment.
+        // m_queue_out.enqueue(buffer);
+    }
+
+    void processPackets()
+    {
+        while (m_queue_in.count()) {
+            Packet *packet = m_queue_in.dequeue();
+            packet->processPacket(this);
+            delete packet;
+        }
+    }
+
     void close()
     {
         m_socket.shutdown(boost::asio::ip::udp::socket::shutdown_receive);
         m_socket.close();
     }
+
+private:
+    void processClientLogin(PacketClientLogin *packet) {}
+    void processClientKeepAlive(PacketClientKeepAlive *packet) {}
+    void processClientInput(PacketClientInput *packet) {}
+
+    void processServerLogin(PacketServerLogin *packet);
+    void processServerKeepAlive(PacketServerKeepAlive *packet);
+    void processServerEntityCreate(PacketServerEntityCreate*packet);
+    void processServerUpdateHealth(PacketServerUpdateHealth *packet);
+    void processServerUpdatePos(PacketServerUpdatePos *packet);
+    void processServerUpdateScore(PacketServerUpdateScore *packet);
 
 private:
     boost::asio::io_context         m_io_context;

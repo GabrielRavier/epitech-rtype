@@ -118,6 +118,11 @@ void GameLoop(const char *host, uint16_t port)
     while (running) {
         start   = std::chrono::system_clock::now();
         running = windowManager->ManageEvent(networkManager);
+
+        // Process packets.
+        networkManager.processPackets();
+
+        // Update game.
         playerSystem->Update(windowManager->GetInputs());
         waveSystem->Update();
         weaponSystem->Update();

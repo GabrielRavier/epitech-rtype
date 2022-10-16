@@ -41,7 +41,7 @@ private:
     void processServerKeepAlive(PacketServerKeepAlive *packet) {}
     void processServerEntityCreate(PacketServerEntityCreate*packet) {}
     void processServerUpdateHealth(PacketServerUpdateHealth *packet) {}
-    void processServerUpdatePos(PacketServerUpdatePos *packet) {};
+    void processServerUpdatePos(PacketServerUpdatePos *packet) {}
     void processServerUpdateScore(PacketServerUpdateScore *packet) {}
 
 private:
