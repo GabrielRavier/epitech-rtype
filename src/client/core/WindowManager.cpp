@@ -49,8 +49,11 @@ bool WindowManager::ManageEvent(NetworkManager &manager)
                 _inputs.set(InputType::SHOOT, event.type == sf::Event::KeyPressed);
 
             // Send to network.
-            if (_inputs != last_inputs)
-                manager.send(&PacketClientInput(_inputs));
+            if (_inputs != last_inputs) {
+                PacketClientInput packet(_inputs);
+
+                manager.send(&packet);
+            }
 
         } else if (event.type == sf::Event::Closed) {
             return (false);
