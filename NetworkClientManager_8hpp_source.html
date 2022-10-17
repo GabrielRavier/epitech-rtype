@@ -74,68 +74,83 @@ $(function() {
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;cstdint&gt;</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;boost/asio.hpp&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &quot;../packets/network_handler.hpp&quot;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &quot;INetworkHandler.hpp&quot;</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &quot;../sync_queue.hpp&quot;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">class </span><a class="code" href="classNetworkServerManager.html">NetworkServerManager</a>;</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
-<div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="classNetworkClientManager.html">   10</a></span>&#160;<span class="keyword">class </span><a class="code" href="classNetworkClientManager.html">NetworkClientManager</a> : <span class="keyword">private</span> <a class="code" href="classINetworkHandler.html">INetworkHandler</a></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    <a class="code" href="classNetworkClientManager.html">NetworkClientManager</a>(<a class="code" href="classNetworkServerManager.html">NetworkServerManager</a> *server, boost::asio::ip::udp::endpoint endpoint)</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;        : m_server(server), m_remote_endpoint(endpoint)</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    {}</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    ~<a class="code" href="classNetworkClientManager.html">NetworkClientManager</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="keywordtype">void</span> enqueue(<a class="code" href="classPacket.html">Packet</a>* packet)</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    {</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;        m_queue_in.enqueue(packet);</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    }</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="keywordtype">void</span> send(<a class="code" href="classPacket.html">Packet</a> *packet);</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keywordtype">void</span> processPackets()</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    {</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        <span class="keywordflow">while</span> (m_queue_in.count()) {</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;            <a class="code" href="classPacket.html">Packet</a> *packet = m_queue_in.dequeue();</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;            packet-&gt;processPacket(<span class="keyword">this</span>);</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;            <span class="keyword">delete</span> packet;</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        }</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    }</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keywordtype">void</span> processClientLogin(<a class="code" href="classPacketClientLogin.html">PacketClientLogin</a> *packet);</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keywordtype">void</span> processClientKeepAlive(<a class="code" href="classPacketClientKeepAlive.html">PacketClientKeepAlive</a> *packet);</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keywordtype">void</span> processClientInput(<a class="code" href="classPacketClientInput.html">PacketClientInput</a> *packet);</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keywordtype">void</span> processServerLogin(<a class="code" href="classPacketServerLogin.html">PacketServerLogin</a> *packet) {}</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keywordtype">void</span> processServerKeepAlive(<a class="code" href="classPacketServerKeepAlive.html">PacketServerKeepAlive</a> *packet) {}</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keywordtype">void</span> processServerEntityCreate(<a class="code" href="classPacketServerEntityCreate.html">PacketServerEntityCreate</a>*packet) {}</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keywordtype">void</span> processServerUpdateHealth(<a class="code" href="classPacketServerUpdateHealth.html">PacketServerUpdateHealth</a> *packet) {}</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keywordtype">void</span> processServerUpdatePos(<a class="code" href="classPacketServerUpdatePos.html">PacketServerUpdatePos</a> *packet) {}</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keywordtype">void</span> processServerUpdateScore(<a class="code" href="classPacketServerUpdateScore.html">PacketServerUpdateScore</a> *packet) {}</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &quot;../../client/core/Types.hpp&quot;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">class </span><a class="code" href="classNetworkServerManager.html">NetworkServerManager</a>;</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
+<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="classNetworkClientManager.html">   11</a></span>&#160;<span class="keyword">class </span><a class="code" href="classNetworkClientManager.html">NetworkClientManager</a> : <span class="keyword">private</span> <a class="code" href="classINetworkHandler.html">INetworkHandler</a></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    <a class="code" href="classBuffer.html">Buffer</a> buffer;</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <a class="code" href="classNetworkClientManager.html">NetworkClientManager</a>(<a class="code" href="classNetworkServerManager.html">NetworkServerManager</a> *server, boost::asio::ip::udp::endpoint endpoint);</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    ~<a class="code" href="classNetworkClientManager.html">NetworkClientManager</a>() <span class="keyword">override</span> = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <span class="keywordtype">void</span> enqueue(<a class="code" href="classPacket.html">Packet</a> *packet)</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    {</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;        m_queue_in.enqueue(packet);</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    }</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="keywordtype">void</span> send(<a class="code" href="classPacket.html">Packet</a> *packet);</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <span class="keywordtype">void</span> processPackets()</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    {</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        <span class="keywordflow">while</span> (m_queue_in.count() != 0) {</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;            <a class="code" href="classPacket.html">Packet</a> *packet = m_queue_in.dequeue();</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;            packet-&gt;processPacket(<span class="keyword">this</span>);</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;            <span class="keyword">delete</span> packet;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        }</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    }</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keywordtype">void</span> processClientLogin(<a class="code" href="classPacketClientLogin.html">PacketClientLogin</a> *packet) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keywordtype">void</span> processClientKeepAlive(<a class="code" href="classPacketClientKeepAlive.html">PacketClientKeepAlive</a> *packet) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keywordtype">void</span> processClientInput(<a class="code" href="classPacketClientInput.html">PacketClientInput</a> *packet) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keywordtype">void</span> processClientPos(<a class="code" href="classPacketClientPos.html">PacketClientPos</a> *packet) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keywordtype">void</span> processClientLogout(<a class="code" href="classPacketClientLogout.html">PacketClientLogout</a> *packet) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keywordtype">void</span> processServerLogin(<a class="code" href="classPacketServerLogin.html">PacketServerLogin</a> *packet)<span class="keyword"> override </span>{}</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keywordtype">void</span> processServerKeepAlive(<a class="code" href="classPacketServerKeepAlive.html">PacketServerKeepAlive</a> *packet)<span class="keyword"> override </span>{}</div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <a class="code" href="classNetworkServerManager.html">NetworkServerManager</a>            *m_server;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <a class="code" href="classSynchronisedQueue.html">SynchronisedQueue&lt;Packet*&gt;</a>      m_queue_in;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    boost::asio::ip::udp::endpoint  m_remote_endpoint;</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    uint16_t                        m_entity_id;</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;};</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keywordtype">void</span> processServerEntityCreate(<a class="code" href="classPacketServerEntityCreate.html">PacketServerEntityCreate</a> *packet)<span class="keyword"> override </span>{}</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keywordtype">void</span> processServerEntityDestroy(<a class="code" href="classPacketServerEntityDestroy.html">PacketServerEntityDestroy</a> *packet)<span class="keyword"> override </span>{}</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keywordtype">void</span> processServerUpdateHealth(<a class="code" href="classPacketServerUpdateHealth.html">PacketServerUpdateHealth</a> *packet)<span class="keyword"> override </span>{}</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keywordtype">void</span> processServerUpdatePos(<a class="code" href="classPacketServerUpdatePos.html">PacketServerUpdatePos</a> *packet)<span class="keyword"> override </span>{}</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keywordtype">void</span> processServerUpdateScore(<a class="code" href="classPacketServerUpdateScore.html">PacketServerUpdateScore</a> *packet)<span class="keyword"> override </span>{}</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <a class="code" href="classNetworkServerManager.html">NetworkServerManager</a>          *m_server;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    boost::asio::ip::udp::endpoint m_remote_endpoint;</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <a class="code" href="classSynchronisedQueue.html">SynchronisedQueue&lt;Packet *&gt;</a>    m_queue_in;</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    Entity                         m_entity;</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="keywordtype">bool</span>                           m_logged;</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;};</div>
 </div><!-- fragment --></div><!-- contents -->
+<div class="ttc" id="aclassPacketServerEntityDestroy_html"><div class="ttname"><a href="classPacketServerEntityDestroy.html">PacketServerEntityDestroy</a></div><div class="ttdef"><b>Definition:</b> packet_server_entity_destroy.hpp:6</div></div>
 <div class="ttc" id="aclassNetworkServerManager_html"><div class="ttname"><a href="classNetworkServerManager.html">NetworkServerManager</a></div><div class="ttdef"><b>Definition:</b> NetworkServerManager.hpp:10</div></div>
 <div class="ttc" id="aclassPacketClientInput_html"><div class="ttname"><a href="classPacketClientInput.html">PacketClientInput</a></div><div class="ttdef"><b>Definition:</b> packet_client_input.hpp:15</div></div>
 <div class="ttc" id="aclassPacketServerKeepAlive_html"><div class="ttname"><a href="classPacketServerKeepAlive.html">PacketServerKeepAlive</a></div><div class="ttdef"><b>Definition:</b> packet_server_keep_alive.hpp:6</div></div>
 <div class="ttc" id="aclassPacketServerUpdatePos_html"><div class="ttname"><a href="classPacketServerUpdatePos.html">PacketServerUpdatePos</a></div><div class="ttdef"><b>Definition:</b> packet_server_update_pos.hpp:5</div></div>
+<div class="ttc" id="aclassPacketClientPos_html"><div class="ttname"><a href="classPacketClientPos.html">PacketClientPos</a></div><div class="ttdef"><b>Definition:</b> packet_client_pos.hpp:5</div></div>
 <div class="ttc" id="aclassSynchronisedQueue_html"><div class="ttname"><a href="classSynchronisedQueue.html">SynchronisedQueue&lt; Packet * &gt;</a></div></div>
 <div class="ttc" id="aclassPacketClientKeepAlive_html"><div class="ttname"><a href="classPacketClientKeepAlive.html">PacketClientKeepAlive</a></div><div class="ttdef"><b>Definition:</b> packet_client_keep_alive.hpp:6</div></div>
 <div class="ttc" id="aclassPacketServerEntityCreate_html"><div class="ttname"><a href="classPacketServerEntityCreate.html">PacketServerEntityCreate</a></div><div class="ttdef"><b>Definition:</b> packet_server_entity_create.hpp:12</div></div>
 <div class="ttc" id="aclassPacketServerUpdateScore_html"><div class="ttname"><a href="classPacketServerUpdateScore.html">PacketServerUpdateScore</a></div><div class="ttdef"><b>Definition:</b> packet_server_update_score.hpp:5</div></div>
 <div class="ttc" id="aclassPacketClientLogin_html"><div class="ttname"><a href="classPacketClientLogin.html">PacketClientLogin</a></div><div class="ttdef"><b>Definition:</b> packet_client_login.hpp:5</div></div>
-<div class="ttc" id="aclassPacketServerLogin_html"><div class="ttname"><a href="classPacketServerLogin.html">PacketServerLogin</a></div><div class="ttdef"><b>Definition:</b> packet_server_login.hpp:11</div></div>
-<div class="ttc" id="aclassINetworkHandler_html"><div class="ttname"><a href="classINetworkHandler.html">INetworkHandler</a></div><div class="ttdef"><b>Definition:</b> network_handler.hpp:14</div></div>
-<div class="ttc" id="aclassNetworkClientManager_html"><div class="ttname"><a href="classNetworkClientManager.html">NetworkClientManager</a></div><div class="ttdef"><b>Definition:</b> NetworkClientManager.hpp:10</div></div>
+<div class="ttc" id="aclassBuffer_html"><div class="ttname"><a href="classBuffer.html">Buffer</a></div><div class="ttdef"><b>Definition:</b> buffer.hpp:10</div></div>
+<div class="ttc" id="aclassPacketServerLogin_html"><div class="ttname"><a href="classPacketServerLogin.html">PacketServerLogin</a></div><div class="ttdef"><b>Definition:</b> packet_server_login.hpp:12</div></div>
+<div class="ttc" id="aclassINetworkHandler_html"><div class="ttname"><a href="classINetworkHandler.html">INetworkHandler</a></div><div class="ttdef"><b>Definition:</b> INetworkHandler.hpp:17</div></div>
+<div class="ttc" id="aclassNetworkClientManager_html"><div class="ttname"><a href="classNetworkClientManager.html">NetworkClientManager</a></div><div class="ttdef"><b>Definition:</b> NetworkClientManager.hpp:11</div></div>
 <div class="ttc" id="aclassPacket_html"><div class="ttname"><a href="classPacket.html">Packet</a></div><div class="ttdef"><b>Definition:</b> packet.hpp:7</div></div>
+<div class="ttc" id="aclassPacketClientLogout_html"><div class="ttname"><a href="classPacketClientLogout.html">PacketClientLogout</a></div><div class="ttdef"><b>Definition:</b> packet_client_logout.hpp:5</div></div>
 <div class="ttc" id="aclassPacketServerUpdateHealth_html"><div class="ttname"><a href="classPacketServerUpdateHealth.html">PacketServerUpdateHealth</a></div><div class="ttdef"><b>Definition:</b> packet_server_update_health.hpp:5</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

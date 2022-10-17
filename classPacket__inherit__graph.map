@@ -1,12 +1,15 @@
 <map id="Packet" name="Packet">
-<area shape="rect" id="node1" title=" " alt="" coords="5,208,69,235"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,284,69,311"/>
 <area shape="rect" id="node2" href="$classPacketClientInput.html" title=" " alt="" coords="148,5,283,32"/>
 <area shape="rect" id="node3" href="$classPacketClientKeepAlive.html" title=" " alt="" coords="132,56,299,83"/>
 <area shape="rect" id="node4" href="$classPacketClientLogin.html" title=" " alt="" coords="147,107,284,133"/>
-<area shape="rect" id="node5" href="$classPacketServerEntityCreate.html" title=" " alt="" coords="122,157,309,184"/>
-<area shape="rect" id="node6" href="$classPacketServerKeepAlive.html" title=" " alt="" coords="130,208,301,235"/>
-<area shape="rect" id="node7" href="$classPacketServerLogin.html" title=" " alt="" coords="145,259,286,285"/>
-<area shape="rect" id="node8" href="$classPacketServerUpdateHealth.html" title=" " alt="" coords="117,309,313,336"/>
-<area shape="rect" id="node9" href="$classPacketServerUpdatePos.html" title=" " alt="" coords="127,360,303,387"/>
-<area shape="rect" id="node10" href="$classPacketServerUpdateScore.html" title=" " alt="" coords="121,411,310,437"/>
+<area shape="rect" id="node5" href="$classPacketClientLogout.html" title=" " alt="" coords="142,157,289,184"/>
+<area shape="rect" id="node6" href="$classPacketClientPos.html" title=" " alt="" coords="153,208,278,235"/>
+<area shape="rect" id="node7" href="$classPacketServerEntityCreate.html" title=" " alt="" coords="122,259,309,285"/>
+<area shape="rect" id="node8" href="$classPacketServerEntityDestroy.html" title=" " alt="" coords="118,309,313,336"/>
+<area shape="rect" id="node9" href="$classPacketServerKeepAlive.html" title=" " alt="" coords="130,360,301,387"/>
+<area shape="rect" id="node10" href="$classPacketServerLogin.html" title=" " alt="" coords="145,411,286,437"/>
+<area shape="rect" id="node11" href="$classPacketServerUpdateHealth.html" title=" " alt="" coords="117,461,313,488"/>
+<area shape="rect" id="node12" href="$classPacketServerUpdatePos.html" title=" " alt="" coords="127,512,303,539"/>
+<area shape="rect" id="node13" href="$classPacketServerUpdateScore.html" title=" " alt="" coords="121,563,310,589"/>
 </map>

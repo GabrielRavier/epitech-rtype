@@ -1,9 +1,5 @@
 var searchData=
 [
-  ['z_5fvcpkg_5fapply_5fpatches_199',['z_vcpkg_apply_patches',['../md_vcpkg_docs_maintainers_internal_z_vcpkg_apply_patches.html',1,'']]],
-  ['z_5fvcpkg_5fforward_5foutput_5fvariable_200',['z_vcpkg_forward_output_variable',['../md_vcpkg_docs_maintainers_internal_z_vcpkg_forward_output_variable.html',1,'']]],
-  ['z_5fvcpkg_5ffunction_5farguments_201',['z_vcpkg_function_arguments',['../md_vcpkg_docs_maintainers_internal_z_vcpkg_function_arguments.html',1,'']]],
-  ['z_5fvcpkg_5fget_5fcmake_5fvars_202',['z_vcpkg_get_cmake_vars',['../md_vcpkg_docs_maintainers_internal_z_vcpkg_get_cmake_vars.html',1,'']]],
-  ['z_5fvcpkg_5fprettify_5fcommand_5fline_203',['z_vcpkg_prettify_command_line',['../md_vcpkg_docs_maintainers_internal_z_vcpkg_prettify_command_line.html',1,'']]],
-  ['z_5fvcpkg_5fsetup_5fpkgconfig_5fpath_204',['z_vcpkg_setup_pkgconfig_path',['../md_vcpkg_docs_maintainers_internal_z_vcpkg_setup_pkgconfig_path.html',1,'']]]
+  ['x_5fvcpkg_5fget_5fpython_5fpackages_203',['x_vcpkg_get_python_packages',['../md_vcpkg_docs_maintainers_ports_vcpkg-get-python-packages_x_vcpkg_get_python_packages.html',1,'']]],
+  ['x_5fvcpkg_5fpkgconfig_5fget_5fmodules_204',['x_vcpkg_pkgconfig_get_modules',['../md_vcpkg_docs_maintainers_ports_vcpkg-pkgconfig-get-modules_x_vcpkg_pkgconfig_get_modules.html',1,'']]]
 ];
