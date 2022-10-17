@@ -1,5 +1,5 @@
 #include "packet_client_input.hpp"
-#include "network_handler.hpp"
+#include "../core/INetworkHandler.hpp"
 
 void PacketClientInput::processPacket(INetworkHandler *handler)
 {

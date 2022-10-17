@@ -1,27 +1,54 @@
+#include <memory>
 #include "NetworkClientManager.hpp"
 #include "NetworkServerManager.hpp"
+#include "../../client/core/Coordinator.hpp"
+#include "../../client/components/Player.hpp"
+#include "../components/Transform.hpp"
+#include "../components/Network.hpp"
+#include "../systems/ObjectsSystem.hpp"
+
+extern Coordinator gCoordinator;
+extern std::shared_ptr<ObjectsSystem> gObjectsSystem;
+
+NetworkClientManager::NetworkClientManager(NetworkServerManager *server, boost::asio::ip::udp::endpoint endpoint)
+    : buffer(4096), m_server(server), m_remote_endpoint(endpoint), m_logged(true)
+{
+    // Broadcast entities to client.
+    for (auto const &entity : gObjectsSystem->GetEntities()) {
+        auto &transform = gCoordinator.GetComponent<Transform>(entity);
+
+        this->send(new PacketServerEntityCreate(transform.type, entity, transform.posX, transform.posY, 100));
+    }
+
+    m_entity = gCoordinator.CreateEntity();
+    gCoordinator.AddComponent<Network>(m_entity , Network { this });
+    gCoordinator.AddComponent<Player>(m_entity, Player  { "Pepo", 100, 0, std::vector<Entity>() });
+    gCoordinator.AddComponent<Transform>(m_entity, Transform { EntityType::PLAYER, 50, 50 });
+
+    // Send entity ID to client.
+    this->send(new PacketServerLogin(LoginState::ACCEPT, m_entity));
+
+    // Broadcast entity creation.
+    m_server->broadcast(new PacketServerEntityCreate(EntityType::PLAYER, m_entity, 50, 50, 100));
+}
 
 void NetworkClientManager::send(Packet *packet)
 {
-    Buffer *buffer = new Buffer(4096);
+    Buffer buffer(4096);
     size_t packetSize;
 
     // Encode packet to buffer.
-    buffer->setPos(2);
-    buffer->writeU16(0);
-    buffer->writeU16(0);
-    buffer->writeU8(GetServerPacketId(packet));
-    packet->writePacket(buffer);
-    packetSize = buffer->pos();
-    buffer->setPos(0);
-    buffer->writeU16(static_cast<uint16_t>(packetSize - 2));
-    buffer->setPos(packetSize);
+    buffer.setPos(2);
+    buffer.writeU16(0);
+    buffer.writeU16(0);
+    buffer.writeU8(GetServerPacketId(packet));
+    packet->writePacket(&buffer);
+    packetSize = buffer.pos();
+    buffer.setPos(0);
+    buffer.writeU16(static_cast<uint16_t>(packetSize));
 
     // Send packet.
-    m_server->socket().send_to(boost::asio::buffer(buffer->data(), packetSize), m_remote_endpoint);
-
-    // Delete buffer.
-    delete buffer;
+    m_server->socket().send_to(boost::asio::buffer(buffer.data(), packetSize), m_remote_endpoint);
 }
 
 void NetworkClientManager::processClientLogin(PacketClientLogin *packet)
@@ -36,5 +63,32 @@ void NetworkClientManager::processClientKeepAlive(PacketClientKeepAlive *packet)
 
 void NetworkClientManager::processClientInput(PacketClientInput *packet)
 {
-    std::cerr << packet->inputs.to_string() << std::endl;
+}
+
+void NetworkClientManager::processClientPos(PacketClientPos *packet)
+{
+    if (m_logged) {
+        auto &transform = gCoordinator.GetComponent<Transform>(m_entity);
+
+        // Update client position. (Welcome cheaters !)
+        transform.posX = packet->posX;
+        transform.posY = packet->posY;
+
+        // Send client position to peers.
+        m_server->broadcast(new PacketServerUpdatePos(m_entity, packet->posX, packet->posY));
+    }
+}
+
+void NetworkClientManager::processClientLogout(PacketClientLogout *packet)
+{
+    if (m_logged) {
+        // Destroy client entity.
+        gCoordinator.DestroyEntity(m_entity);
+
+        // Broadcast entity destroy.
+        m_server->broadcast(new PacketServerEntityDestroy(m_entity));
+
+        // Set logged.
+        m_logged = false;
+    }
 }

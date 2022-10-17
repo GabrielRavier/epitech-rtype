@@ -1,11 +1,12 @@
 #pragma once
 
+#include <stdexcept>
 #include <iostream>
 #include <boost/asio.hpp>
 #include <boost/array.hpp>
 #include "../../server/sync_queue.hpp"
 #include "../../server/packets/connection_state.hpp"
-#include "../../serveR/packets/network_handler.hpp"
+#include "../../server/core/INetworkHandler.hpp"
 
 class NetworkManager : private INetworkHandler
 {
@@ -20,7 +21,7 @@ public:
         m_target_endpoint.port(port);
 
         // Open socket.
-        m_socket.open(boost::asio::ip::udp::v4());
+        m_socket.connect(m_target_endpoint);
     }
 
     void run()
@@ -39,15 +40,16 @@ public:
 
                 // Decode packets.
                 while (buffer.pos() < len) {
-                    uint16_t packet_len = buffer.readU16();
+                    size_t packet_offset    = buffer.pos();
+                    uint16_t packet_len     = buffer.readU16();
 
                     // Ensure packet size.
-                    if ((packet_len + 2) > buffer.capacity())
-                        throw std::exception("Too big packet.");
+                    if (packet_len > buffer.capacity())
+                        throw std::runtime_error("Too big packet.");
 
                     // Ensure packet entirety.
                     if ((buffer.pos() + packet_len) > len) {
-                        buffer.setPos(buffer.pos() - 2);
+                        buffer.setPos(packet_offset);
                         break;
                     }
 
@@ -60,6 +62,10 @@ public:
                     // Read packet data.
                     packet->readPacket(&buffer);
 
+                    // Ensure read correctness.
+                    if ((buffer.pos() - packet_offset) != packet_len)
+                        throw std::runtime_error("Read too many bytes.");
+
                     // Enqueue packet.
                     m_queue_in.enqueue(packet);
                 }
@@ -69,7 +75,7 @@ public:
             }
 
         } catch (std::exception &e) {
-            std::cerr << "ERR: " << e.what() << std::endl;
+            std::cerr << "[ERR][CLIENT]: " << e.what() << std::endl;
         }
 
         std::cerr << "DISCONNECTED." << std::endl;
@@ -77,28 +83,21 @@ public:
 
     void send(Packet *packet)
     {
-        Buffer *buffer = new Buffer(1024);
+        Buffer buffer(4096);
         size_t packetSize;
 
         // Encode packet to buffer.
-        buffer->setPos(2);
-        buffer->writeU16(m_seq_client++);
-        buffer->writeU16(m_seq_server);
-        buffer->writeU8(GetClientPacketId(packet));
-        packet->writePacket(buffer);
-        packetSize = buffer->pos();
-        buffer->setPos(0);
-        buffer->writeU16(static_cast<uint16_t>(packetSize - 2));
-        buffer->setPos(packetSize);
+        buffer.setPos(2);
+        buffer.writeU16(0);
+        buffer.writeU16(0);
+        buffer.writeU8(GetClientPacketId(packet));
+        packet->writePacket(&buffer);
+        packetSize = buffer.pos();
+        buffer.setPos(0);
+        buffer.writeU16(static_cast<uint16_t>(packetSize));
 
         // Send packet.
-        m_socket.send_to(boost::asio::buffer(buffer->data(), packetSize), m_target_endpoint);
-
-        // Delete buffer.
-        delete buffer;
-
-        // Queue packet for acknowledgment.
-        // m_queue_out.enqueue(buffer);
+        m_socket.send_to(boost::asio::buffer(buffer.data(), packetSize), m_target_endpoint);
     }
 
     void processPackets()
@@ -120,10 +119,13 @@ private:
     void processClientLogin(PacketClientLogin *packet) {}
     void processClientKeepAlive(PacketClientKeepAlive *packet) {}
     void processClientInput(PacketClientInput *packet) {}
+    void processClientPos(PacketClientPos *packet) {}
+    void processClientLogout(PacketClientLogout *packet) {}
 
     void processServerLogin(PacketServerLogin *packet);
     void processServerKeepAlive(PacketServerKeepAlive *packet);
-    void processServerEntityCreate(PacketServerEntityCreate*packet);
+    void processServerEntityCreate(PacketServerEntityCreate *packet);
+    void processServerEntityDestroy(PacketServerEntityDestroy *packet);
     void processServerUpdateHealth(PacketServerUpdateHealth *packet);
     void processServerUpdatePos(PacketServerUpdatePos *packet);
     void processServerUpdateScore(PacketServerUpdateScore *packet);

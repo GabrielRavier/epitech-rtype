@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../core/Types.hpp"
 #include <unordered_set>
+#include "../core/Types.hpp"
 
 class System
 {

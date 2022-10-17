@@ -1,5 +1,5 @@
 #include "packet_server_login.hpp"
-#include "network_handler.hpp"
+#include "../core/INetworkHandler.hpp"
 
 void PacketServerLogin::processPacket(INetworkHandler *handler)
 {

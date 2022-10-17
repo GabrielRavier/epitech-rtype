@@ -6,9 +6,13 @@
 */
 
 #include "MovementSystem.hpp"
+#include "../core/NetworkManager.hpp"
+#include "../systems/ObjectsSystem.hpp"
 #include <iostream>
 
 extern Coordinator gCoordinator;
+extern NetworkManager *gNetworkManager;
+extern std::shared_ptr<ObjectsSystem> gObjectsSystem;
 
 void MovementSystem::Init() {}
 
@@ -19,5 +23,16 @@ void MovementSystem::Update()
         auto &transform = gCoordinator.GetComponent<Transform>(entity);
         transform.position.x += move.movement.x * move.speed;
         transform.position.y += move.movement.y * move.speed;
+    }
+
+    {
+        auto entity     = gObjectsSystem->GetMe();
+        auto &transform = gCoordinator.GetComponent<Transform>(entity);
+
+        // Send position.
+        gNetworkManager->send(new PacketClientPos(
+            static_cast<uint16_t>(transform.position.x),
+            static_cast<uint16_t>(transform.position.y)
+        ));
     }
 }

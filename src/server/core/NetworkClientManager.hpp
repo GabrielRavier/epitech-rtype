@@ -2,18 +2,19 @@
 
 #include <cstdint>
 #include <boost/asio.hpp>
-#include "../packets/network_handler.hpp"
+#include "INetworkHandler.hpp"
 #include "../sync_queue.hpp"
+#include "../../client/core/Types.hpp"
 
 class NetworkServerManager;
 
 class NetworkClientManager : private INetworkHandler
 {
 public:
-    NetworkClientManager(NetworkServerManager *server, boost::asio::ip::udp::endpoint endpoint)
-        : m_server(server), m_remote_endpoint(endpoint)
-    {}
+    Buffer buffer;
 
+public:
+    NetworkClientManager(NetworkServerManager *server, boost::asio::ip::udp::endpoint endpoint);
     ~NetworkClientManager() = default;
 
     void enqueue(Packet* packet)
@@ -36,17 +37,21 @@ private:
     void processClientLogin(PacketClientLogin *packet);
     void processClientKeepAlive(PacketClientKeepAlive *packet);
     void processClientInput(PacketClientInput *packet);
+    void processClientPos(PacketClientPos *packet);
+    void processClientLogout(PacketClientLogout *packet);
 
     void processServerLogin(PacketServerLogin *packet) {}
     void processServerKeepAlive(PacketServerKeepAlive *packet) {}
-    void processServerEntityCreate(PacketServerEntityCreate*packet) {}
+    void processServerEntityCreate(PacketServerEntityCreate *packet) {}
+    void processServerEntityDestroy(PacketServerEntityDestroy *packet) {}
     void processServerUpdateHealth(PacketServerUpdateHealth *packet) {}
     void processServerUpdatePos(PacketServerUpdatePos *packet) {}
     void processServerUpdateScore(PacketServerUpdateScore *packet) {}
 
 private:
     NetworkServerManager            *m_server;
-    SynchronisedQueue<Packet*>      m_queue_in;
     boost::asio::ip::udp::endpoint  m_remote_endpoint;
-    uint16_t                        m_entity_id;
+    SynchronisedQueue<Packet*>      m_queue_in;
+    Entity                          m_entity;
+    bool                            m_logged;
 };

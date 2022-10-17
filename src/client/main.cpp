@@ -8,6 +8,7 @@
 #include "components/Sprite.hpp"
 #include "components/Transform.hpp"
 #include "components/Weapon.hpp"
+#include "components/NetworkEntity.hpp"
 #include "systems/BackgroundSystem.hpp"
 #include "systems/PhysicsSystem.hpp"
 #include "systems/PlayerSystem.hpp"
@@ -16,6 +17,7 @@
 #include "systems/MovementSystem.hpp"
 #include "systems/WaveSystem.hpp"
 #include "systems/WeaponSystem.hpp"
+#include "systems/ObjectsSystem.hpp"
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
 #include <loguru.hpp>
@@ -24,9 +26,12 @@
 #include <thread>
 
 Coordinator gCoordinator;
+std::shared_ptr<ObjectsSystem> gObjectsSystem;
+NetworkManager *gNetworkManager;
 
 void NetworkLoop(NetworkManager *networkManager)
 {
+    gNetworkManager = networkManager;
     networkManager->run();
 }
 
@@ -46,6 +51,7 @@ void GameLoop(const char *host, uint16_t port)
     gCoordinator.RegisterComponent<Sprite>();
     gCoordinator.RegisterComponent<Transform>();
     gCoordinator.RegisterComponent<Weapon>();
+    gCoordinator.RegisterComponent<NetworkEntity>();
 
     auto renderSystem = gCoordinator.RegisterSystem<RenderSystem>();
     {
@@ -101,8 +107,16 @@ void GameLoop(const char *host, uint16_t port)
     }
     projectileSystem->Init();
 
+    gObjectsSystem = gCoordinator.RegisterSystem<ObjectsSystem>();
+    {
+        Signature signature;
+        signature.set(gCoordinator.GetComponentType<NetworkEntity>());
+        gCoordinator.SetSystemSignature<ObjectsSystem>(signature);
+    }
+
     auto playerSystem = gCoordinator.RegisterSystem<PlayerSystem>();
     playerSystem->Init();
+    gObjectsSystem->Init(playerSystem->GetEntityId());
 
     auto backgroundSystem = gCoordinator.RegisterSystem<BackgroundSystem>();
     {

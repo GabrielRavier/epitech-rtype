@@ -31,6 +31,7 @@ void PlayerSystem::Init()
     gCoordinator.AddComponent(_player, Player{"Player One", 10, 10, weapons});
     gCoordinator.AddComponent(_player, Movement{sf::Vector2f(0, 0), 5});
     gCoordinator.AddComponent(_player, RigidBody{sf::Vector2f(33, 17)});
+    gCoordinator.AddComponent(_player, NetworkEntity{static_cast<Entity>(-1)});
 }
 
 void PlayerSystem::Update(std::bitset<8> inputs) const
@@ -73,4 +74,9 @@ void PlayerSystem::ChangeWeaponsPosition() const
         auto &wtransform    = gCoordinator.GetComponent<Transform>(weapon);
         wtransform.position = ptransform.position;
     }
+}
+
+Entity PlayerSystem::GetEntityId() const
+{
+    return _player;
 }

@@ -1,5 +1,5 @@
 #include "packet_server_update_pos.hpp"
-#include "network_handler.hpp"
+#include "../core/INetworkHandler.hpp"
 
 void PacketServerUpdatePos::processPacket(INetworkHandler *handler)
 {

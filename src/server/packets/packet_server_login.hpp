@@ -1,5 +1,6 @@
 #pragma once
 
+#include "../../client/core/Types.hpp"
 #include "packet.hpp"
 
 enum LoginState
@@ -11,21 +12,24 @@ enum LoginState
 class PacketServerLogin : public Packet
 {
 public:
-    LoginState state;
+    LoginState  state;
+    Entity      entityId;
 
 public:
-    PacketServerLogin(LoginState state) : state(state) {}
+    PacketServerLogin(LoginState state, Entity entityId) : state(state), entityId(entityId) {}
     PacketServerLogin()     = default;
     ~PacketServerLogin()    = default;
 
     void readPacket(Buffer *buffer)
     {
-        this->state = static_cast<LoginState>(buffer->readU8());
+        this->state     = static_cast<LoginState>(buffer->readU8());
+        this->entityId  = buffer->readU16();
     };
 
     void writePacket(Buffer *buffer)
     {
         buffer->writeU8(this->state);
+        buffer->writeU16(this->entityId);
     };
 
     void processPacket(INetworkHandler *handler);

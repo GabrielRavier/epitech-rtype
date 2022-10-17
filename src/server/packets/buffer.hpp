@@ -1,8 +1,10 @@
 #pragma once
 
+#include <stdexcept>
 #include <string>
 #include <memory>
 #include <cstdint>
+#include <iostream>
 
 class Buffer
 {
@@ -23,27 +25,27 @@ public:
     uint16_t readU16()
     {
         return static_cast<uint16_t>(this->m_data[this->m_pos++]) << 8
-            || static_cast<uint16_t>(this->m_data[this->m_pos++]);
+            | static_cast<uint16_t>(this->m_data[this->m_pos++]);
     }
 
     uint32_t readU32()
     {
         return static_cast<uint32_t>(this->m_data[this->m_pos++]) << 24
-            || static_cast<uint32_t>(this->m_data[this->m_pos++]) << 16
-            || static_cast<uint32_t>(this->m_data[this->m_pos++]) << 8
-            || static_cast<uint32_t>(this->m_data[this->m_pos++]);
+            | static_cast<uint32_t>(this->m_data[this->m_pos++]) << 16
+            | static_cast<uint32_t>(this->m_data[this->m_pos++]) << 8
+            | static_cast<uint32_t>(this->m_data[this->m_pos++]);
     }
 
     uint64_t readU64()
     {
         return static_cast<uint64_t>(this->m_data[this->m_pos++]) << 56
-            || static_cast<uint64_t>(this->m_data[this->m_pos++]) << 48
-            || static_cast<uint64_t>(this->m_data[this->m_pos++]) << 40
-            || static_cast<uint64_t>(this->m_data[this->m_pos++]) << 32
-            || static_cast<uint64_t>(this->m_data[this->m_pos++]) << 24
-            || static_cast<uint64_t>(this->m_data[this->m_pos++]) << 16
-            || static_cast<uint64_t>(this->m_data[this->m_pos++]) << 8
-            || static_cast<uint64_t>(this->m_data[this->m_pos++]);
+            | static_cast<uint64_t>(this->m_data[this->m_pos++]) << 48
+            | static_cast<uint64_t>(this->m_data[this->m_pos++]) << 40
+            | static_cast<uint64_t>(this->m_data[this->m_pos++]) << 32
+            | static_cast<uint64_t>(this->m_data[this->m_pos++]) << 24
+            | static_cast<uint64_t>(this->m_data[this->m_pos++]) << 16
+            | static_cast<uint64_t>(this->m_data[this->m_pos++]) << 8
+            | static_cast<uint64_t>(this->m_data[this->m_pos++]);
     }
 
     char *readString(size_t max)
@@ -52,11 +54,11 @@ public:
 
         // Check max.
         if (length > max)
-            throw std::exception("The string exceeds the maximum value (read).");
+            throw std::runtime_error("The string exceeds the maximum value (read).");
 
         // Check out of bounds.
         if ((this->m_pos + length) > m_capacity)
-            throw std::exception("Packet Out Of Bounds Exception (Read).");
+            throw std::runtime_error("Packet Out Of Bounds Exception (Read).");
 
         char *str = new char[length + 1];
 
@@ -104,6 +106,12 @@ public:
     void writeString(std::string str)
     {
         this->writeU32(static_cast<uint32_t>(str.length()));
+    }
+
+    void appendBuffer(Buffer &buffer, size_t size)
+    {
+        memcpy(this->m_data + this->m_pos, buffer.data(), size);
+        this->m_pos += size;
     }
 
     void moveToFront(size_t size)

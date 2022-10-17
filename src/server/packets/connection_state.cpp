@@ -1,11 +1,15 @@
+#include <stdexcept>
 #include <typeindex>
 #include "connection_state.hpp"
 #include "packet_client_login.hpp"
+#include "packet_client_logout.hpp"
 #include "packet_client_keep_alive.hpp"
 #include "packet_client_input.hpp"
+#include "packet_client_pos.hpp"
 #include "packet_server_login.hpp"
 #include "packet_server_keep_alive.hpp"
 #include "packet_server_entity_create.hpp"
+#include "packet_server_entity_destroy.hpp"
 #include "packet_server_update_health.hpp"
 #include "packet_server_update_pos.hpp"
 #include "packet_server_update_score.hpp"
@@ -22,14 +26,17 @@ typedef Packet* (*instantiator_ptr)();
 
 static inline instantiator_ptr gClientPacketsToPacket[] = {
     &PacketInstantiator<PacketClientLogin>,
-    &PacketInstantiator<PacketClientInput>,
     &PacketInstantiator<PacketClientKeepAlive>,
+    &PacketInstantiator<PacketClientInput>,
+    &PacketInstantiator<PacketClientPos>,
+    &PacketInstantiator<PacketClientLogout>,
 };
 
 static inline instantiator_ptr gServerPacketsToPacket[] = {
     &PacketInstantiator<PacketServerLogin>,
     &PacketInstantiator<PacketServerKeepAlive>,
     &PacketInstantiator<PacketServerEntityCreate>,
+    &PacketInstantiator<PacketServerEntityDestroy>,
     &PacketInstantiator<PacketServerUpdateHealth>,
     &PacketInstantiator<PacketServerUpdatePos>,
     &PacketInstantiator<PacketServerUpdateScore>,
@@ -37,14 +44,17 @@ static inline instantiator_ptr gServerPacketsToPacket[] = {
 
 static inline std::type_index gClientPacketsToId[] = {
     typeid(PacketClientLogin),
-    typeid(PacketClientInput),
     typeid(PacketClientKeepAlive),
+    typeid(PacketClientInput),
+    typeid(PacketClientPos),
+    typeid(PacketClientLogout),
 };
 
 static inline std::type_index gServerPacketsToId[] = {
     typeid(PacketServerLogin),
     typeid(PacketServerKeepAlive),
     typeid(PacketServerEntityCreate),
+    typeid(PacketServerEntityDestroy),
     typeid(PacketServerUpdateHealth),
     typeid(PacketServerUpdatePos),
     typeid(PacketServerUpdateScore),
@@ -58,7 +68,7 @@ uint8_t GetClientPacketId(Packet *packet)
         if (gClientPacketsToId[i] == type)
             return (i);
 
-    throw std::exception("Invalid packet type.");
+    throw std::runtime_error("Invalid packet type.");
 }
 
 uint8_t GetServerPacketId(Packet *packet)
@@ -69,13 +79,13 @@ uint8_t GetServerPacketId(Packet *packet)
         if (gServerPacketsToId[i] == type)
             return (i);
 
-    throw std::exception("Invalid packet type.");
+    throw std::runtime_error("Invalid packet type.");
 }
 
 Packet *CreateClientPacket(uint8_t id)
 {
     if (id >= countof(gClientPacketsToPacket))
-        throw std::exception("Invalid packet ID.");
+        throw std::runtime_error("Invalid packet ID.");
 
     return gClientPacketsToPacket[id]();
 }
@@ -83,7 +93,7 @@ Packet *CreateClientPacket(uint8_t id)
 Packet *CreateServerPacket(uint8_t id)
 {
     if (id >= countof(gServerPacketsToPacket))
-        throw std::exception("Invalid packet ID.");
+        throw std::runtime_error("Invalid packet ID.");
 
     return gServerPacketsToPacket[id]();
 }

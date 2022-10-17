@@ -1,5 +1,5 @@
 #include "packet_client_keep_alive.hpp"
-#include "network_handler.hpp"
+#include "../core/INetworkHandler.hpp"
 
 void PacketClientKeepAlive::processPacket(INetworkHandler *handler)
 {

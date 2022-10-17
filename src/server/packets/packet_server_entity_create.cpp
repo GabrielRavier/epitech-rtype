@@ -1,5 +1,5 @@
 #include "packet_server_entity_create.hpp"
-#include "network_handler.hpp"
+#include "../core/INetworkHandler.hpp"
 
 void PacketServerEntityCreate::processPacket(INetworkHandler *handler)
 {

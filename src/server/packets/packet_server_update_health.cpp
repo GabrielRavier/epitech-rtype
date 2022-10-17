@@ -1,5 +1,5 @@
 #include "packet_server_update_health.hpp"
-#include "network_handler.hpp"
+#include "../core/INetworkHandler.hpp"
 
 void PacketServerUpdateHealth::processPacket(INetworkHandler *handler)
 {
