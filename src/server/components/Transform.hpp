@@ -5,7 +5,7 @@
 
 struct Transform
 {
-    EntityType  type;
-    uint16_t    posX;
-    uint16_t    posY;
+    EntityType type;
+    uint16_t   posX;
+    uint16_t   posY;
 };

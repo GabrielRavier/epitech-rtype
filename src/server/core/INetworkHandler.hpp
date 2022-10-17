@@ -17,20 +17,20 @@
 class INetworkHandler
 {
 public:
-    INetworkHandler() {};
-    virtual ~INetworkHandler()                                                  = default;
+    INetworkHandler()          = default;
+    virtual ~INetworkHandler() = default;
 
-    virtual void processClientLogin(PacketClientLogin *packet)                  = 0;
-    virtual void processClientKeepAlive(PacketClientKeepAlive *packet)          = 0;
-    virtual void processClientInput(PacketClientInput *packet)                  = 0;
-    virtual void processClientPos(PacketClientPos *packet)                      = 0;
-    virtual void processClientLogout(PacketClientLogout *packet)                = 0;
+    virtual void processClientLogin(PacketClientLogin *packet)         = 0;
+    virtual void processClientKeepAlive(PacketClientKeepAlive *packet) = 0;
+    virtual void processClientInput(PacketClientInput *packet)         = 0;
+    virtual void processClientPos(PacketClientPos *packet)             = 0;
+    virtual void processClientLogout(PacketClientLogout *packet)       = 0;
 
-    virtual void processServerLogin(PacketServerLogin *packet)                  = 0;
-    virtual void processServerKeepAlive(PacketServerKeepAlive *packet)          = 0;
-    virtual void processServerEntityCreate(PacketServerEntityCreate*packet)     = 0;
-    virtual void processServerEntityDestroy(PacketServerEntityDestroy *packet)  = 0;
-    virtual void processServerUpdateHealth(PacketServerUpdateHealth *packet)    = 0;
-    virtual void processServerUpdatePos(PacketServerUpdatePos *packet)          = 0;
-    virtual void processServerUpdateScore(PacketServerUpdateScore *packet)      = 0;
+    virtual void processServerLogin(PacketServerLogin *packet)                 = 0;
+    virtual void processServerKeepAlive(PacketServerKeepAlive *packet)         = 0;
+    virtual void processServerEntityCreate(PacketServerEntityCreate *packet)   = 0;
+    virtual void processServerEntityDestroy(PacketServerEntityDestroy *packet) = 0;
+    virtual void processServerUpdateHealth(PacketServerUpdateHealth *packet)   = 0;
+    virtual void processServerUpdatePos(PacketServerUpdatePos *packet)         = 0;
+    virtual void processServerUpdateScore(PacketServerUpdateScore *packet)     = 0;
 };

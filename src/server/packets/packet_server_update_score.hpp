@@ -8,19 +8,20 @@ public:
     uint64_t score;
 
 public:
-    PacketServerUpdateScore(uint64_t score) : score(score) {}
-    PacketServerUpdateScore()  = default;
-    ~PacketServerUpdateScore() = default;
+    explicit PacketServerUpdateScore(uint64_t score) : score(score) {}
 
-    void readPacket(Buffer *buffer)
+    PacketServerUpdateScore()           = default;
+    ~PacketServerUpdateScore() override = default;
+
+    void readPacket(Buffer *buffer) override
     {
         this->score = buffer->readU64();
     };
 
-    void writePacket(Buffer *buffer)
+    void writePacket(Buffer *buffer) override
     {
         buffer->writeU64(this->score);
     };
 
-    void processPacket(INetworkHandler *handler);
+    void processPacket(INetworkHandler *handler) override;
 };

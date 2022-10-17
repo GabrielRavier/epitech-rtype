@@ -18,14 +18,14 @@
 class WindowManager
 {
 public:
-    void Init(const sf::String &title, int width, int height);
-    void Clear();
-    void Update();
-    void RenderSprite(const std::shared_ptr<sf::Sprite> &sprite, sf::Vector2f position);
-    bool ManageEvent(NetworkManager &manager);
-    std::bitset<8> GetInputs() const;
+    void                         Init(const sf::String &title, int width, int height);
+    void                         Clear();
+    void                         Update();
+    void                         RenderSprite(const std::shared_ptr<sf::Sprite> &sprite, sf::Vector2f position);
+    bool                         ManageEvent(NetworkManager &manager);
+    [[nodiscard]] std::bitset<8> GetInputs() const;
 
 private:
-    std::unique_ptr<sf::RenderWindow>   _window;
-    std::bitset<8>                      _inputs;
+    std::unique_ptr<sf::RenderWindow> _window;
+    std::bitset<8>                    _inputs;
 };

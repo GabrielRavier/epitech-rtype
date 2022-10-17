@@ -22,7 +22,7 @@ Entity ObjectsSystem::GetEntityByNetworkId(Entity networkEntityId)
     throw std::runtime_error("Invalid Network Entity ID.");
 }
 
-Entity ObjectsSystem::GetMe()
+Entity ObjectsSystem::GetMe() const
 {
     return _me;
 }

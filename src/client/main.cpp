@@ -25,9 +25,9 @@
 #include <chrono>
 #include <thread>
 
-Coordinator gCoordinator;
+Coordinator                    gCoordinator;
 std::shared_ptr<ObjectsSystem> gObjectsSystem;
-NetworkManager *gNetworkManager;
+NetworkManager                *gNetworkManager;
 
 void NetworkLoop(NetworkManager *networkManager)
 {
@@ -37,8 +37,8 @@ void NetworkLoop(NetworkManager *networkManager)
 
 void GameLoop(const char *host, uint16_t port)
 {
-    NetworkManager networkManager(host, port);
-    std::thread threadNetworkLoop(NetworkLoop, &networkManager);
+    NetworkManager                       networkManager(host, port);
+    std::thread                          threadNetworkLoop(NetworkLoop, &networkManager);
     const std::shared_ptr<WindowManager> windowManager = std::make_shared<WindowManager>();
 
     windowManager->Init("R-Type", 1920, 700);
@@ -160,7 +160,7 @@ void GameLoop(const char *host, uint16_t port)
     gCoordinator.Clear();
 }
 
-int main(int argc, char *argv[])
+int mainExceptionWrapped(int argc, char *argv[])
 {
     loguru::init(argc, argv);
     loguru::add_file("r-type_client.log", loguru::Append, loguru::Verbosity_MAX);
@@ -176,4 +176,17 @@ int main(int argc, char *argv[])
     GameLoop(argv[1], std::atoi(argv[2]));
 
     return (0);
+}
+
+int main(int argc, char *argv[])
+{
+    try {
+        return mainExceptionWrapped(argc, argv);
+    } catch (std::exception &exc) {
+        std::cerr << "Error (stdexcept): " << exc.what() << '\n';
+        return 84;
+    } catch (...) {
+        std::cerr << "Error: Unknown exception !!!!!!\n";
+        return 84;
+    }
 }

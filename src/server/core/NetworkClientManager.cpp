@@ -7,11 +7,11 @@
 #include "../components/Network.hpp"
 #include "../systems/ObjectsSystem.hpp"
 
-extern Coordinator gCoordinator;
+extern Coordinator                    gCoordinator;
 extern std::shared_ptr<ObjectsSystem> gObjectsSystem;
 
 NetworkClientManager::NetworkClientManager(NetworkServerManager *server, boost::asio::ip::udp::endpoint endpoint)
-    : buffer(4096), m_server(server), m_remote_endpoint(endpoint), m_logged(true)
+    : buffer(4096), m_server(server), m_remote_endpoint(std::move(endpoint)), m_logged(true)
 {
     // Broadcast entities to client.
     for (auto const &entity : gObjectsSystem->GetEntities()) {
@@ -21,9 +21,9 @@ NetworkClientManager::NetworkClientManager(NetworkServerManager *server, boost::
     }
 
     m_entity = gCoordinator.CreateEntity();
-    gCoordinator.AddComponent<Network>(m_entity , Network { this });
-    gCoordinator.AddComponent<Player>(m_entity, Player  { "Pepo", 100, 0, std::vector<Entity>() });
-    gCoordinator.AddComponent<Transform>(m_entity, Transform { EntityType::PLAYER, 50, 50 });
+    gCoordinator.AddComponent<Network>(m_entity, Network{this});
+    gCoordinator.AddComponent<Player>(m_entity, Player{"Pepo", 100, 0, std::vector<Entity>()});
+    gCoordinator.AddComponent<Transform>(m_entity, Transform{EntityType::PLAYER, 50, 50});
 
     // Send entity ID to client.
     this->send(new PacketServerLogin(LoginState::ACCEPT, m_entity));
@@ -51,19 +51,11 @@ void NetworkClientManager::send(Packet *packet)
     m_server->socket().send_to(boost::asio::buffer(buffer.data(), packetSize), m_remote_endpoint);
 }
 
-void NetworkClientManager::processClientLogin(PacketClientLogin *packet)
-{
+void NetworkClientManager::processClientLogin(PacketClientLogin *packet) {}
 
-}
+void NetworkClientManager::processClientKeepAlive(PacketClientKeepAlive *packet) {}
 
-void NetworkClientManager::processClientKeepAlive(PacketClientKeepAlive *packet)
-{
-
-}
-
-void NetworkClientManager::processClientInput(PacketClientInput *packet)
-{
-}
+void NetworkClientManager::processClientInput(PacketClientInput *packet) {}
 
 void NetworkClientManager::processClientPos(PacketClientPos *packet)
 {
@@ -81,14 +73,15 @@ void NetworkClientManager::processClientPos(PacketClientPos *packet)
 
 void NetworkClientManager::processClientLogout(PacketClientLogout *packet)
 {
+    (void)packet;
     if (m_logged) {
         // Destroy client entity.
         gCoordinator.DestroyEntity(m_entity);
 
         // Broadcast entity destroy.
-        m_server->broadcast(new PacketServerEntityDestroy(m_entity));
+        m_server->broadcast(new PacketServerEntityDestroy(m_entity)); // NOLINT(clang-analyzer-cplusplus.NewDeleteLeaks)
 
         // Set logged.
-        m_logged = false;
+        m_logged = false; // NOLINT(clang-analyzer-cplusplus.NewDeleteLeaks)
     }
 }

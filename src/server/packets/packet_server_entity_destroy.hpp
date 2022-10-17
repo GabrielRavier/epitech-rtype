@@ -3,25 +3,26 @@
 #include "packet.hpp"
 #include "../../client/core/Types.hpp"
 
-class PacketServerEntityDestroy: public Packet
+class PacketServerEntityDestroy : public Packet
 {
 public:
     Entity entityId;
 
 public:
-    PacketServerEntityDestroy(Entity entityId) : entityId(entityId) {}
-    PacketServerEntityDestroy()     = default;
-    ~PacketServerEntityDestroy()    = default;
+    explicit PacketServerEntityDestroy(Entity entityId) : entityId(entityId) {}
 
-    void readPacket(Buffer *buffer)
+    PacketServerEntityDestroy()           = default;
+    ~PacketServerEntityDestroy() override = default;
+
+    void readPacket(Buffer *buffer) override
     {
         this->entityId = buffer->readU16();
     }
 
-    void writePacket(Buffer *buffer)
+    void writePacket(Buffer *buffer) override
     {
         buffer->writeU16(this->entityId);
     }
 
-    void processPacket(INetworkHandler *handler);
+    void processPacket(INetworkHandler *handler) override;
 };

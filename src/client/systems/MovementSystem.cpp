@@ -10,8 +10,8 @@
 #include "../systems/ObjectsSystem.hpp"
 #include <iostream>
 
-extern Coordinator gCoordinator;
-extern NetworkManager *gNetworkManager;
+extern Coordinator                    gCoordinator;
+extern NetworkManager                *gNetworkManager;
 extern std::shared_ptr<ObjectsSystem> gObjectsSystem;
 
 void MovementSystem::Init() {}
@@ -26,13 +26,11 @@ void MovementSystem::Update()
     }
 
     {
-        auto entity     = gObjectsSystem->GetMe();
+        auto  entity    = gObjectsSystem->GetMe();
         auto &transform = gCoordinator.GetComponent<Transform>(entity);
 
         // Send position.
-        gNetworkManager->send(new PacketClientPos(
-            static_cast<uint16_t>(transform.position.x),
-            static_cast<uint16_t>(transform.position.y)
-        ));
+        gNetworkManager->send(new PacketClientPos(static_cast<uint16_t>(transform.position.x),
+                                                  static_cast<uint16_t>(transform.position.y)));
     }
 }

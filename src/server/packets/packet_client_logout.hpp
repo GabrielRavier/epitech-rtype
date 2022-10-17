@@ -2,13 +2,15 @@
 
 #include "packet.hpp"
 
-class PacketClientLogout: public Packet
+class PacketClientLogout : public Packet
 {
 public:
-    PacketClientLogout()    = default;
-    ~PacketClientLogout()   = default;
+    PacketClientLogout()           = default;
+    ~PacketClientLogout() override = default;
 
-    void readPacket(Buffer *buffer) {}
-    void writePacket(Buffer *buffer) {}
-    void processPacket(INetworkHandler *handler);
+    void readPacket(Buffer *buffer) override {}
+
+    void writePacket(Buffer *buffer) override {}
+
+    void processPacket(INetworkHandler *handler) override;
 };

@@ -21,10 +21,10 @@
 class PlayerSystem : public System
 {
 public:
-    void Init();
-    void Update(std::bitset<8> inputs) const;
-    void Shoot() const;
-    void ChangeWeaponsPosition() const;
+    void   Init();
+    void   Update(std::bitset<8> inputs) const;
+    void   Shoot() const;
+    void   ChangeWeaponsPosition() const;
     Entity GetEntityId() const;
 
 private:

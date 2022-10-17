@@ -2,15 +2,14 @@
 
 void NetworkServerManager::run()
 {
-    Buffer tmp_buffer(4096);
+    Buffer                         tmp_buffer(4096);
     boost::asio::ip::udp::endpoint remote_endpoint;
 
     while (m_socket.is_open()) {
         try {
-            size_t len = tmp_buffer.pos() + m_socket.receive_from(
-                boost::asio::buffer(tmp_buffer.data(), tmp_buffer.capacity()),
-                remote_endpoint
-            );
+            size_t len =
+                tmp_buffer.pos() +
+                m_socket.receive_from(boost::asio::buffer(tmp_buffer.data(), tmp_buffer.capacity()), remote_endpoint);
 
             // Get source address.
             std::string address = remote_endpoint.address().to_string() + ":" + std::to_string(remote_endpoint.port());
@@ -29,8 +28,8 @@ void NetworkServerManager::run()
 
             // Decode packets.
             while (buffer.pos() < len) {
-                size_t packet_offset    = buffer.pos();
-                uint16_t packet_len     = buffer.readU16();
+                size_t   packet_offset = buffer.pos();
+                uint16_t packet_len    = buffer.readU16();
 
                 // Ensure packet size.
                 if (packet_len > buffer.capacity())
@@ -43,10 +42,15 @@ void NetworkServerManager::run()
                 }
 
                 // Read packet header.
-                uint16_t seq_client     = buffer.readU16();
-                uint16_t seq_server     = buffer.readU16();
-                uint8_t packet_id       = buffer.readU8();
-                Packet *packet          = CreateClientPacket(packet_id);
+                uint16_t seq_client = buffer.readU16();
+                uint16_t seq_server = buffer.readU16();
+
+                // TODO: do something with these ?
+                (void)seq_client;
+                (void)seq_server;
+
+                uint8_t packet_id = buffer.readU8();
+                Packet *packet    = CreateClientPacket(packet_id);
 
                 // Read packet data.
                 packet->readPacket(&buffer);

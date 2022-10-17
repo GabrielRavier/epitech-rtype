@@ -3,24 +3,25 @@
 #include "packet.hpp"
 #include "../utils.hpp"
 
-class PacketClientKeepAlive: public Packet
+class PacketClientKeepAlive : public Packet
 {
 public:
     uint64_t timestamp;
 
 public:
     PacketClientKeepAlive() : timestamp(getCurrentTimeEpoch()) {}
-    ~PacketClientKeepAlive() = default;
 
-    void readPacket(Buffer *buffer)
+    ~PacketClientKeepAlive() override = default;
+
+    void readPacket(Buffer *buffer) override
     {
         this->timestamp = buffer->readU64();
     };
 
-    void writePacket(Buffer *buffer)
+    void writePacket(Buffer *buffer) override
     {
         buffer->writeU64(this->timestamp);
     };
 
-    void processPacket(INetworkHandler *handler);
+    void processPacket(INetworkHandler *handler) override;
 };

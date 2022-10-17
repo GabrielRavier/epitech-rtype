@@ -14,7 +14,7 @@
 #include "components/Transform.hpp"
 #include "systems/ObjectsSystem.hpp"
 
-Coordinator gCoordinator;
+Coordinator                    gCoordinator;
 std::shared_ptr<ObjectsSystem> gObjectsSystem;
 
 void NetworkLoop(NetworkServerManager *networkManager)
@@ -25,7 +25,7 @@ void NetworkLoop(NetworkServerManager *networkManager)
 void GameLoop(uint16_t port)
 {
     NetworkServerManager networkManager(port);
-    std::thread threadNetworkLoop(NetworkLoop, &networkManager);
+    std::thread          threadNetworkLoop(NetworkLoop, &networkManager);
 
     gCoordinator.RegisterComponent<Network>();
     gCoordinator.RegisterComponent<Player>();
@@ -86,10 +86,11 @@ void GameLoop(uint16_t port)
     // auto playerSystem = gCoordinator.RegisterSystem<PlayerSystem>();
     // playerSystem->Init();
 
-    bool                                  running = true;
-    const double                          fps     = 60;
+    const double                          fps = 60;
     std::chrono::system_clock::time_point start;
-    while (running) {
+
+    // The server loop runs forever
+    while (true) {
         start = std::chrono::system_clock::now();
 
         // Process packets.
@@ -112,11 +113,12 @@ void GameLoop(uint16_t port)
     networkManager.close();
     threadNetworkLoop.join();
 
-    // We call gCoordinator.Clear() before exiting the program, so as to make sure that destructors for the game objects.
+    // We call gCoordinator.Clear() before exiting the program, so as to make sure that destructors for the game objects
+    // run before the SFML is destroyed at the global level
     gCoordinator.Clear();
 }
 
-int main(int argc, char **argv)
+int mainExceptionWrapped(int argc, char **argv)
 {
     // Check arguments.
     if (argc < 2) {
@@ -128,4 +130,17 @@ int main(int argc, char **argv)
     GameLoop(std::atoi(argv[1]));
 
     return (0);
+}
+
+int main(int argc, char *argv[])
+{
+    try {
+        return mainExceptionWrapped(argc, argv);
+    } catch (std::exception &exc) {
+        std::cerr << "Error (stdexcept): " << exc.what() << '\n';
+        return 84;
+    } catch (...) {
+        std::cerr << "Error: Unknown exception !!!!!!\n";
+        return 84;
+    }
 }

@@ -10,13 +10,9 @@
 class Buffer
 {
 public:
-    Buffer(size_t capacity)
-        : m_capacity(capacity), m_pos(0), m_data(new uint8_t[capacity]) {}
+    explicit Buffer(size_t capacity) : m_capacity(capacity), m_data(new uint8_t[capacity]) {}
 
-    ~Buffer()
-    {
-        delete this->m_data;
-    };
+    ~Buffer() = default;
 
     uint8_t readU8()
     {
@@ -25,28 +21,34 @@ public:
 
     uint16_t readU16()
     {
-        return static_cast<uint16_t>(this->m_data[this->m_pos++]) << 8
-            | static_cast<uint16_t>(this->m_data[this->m_pos++]);
+        auto result = static_cast<uint16_t>(this->m_data[this->m_pos]) << 8 |
+                      static_cast<uint16_t>(this->m_data[this->m_pos + 1]);
+        this->m_pos += 2;
+        return result;
     }
 
     uint32_t readU32()
     {
-        return static_cast<uint32_t>(this->m_data[this->m_pos++]) << 24
-            | static_cast<uint32_t>(this->m_data[this->m_pos++]) << 16
-            | static_cast<uint32_t>(this->m_data[this->m_pos++]) << 8
-            | static_cast<uint32_t>(this->m_data[this->m_pos++]);
+        auto result = static_cast<uint32_t>(this->m_data[this->m_pos]) << 24 |
+                      static_cast<uint32_t>(this->m_data[this->m_pos + 1]) << 16 |
+                      static_cast<uint32_t>(this->m_data[this->m_pos + 2]) << 8 |
+                      static_cast<uint32_t>(this->m_data[this->m_pos + 3]);
+        this->m_pos += 4;
+        return result;
     }
 
     uint64_t readU64()
     {
-        return static_cast<uint64_t>(this->m_data[this->m_pos++]) << 56
-            | static_cast<uint64_t>(this->m_data[this->m_pos++]) << 48
-            | static_cast<uint64_t>(this->m_data[this->m_pos++]) << 40
-            | static_cast<uint64_t>(this->m_data[this->m_pos++]) << 32
-            | static_cast<uint64_t>(this->m_data[this->m_pos++]) << 24
-            | static_cast<uint64_t>(this->m_data[this->m_pos++]) << 16
-            | static_cast<uint64_t>(this->m_data[this->m_pos++]) << 8
-            | static_cast<uint64_t>(this->m_data[this->m_pos++]);
+        auto result = static_cast<uint64_t>(this->m_data[this->m_pos]) << 56 |
+                      static_cast<uint64_t>(this->m_data[this->m_pos + 1]) << 48 |
+                      static_cast<uint64_t>(this->m_data[this->m_pos + 2]) << 40 |
+                      static_cast<uint64_t>(this->m_data[this->m_pos + 3]) << 32 |
+                      static_cast<uint64_t>(this->m_data[this->m_pos + 4]) << 24 |
+                      static_cast<uint64_t>(this->m_data[this->m_pos + 5]) << 16 |
+                      static_cast<uint64_t>(this->m_data[this->m_pos + 6]) << 8 |
+                      static_cast<uint64_t>(this->m_data[this->m_pos + 7]);
+        this->m_pos += 8;
+        return result;
     }
 
     char *readString(size_t max)
@@ -64,7 +66,7 @@ public:
         char *str = new char[length + 1];
 
         // Copy string and set null terminated string.
-        memcpy(str, &this->m_data[this->m_pos], length);
+        memmove(str, &this->m_data[this->m_pos], length);
         str[length + 1] = 0;
 
         // Set read position.
@@ -104,35 +106,35 @@ public:
         this->m_data[this->m_pos++] = static_cast<uint8_t>(value);
     }
 
-    void writeString(std::string str)
+    void writeString(const std::string &str)
     {
         this->writeU32(static_cast<uint32_t>(str.length()));
     }
 
     void appendBuffer(Buffer &buffer, size_t size)
     {
-        memcpy(this->m_data + this->m_pos, buffer.data(), size);
+        memmove(&this->m_data[this->m_pos], buffer.data(), size);
         this->m_pos += size;
     }
 
     void moveToFront(size_t size)
     {
         size -= this->m_pos;
-        memcpy(this->m_data, this->m_data + this->m_pos, size);
+        memmove(&this->m_data[0], &this->m_data[this->m_pos], size);
         this->m_pos = size;
     }
 
-    uint8_t *data()
+    [[nodiscard]] uint8_t *data()
     {
-        return this->m_data;
+        return this->m_data.get();
     }
 
-    size_t pos() const
+    [[nodiscard]] size_t pos() const
     {
         return this->m_pos;
     }
 
-    size_t capacity() const
+    [[nodiscard]] size_t capacity() const
     {
         return this->m_capacity;
     }
@@ -143,7 +145,7 @@ public:
     }
 
 private:
-    size_t      m_capacity;
-    size_t      m_pos;
-    uint8_t     *m_data;
+    size_t                     m_capacity;
+    size_t                     m_pos{0};
+    std::unique_ptr<uint8_t[]> m_data;
 };

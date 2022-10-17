@@ -9,12 +9,12 @@
 class ObjectsSystem : public System
 {
 public:
-    void Init(Entity me);
+    void   Init(Entity me);
     Entity GetEntityByNetworkId(Entity networkEntityId);
-    Entity GetMe();
+    Entity GetMe() const;
 
 private:
-    Entity  _me;
-    float   _xLimit;
-    float   _yLimit;
+    Entity _me;
+    float  _xLimit;
+    float  _yLimit;
 };

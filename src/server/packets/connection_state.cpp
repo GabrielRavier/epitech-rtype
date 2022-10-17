@@ -14,49 +14,41 @@
 #include "packet_server_update_pos.hpp"
 #include "packet_server_update_score.hpp"
 
-template<std::size_t N, class T>
-constexpr std::size_t countof(T(&)[N]) { return N; }
+template <std::size_t N, class T>
+constexpr std::size_t countof(T (&/*unused*/)[N])
+{
+    return N;
+}
 
-template<typename T, typename = std::enable_if<std::is_base_of<Packet, T>::value>>
-Packet* PacketInstantiator() {
+template <typename T, typename = std::enable_if<std::is_base_of<Packet, T>::value>>
+Packet *PacketInstantiator()
+{
     return new T();
 };
 
-typedef Packet* (*instantiator_ptr)();
+using instantiator_ptr = Packet *(*)();
 
 static inline instantiator_ptr gClientPacketsToPacket[] = {
-    &PacketInstantiator<PacketClientLogin>,
-    &PacketInstantiator<PacketClientKeepAlive>,
-    &PacketInstantiator<PacketClientInput>,
-    &PacketInstantiator<PacketClientPos>,
+    &PacketInstantiator<PacketClientLogin>,  &PacketInstantiator<PacketClientKeepAlive>,
+    &PacketInstantiator<PacketClientInput>,  &PacketInstantiator<PacketClientPos>,
     &PacketInstantiator<PacketClientLogout>,
 };
 
 static inline instantiator_ptr gServerPacketsToPacket[] = {
-    &PacketInstantiator<PacketServerLogin>,
-    &PacketInstantiator<PacketServerKeepAlive>,
-    &PacketInstantiator<PacketServerEntityCreate>,
-    &PacketInstantiator<PacketServerEntityDestroy>,
-    &PacketInstantiator<PacketServerUpdateHealth>,
-    &PacketInstantiator<PacketServerUpdatePos>,
+    &PacketInstantiator<PacketServerLogin>,        &PacketInstantiator<PacketServerKeepAlive>,
+    &PacketInstantiator<PacketServerEntityCreate>, &PacketInstantiator<PacketServerEntityDestroy>,
+    &PacketInstantiator<PacketServerUpdateHealth>, &PacketInstantiator<PacketServerUpdatePos>,
     &PacketInstantiator<PacketServerUpdateScore>,
 };
 
 static inline std::type_index gClientPacketsToId[] = {
-    typeid(PacketClientLogin),
-    typeid(PacketClientKeepAlive),
-    typeid(PacketClientInput),
-    typeid(PacketClientPos),
-    typeid(PacketClientLogout),
+    typeid(PacketClientLogin), typeid(PacketClientKeepAlive), typeid(PacketClientInput),
+    typeid(PacketClientPos),   typeid(PacketClientLogout),
 };
 
 static inline std::type_index gServerPacketsToId[] = {
-    typeid(PacketServerLogin),
-    typeid(PacketServerKeepAlive),
-    typeid(PacketServerEntityCreate),
-    typeid(PacketServerEntityDestroy),
-    typeid(PacketServerUpdateHealth),
-    typeid(PacketServerUpdatePos),
+    typeid(PacketServerLogin),         typeid(PacketServerKeepAlive),    typeid(PacketServerEntityCreate),
+    typeid(PacketServerEntityDestroy), typeid(PacketServerUpdateHealth), typeid(PacketServerUpdatePos),
     typeid(PacketServerUpdateScore),
 };
 

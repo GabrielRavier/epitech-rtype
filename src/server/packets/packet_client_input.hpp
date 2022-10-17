@@ -18,19 +18,20 @@ public:
     std::bitset<8> inputs;
 
 public:
-    PacketClientInput(std::bitset<8> inputs) : inputs(inputs) {}
-    PacketClientInput()     = default;
-    ~PacketClientInput()    = default;
+    explicit PacketClientInput(std::bitset<8> inputs) : inputs(inputs) {}
 
-    void readPacket(Buffer *buffer)
+    PacketClientInput()           = default;
+    ~PacketClientInput() override = default;
+
+    void readPacket(Buffer *buffer) override
     {
         this->inputs = buffer->readU8();
     };
 
-    void writePacket(Buffer *buffer)
+    void writePacket(Buffer *buffer) override
     {
         buffer->writeU8(static_cast<uint8_t>(this->inputs.to_ulong()));
     };
 
-    void processPacket(INetworkHandler *handler);
+    void processPacket(INetworkHandler *handler) override;
 };
