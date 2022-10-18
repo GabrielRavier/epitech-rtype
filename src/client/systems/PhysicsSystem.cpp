@@ -9,8 +9,8 @@
 #include "../core/NetworkManager.hpp"
 #include "../systems/ObjectsSystem.hpp"
 
-extern Coordinator gCoordinator;
-extern NetworkManager *gNetworkManager;
+extern Coordinator                    gCoordinator;
+extern NetworkManager                *gNetworkManager;
 extern std::shared_ptr<ObjectsSystem> gObjectsSystem;
 
 void PhysicsSystem::Init(float windowWidth, float windowHeight)
@@ -38,13 +38,11 @@ void PhysicsSystem::Update()
     }
 
     {
-        auto entity     = gObjectsSystem->GetMe();
+        auto  entity    = gObjectsSystem->GetMe();
         auto &transform = gCoordinator.GetComponent<Transform>(entity);
 
         // Send position.
-        gNetworkManager->send(new PacketClientPos(
-            static_cast<int16_t>(transform.position.x),
-            static_cast<int16_t>(transform.position.y)
-        ));
+        gNetworkManager->send(new PacketClientPos(static_cast<int16_t>(transform.position.x),
+                                                  static_cast<int16_t>(transform.position.y)));
     }
 }

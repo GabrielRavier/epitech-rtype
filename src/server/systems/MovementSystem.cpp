@@ -8,7 +8,7 @@
 #include "MovementSystem.hpp"
 #include "../core/NetworkServerManager.hpp"
 
-extern Coordinator gCoordinator;
+extern Coordinator           gCoordinator;
 extern NetworkServerManager *gServerManager;
 
 void MovementSystem::Init() {}
@@ -26,18 +26,21 @@ void MovementSystem::Update()
         transform.posY += move.dirY * move.speed;
 
         // Destroy entity.
-        if (transform.posX < -100 || transform.posY < -100 || (transform.type == EntityType::BULLET && transform.posX > 2000) || transform.posY > 700) {
+        if (transform.posX < -100 || transform.posY < -100 ||
+            (transform.type == EntityType::BULLET && transform.posX > 2000) || transform.posY > 700) {
             toDelete.emplace(entity);
             continue;
         }
 
         // Send entity position to peers.
-        gServerManager->broadcast(new PacketServerUpdatePos(entity, transform.posX, transform.posY));
+        PacketServerUpdatePos sentPacket(entity, transform.posX, transform.posY);
+        gServerManager->broadcast(&sentPacket);
     }
 
     for (auto const &entity : toDelete) {
         gCoordinator.DestroyEntity(entity);
-        gServerManager->broadcast(new PacketServerEntityDestroy(entity));
+        PacketServerEntityDestroy sentPacket(entity);
+        gServerManager->broadcast(&sentPacket);
         std::cout << "DELETED ENTITY WITH ID " << std::to_string(entity) << std::endl;
     }
 }

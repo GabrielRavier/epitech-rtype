@@ -6,7 +6,7 @@
 
 struct Player
 {
-    std::string     name;
-    int             health;
-    int             power;
+    std::string name;
+    int         health;
+    int         power;
 };

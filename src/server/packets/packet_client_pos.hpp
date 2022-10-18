@@ -16,8 +16,8 @@ public:
 
     void readPacket(Buffer *buffer) override
     {
-        this->posX = buffer->readU16();
-        this->posY = buffer->readU16();
+        this->posX = static_cast<int16_t>(buffer->readU16());
+        this->posY = static_cast<int16_t>(buffer->readU16());
     };
 
     void writePacket(Buffer *buffer) override

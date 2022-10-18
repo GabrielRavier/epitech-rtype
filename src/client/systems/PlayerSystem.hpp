@@ -20,8 +20,8 @@
 class PlayerSystem : public System
 {
 public:
-    void Init();
-    void Update(std::bitset<8> inputs) const;
+    void   Init();
+    void   Update(std::bitset<8> inputs) const;
     Entity GetEntityId() const;
 
 private:

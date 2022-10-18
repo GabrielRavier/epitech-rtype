@@ -1,8 +1,10 @@
 #pragma once
 
+#include <cstdint>
+
 struct Movement
 {
-    int         dirX;
-    int         dirY;
-    uint8_t     speed;
+    int16_t dirX;
+    int16_t dirY;
+    uint8_t speed;
 };

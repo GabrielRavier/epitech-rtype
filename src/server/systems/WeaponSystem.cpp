@@ -8,7 +8,7 @@
 #include "WeaponSystem.hpp"
 #include "../core/NetworkServerManager.hpp"
 
-extern Coordinator gCoordinator;
+extern Coordinator           gCoordinator;
 extern NetworkServerManager *gServerManager;
 
 void WeaponSystem::Init() {}
@@ -37,10 +37,11 @@ void WeaponSystem::createMissileProjectile(Weapon weapon, Transform transform)
 {
     Entity entity = gCoordinator.CreateEntity();
 
-    gCoordinator.AddComponent<Projectile>(entity, Projectile { 10, weapon.team });
-    gCoordinator.AddComponent<Transform>(entity, Transform { EntityType::BULLET, transform.posX, transform.posY });
-    gCoordinator.AddComponent<Movement>(entity, Movement { static_cast<int>(1 - (2 * weapon.team)), 0, 40});
+    gCoordinator.AddComponent<Projectile>(entity, Projectile{10, weapon.team});
+    gCoordinator.AddComponent<Transform>(entity, Transform{EntityType::BULLET, transform.posX, transform.posY});
+    gCoordinator.AddComponent<Movement>(entity, Movement{static_cast<int16_t>(1 - (2 * weapon.team)), 0, 40});
 
     // Broadcast bullet create.
-    gServerManager->broadcast(new PacketServerEntityCreate(EntityType::BULLET, static_cast<EntityTeam>(weapon.team), entity, transform.posX, transform.posY, 1));
+    gServerManager->broadcast(new PacketServerEntityCreate(EntityType::BULLET, static_cast<EntityTeam>(weapon.team),
+                                                           entity, transform.posX, transform.posY, 1));
 }

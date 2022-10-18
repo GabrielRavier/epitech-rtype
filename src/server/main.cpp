@@ -23,7 +23,7 @@
 
 Coordinator                    gCoordinator;
 std::shared_ptr<ObjectsSystem> gObjectsSystem;
-NetworkServerManager *gServerManager;
+NetworkServerManager          *gServerManager;
 
 void NetworkLoop(NetworkServerManager *networkManager)
 {
