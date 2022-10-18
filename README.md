@@ -8,6 +8,8 @@ This project is tested and known to be able to be compiled on:
 - Visual Studio 2022 on Windows
 - GCC 11.2 on Ubuntu 22.04
 
+Note that when using Visual Studio 2022, you should probably use the Visual Studio Developer Prompt to build the project.
+
 ## Dependencies
 
 These dependencies can be installed either through vcpkg (see setup instructions later in this README) or through your local package manager:
