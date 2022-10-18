@@ -5,12 +5,12 @@
 class PacketServerUpdatePos : public Packet
 {
 public:
-    uint16_t entityId;
-    uint16_t posX;
-    uint16_t posY;
+    uint16_t    entityId;
+    int16_t     posX;
+    int16_t     posY;
 
 public:
-    PacketServerUpdatePos(uint16_t entityId, uint16_t posX, uint16_t posY) : entityId(entityId), posX(posX), posY(posY)
+    PacketServerUpdatePos(uint16_t entityId, int16_t posX, int16_t posY) : entityId(entityId), posX(posX), posY(posY)
     {
     }
 

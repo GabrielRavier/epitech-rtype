@@ -53,6 +53,22 @@ void NetworkManager::processServerEntityCreate(PacketServerEntityCreate *packet)
         gCoordinator.AddComponent<Sprite>(entity, Sprite { texture, sprite, sf::Vector2i(50, 50), sf::Vector2i(250, 100), 1});
         gCoordinator.AddComponent<Transform>(entity, Transform { sf::Vector2f(packet->posX, packet->posY) , scale, 0 });
 
+    } else if (packet->entityType == EntityType::MOB) {
+        Entity entity = gCoordinator.CreateEntity();
+
+        const std::shared_ptr<sf::Texture> texture = std::make_shared<sf::Texture>();
+        const std::shared_ptr<sf::Sprite>  sprite  = std::make_shared<sf::Sprite>();
+        const sf::Vector2f                 scale   = sf::Vector2f(3, 3);
+
+        texture->loadFromFile("./assets/blop.gif");
+        sprite->setTexture(*texture, false);
+        sprite->setScale(scale);
+        sprite->setTextureRect(sf::IntRect(5, 34, 24, 34));
+
+        gCoordinator.AddComponent<NetworkEntity>(entity, NetworkEntity { packet->entityId });
+        gCoordinator.AddComponent<Sprite>(entity, Sprite { texture, sprite, sf::Vector2i(24, 34), sf::Vector2i(5, 34), 1 });
+        gCoordinator.AddComponent<Transform>(entity, Transform { sf::Vector2f(packet->posX, packet->posY), scale, 0 });
+
     } else {
         throw std::runtime_error("Invalid Entity Type.");
     }

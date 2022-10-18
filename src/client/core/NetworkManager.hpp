@@ -1,7 +1,7 @@
 #pragma once
 
-#include <stdexcept>
 #include <iostream>
+#include <stdexcept>
 #include <boost/asio.hpp>
 #include <boost/array.hpp>
 #include "../../server/sync_queue.hpp"

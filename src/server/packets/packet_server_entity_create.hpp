@@ -22,11 +22,11 @@ public:
     EntityTeam  entityTeam;
     uint16_t    entityId;
     uint16_t    posX;
-    uint16_t    posY;
-    uint16_t    life;
+    int16_t     posY;
+    int16_t     life;
 
 public:
-    PacketServerEntityCreate(EntityType entityType, EntityTeam entityTeam, uint16_t entityId, uint16_t posX, uint16_t posY, uint16_t life) :
+    PacketServerEntityCreate(EntityType entityType, EntityTeam entityTeam, uint16_t entityId, int16_t posX, int16_t posY, uint16_t life) :
         entityType(entityType),
         entityTeam(entityTeam),
         entityId(entityId),

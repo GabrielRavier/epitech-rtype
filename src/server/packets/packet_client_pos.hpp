@@ -5,11 +5,11 @@
 class PacketClientPos : public Packet
 {
 public:
-    uint16_t posX;
-    uint16_t posY;
+    int16_t posX;
+    int16_t posY;
 
 public:
-    PacketClientPos(uint16_t posX, uint16_t posY) : posX(posX), posY(posY) {}
+    PacketClientPos(int16_t posX, int16_t posY) : posX(posX), posY(posY) {}
 
     PacketClientPos()           = default;
     ~PacketClientPos() override = default;

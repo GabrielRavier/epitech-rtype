@@ -43,8 +43,8 @@ void PhysicsSystem::Update()
 
         // Send position.
         gNetworkManager->send(new PacketClientPos(
-            static_cast<uint16_t>(transform.position.x),
-            static_cast<uint16_t>(transform.position.y)
+            static_cast<int16_t>(transform.position.x),
+            static_cast<int16_t>(transform.position.y)
         ));
     }
 }
