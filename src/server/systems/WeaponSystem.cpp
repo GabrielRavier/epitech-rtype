@@ -5,7 +5,6 @@
 ** WeaponSystem
 */
 
-#include <iostream>
 #include "WeaponSystem.hpp"
 #include "../core/NetworkServerManager.hpp"
 
@@ -21,12 +20,13 @@ void WeaponSystem::Update() const
         auto const &transform = gCoordinator.GetComponent<Transform>(entity);
 
         if (weapon.haveShot) {
+            weapon.haveShot = false;
+
             if (weapon.shootTimer > 0) {
                 weapon.shootTimer--;
 
             } else {
-                weapon.shootTimer   = maxRateOfFire - weapon.rateOfFire;
-                weapon.haveShot     = false;
+                weapon.shootTimer = maxRateOfFire - weapon.rateOfFire;
                 createMissileProjectile(weapon, transform);
             }
         }

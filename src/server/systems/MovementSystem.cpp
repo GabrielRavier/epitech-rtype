@@ -18,6 +18,8 @@ void MovementSystem::Update()
     for (auto const &entity : mEntities) {
         auto &move      = gCoordinator.GetComponent<Movement>(entity);
         auto &transform = gCoordinator.GetComponent<Transform>(entity);
+
+        // Set entity position.
         transform.posX += move.dirX * move.speed;
         transform.posY += move.dirY * move.speed;
 
