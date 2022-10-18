@@ -49,7 +49,7 @@ cmake --build build
 
 ## Running the game
 
-Once built, the `r-type_server` and `r-type_client` executables can be found in the top directory. It should be noted that on certain environments, such as Visual Studio, the output location is unpredictable, with the executables often ending up in locations such as `Debug/r-type_client.exe` or `Release/r-type_client.exe`.
+Once built, the `r-type_server` and `r-type_client` executables can be found in the top directory. It should be noted that on certain environments, such as Visual Studio, the output location is unreliable, with the executables often ending up in locations such as `Debug/r-type_client.exe` or `Release/r-type_client.exe`.
 
 In all cases, when running the game, the executables should be ran from the top directory of this repository.
 
