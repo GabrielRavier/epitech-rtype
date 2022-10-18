@@ -32,8 +32,17 @@ void MovementSystem::Update()
             continue;
         }
 
-        // Shoot when key stay pressed.
+        // Player specific.
         if (transform.type == EntityType::PLAYER) {
+            auto &network = gCoordinator.GetComponent<Network>(entity);
+
+            // Increment timeout.
+            if (++network.timeout > (5 * 60)) {
+                network.manager->disconnect();
+                continue;
+            }
+
+            // Shoot when key stay pressed.
             gCoordinator.GetComponent<Weapon>(entity).haveShot =
                 gCoordinator.GetComponent<Network>(entity).inputs.test(InputType::SHOOT);
         }

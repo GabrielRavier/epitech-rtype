@@ -60,7 +60,7 @@ public:
                     (void)seq_server;
 
                     uint8_t packet_id = buffer.readU8();
-                    Packet *packet    = CreateServerPacket(packet_id);
+                    auto   *packet    = CreateServerPacket(packet_id);
 
                     // Read packet data.
                     packet->readPacket(&buffer);
@@ -114,6 +114,9 @@ public:
 
     void close()
     {
+        auto packet = PacketClientLogout();
+
+        this->send(&packet);
         m_socket.shutdown(boost::asio::ip::udp::socket::shutdown_receive);
         m_socket.close();
     }

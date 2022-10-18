@@ -63,17 +63,23 @@ void NetworkClientManager::processClientKeepAlive(PacketClientKeepAlive *packet)
 
 void NetworkClientManager::processClientInput(PacketClientInput *packet)
 {
-    gCoordinator.GetComponent<Network>(m_entity).inputs = packet->inputs;
+    if (m_logged) {
+        gCoordinator.GetComponent<Network>(m_entity).inputs = packet->inputs;
+    }
 }
 
 void NetworkClientManager::processClientPos(PacketClientPos *packet)
 {
     if (m_logged) {
+        auto &network   = gCoordinator.GetComponent<Network>(m_entity);
         auto &transform = gCoordinator.GetComponent<Transform>(m_entity);
 
         // Update client position. (Welcome cheaters !)
         transform.posX = packet->posX;
         transform.posY = packet->posY;
+
+        // Reset timeout.
+        network.timeout = 0;
     }
 }
 
@@ -81,14 +87,21 @@ void NetworkClientManager::processClientLogout(PacketClientLogout *packet)
 {
     (void)packet;
     if (m_logged) {
+        // Set logged.
+        m_logged = false;
+
         // Destroy client entity.
         gCoordinator.DestroyEntity(m_entity);
 
         // Broadcast entity destroy.
         PacketServerEntityDestroy sentPacket(m_entity);
         m_server->broadcast(&sentPacket);
+    }
+}
 
-        // Set logged.
-        m_logged = false;
+void NetworkClientManager::disconnect()
+{
+    if (m_logged) {
+        m_queue_in.enqueue(new PacketClientLogout());
     }
 }

@@ -2,14 +2,15 @@
 
 void NetworkServerManager::run()
 {
-    Buffer                         tmp_buffer(4096);
-    boost::asio::ip::udp::endpoint remote_endpoint;
+    Buffer                          tmp_buffer(4096);
+    boost::asio::ip::udp::endpoint  remote_endpoint;
+    boost::system::error_code       ec;
 
     while (m_socket.is_open()) {
         try {
             size_t len =
                 tmp_buffer.pos() +
-                m_socket.receive_from(boost::asio::buffer(tmp_buffer.data(), tmp_buffer.capacity()), remote_endpoint);
+                m_socket.receive_from(boost::asio::buffer(tmp_buffer.data(), tmp_buffer.capacity()), remote_endpoint, 0, ec);
 
             // Get source address.
             std::string address = remote_endpoint.address().to_string() + ":" + std::to_string(remote_endpoint.port());
@@ -17,6 +18,14 @@ void NetworkServerManager::run()
             // Create a new manager.
             if (m_client_managers.find(address) == m_client_managers.end())
                 m_client_managers[address] = new NetworkClientManager(this, remote_endpoint);
+
+            // Check disconnection.
+            if (ec.failed()) {
+                NetworkClientManager *manager = m_client_managers[address];
+
+                manager->disconnect();
+                continue;
+            }
 
             // Get manager buffer.
             Buffer &buffer = m_client_managers[address]->buffer;
