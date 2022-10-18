@@ -63,7 +63,7 @@ void NetworkClientManager::processClientKeepAlive(PacketClientKeepAlive *packet)
 
 void NetworkClientManager::processClientInput(PacketClientInput *packet)
 {
-    gCoordinator.GetComponent<Weapon>(m_entity).haveShot = packet->inputs.test(InputType::SHOOT);
+    gCoordinator.GetComponent<Network>(m_entity).inputs = packet->inputs;
 }
 
 void NetworkClientManager::processClientPos(PacketClientPos *packet)

@@ -27,7 +27,6 @@ NetworkServerManager          *gServerManager;
 
 void NetworkLoop(NetworkServerManager *networkManager)
 {
-    gServerManager = networkManager;
     networkManager->run();
 }
 
@@ -35,6 +34,9 @@ void GameLoop(uint16_t port)
 {
     NetworkServerManager networkManager(port);
     std::thread          threadNetworkLoop(NetworkLoop, &networkManager);
+
+    // Set network manager.
+    gServerManager = &networkManager;
 
     gCoordinator.RegisterComponent<Player>();
     gCoordinator.RegisterComponent<Enemy>();
