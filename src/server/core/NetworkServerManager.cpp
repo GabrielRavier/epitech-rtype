@@ -2,15 +2,15 @@
 
 void NetworkServerManager::run()
 {
-    Buffer                          tmp_buffer(4096);
-    boost::asio::ip::udp::endpoint  remote_endpoint;
-    boost::system::error_code       ec;
+    Buffer                         tmp_buffer(4096);
+    boost::asio::ip::udp::endpoint remote_endpoint;
+    boost::system::error_code      ec;
 
     while (m_socket.is_open()) {
         try {
             size_t len =
-                tmp_buffer.pos() +
-                m_socket.receive_from(boost::asio::buffer(tmp_buffer.data(), tmp_buffer.capacity()), remote_endpoint, 0, ec);
+                tmp_buffer.pos() + m_socket.receive_from(boost::asio::buffer(tmp_buffer.data(), tmp_buffer.capacity()),
+                                                         remote_endpoint, 0, ec);
 
             // Get source address.
             std::string address = remote_endpoint.address().to_string() + ":" + std::to_string(remote_endpoint.port());
