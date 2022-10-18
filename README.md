@@ -53,6 +53,24 @@ Once built, the `r-type_server` and `r-type_client` executables can be found in 
 
 In all cases, when running the game, the executables should be ran from the top directory of this repository.
 
+The server should be run as such from the command-line:
+
+```
+./r-type_server [port]
+```
+
+(an appropriate, available port should be given for the server to use as the `[port]` argument)
+
+and the client as such:
+
+```
+./r-type_client [server-host] [port]
+```
+
+(`[server-host]` should be replaced by an ip/hostname/domain-name that a server is located at, and `[port]` by the port a server is using at that location)
+
+The paths to the `r-type_server` and `r-type_client` executables should be used in place of `./r-type_server` and `./r-type_client` if they are not located in the top directory of the project.
+
 ## Running tests
 
 Should you have followed the previous instructions, running tests should be as simple as using either the following command (everywhere but on Windows):
