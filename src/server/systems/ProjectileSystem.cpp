@@ -11,4 +11,7 @@ extern Coordinator gCoordinator;
 
 void ProjectileSystem::Init() {}
 
-void ProjectileSystem::Update() const {}
+void ProjectileSystem::Update() const {
+    // Destroy entity if bound.
+    // Check collision.
+}

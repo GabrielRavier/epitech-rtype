@@ -7,14 +7,13 @@
 
 #pragma once
 
-#include "../core/System.hpp"
-#include "../core/Coordinator.hpp"
+#include <random>
+#include "../../client/core/System.hpp"
+#include "../../client/core/Coordinator.hpp"
 #include "../components/Transform.hpp"
 #include "../components/Movement.hpp"
-#include "../components/Sprite.hpp"
 #include "../components/Enemy.hpp"
 #include "../components/Weapon.hpp"
-#include <random>
 
 class WaveSystem : public System
 {

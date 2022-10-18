@@ -3,8 +3,10 @@
 #include "NetworkServerManager.hpp"
 #include "../../client/core/Coordinator.hpp"
 #include "../../client/components/Player.hpp"
-#include "../components/Transform.hpp"
 #include "../components/Network.hpp"
+#include "../components/Transform.hpp"
+#include "../components/Movement.hpp"
+#include "../components/Weapon.hpp"
 #include "../systems/ObjectsSystem.hpp"
 
 extern Coordinator gCoordinator;
@@ -17,19 +19,21 @@ NetworkClientManager::NetworkClientManager(NetworkServerManager *server, boost::
     for (auto const &entity : gObjectsSystem->GetEntities()) {
         auto &transform = gCoordinator.GetComponent<Transform>(entity);
 
-        this->send(new PacketServerEntityCreate(transform.type, entity, transform.posX, transform.posY, 100));
+        this->send(new PacketServerEntityCreate(transform.type, EntityTeam::PLAYER, entity, transform.posX, transform.posY, 100));
     }
 
     m_entity = gCoordinator.CreateEntity();
     gCoordinator.AddComponent<Network>(m_entity , Network { this });
-    gCoordinator.AddComponent<Player>(m_entity, Player  { "Pepo", 100, 0, std::vector<Entity>() });
+    gCoordinator.AddComponent<Player>(m_entity, Player  { "Pepo", 100, 0 });
     gCoordinator.AddComponent<Transform>(m_entity, Transform { EntityType::PLAYER, 50, 50 });
+    gCoordinator.AddComponent<Movement>(m_entity, Movement { 0, 0, 0 });
+    gCoordinator.AddComponent<Weapon>(m_entity, Weapon { 30, 0, Weapon::Type::MISSILETHROWER, Weapon::Team::PLAYERS, false });
 
     // Send entity ID to client.
     this->send(new PacketServerLogin(LoginState::ACCEPT, m_entity));
 
     // Broadcast entity creation.
-    m_server->broadcast(new PacketServerEntityCreate(EntityType::PLAYER, m_entity, 50, 50, 100));
+    m_server->broadcast(new PacketServerEntityCreate(EntityType::PLAYER, EntityTeam::PLAYER, m_entity, 50, 50, 100));
 }
 
 void NetworkClientManager::send(Packet *packet)
@@ -63,6 +67,7 @@ void NetworkClientManager::processClientKeepAlive(PacketClientKeepAlive *packet)
 
 void NetworkClientManager::processClientInput(PacketClientInput *packet)
 {
+    gCoordinator.GetComponent<Weapon>(m_entity).haveShot = packet->inputs.test(InputType::SHOOT);
 }
 
 void NetworkClientManager::processClientPos(PacketClientPos *packet)
@@ -73,9 +78,6 @@ void NetworkClientManager::processClientPos(PacketClientPos *packet)
         // Update client position. (Welcome cheaters !)
         transform.posX = packet->posX;
         transform.posY = packet->posY;
-
-        // Send client position to peers.
-        m_server->broadcast(new PacketServerUpdatePos(m_entity, packet->posX, packet->posY));
     }
 }
 

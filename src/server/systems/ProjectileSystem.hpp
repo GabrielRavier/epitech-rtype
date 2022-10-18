@@ -7,11 +7,11 @@
 
 #pragma once
 
-#include "../core/System.hpp"
-#include "../core/Coordinator.hpp"
+#include <memory>
+#include "../../client/core/System.hpp"
+#include "../../client/core/Coordinator.hpp"
 #include "../components/Transform.hpp"
 #include "../components/Projectile.hpp"
-#include <memory>
 
 class ProjectileSystem : public System
 {

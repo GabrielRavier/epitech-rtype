@@ -15,7 +15,6 @@
 #include "../components/RigidBody.hpp"
 #include "../components/Transform.hpp"
 #include "../components/Sprite.hpp"
-#include "../components/Weapon.hpp"
 #include "../components/NetworkEntity.hpp"
 
 class PlayerSystem : public System
@@ -23,8 +22,6 @@ class PlayerSystem : public System
 public:
     void Init();
     void Update(std::bitset<8> inputs) const;
-    void Shoot() const;
-    void ChangeWeaponsPosition() const;
     Entity GetEntityId() const;
 
 private:

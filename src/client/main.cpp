@@ -1,22 +1,17 @@
 #include "core/Coordinator.hpp"
 #include "core/WindowManager.hpp"
 #include "core/NetworkManager.hpp"
-#include "components/Enemy.hpp"
 #include "components/Movement.hpp"
 #include "components/Player.hpp"
 #include "components/RigidBody.hpp"
 #include "components/Sprite.hpp"
 #include "components/Transform.hpp"
-#include "components/Weapon.hpp"
 #include "components/NetworkEntity.hpp"
 #include "systems/BackgroundSystem.hpp"
 #include "systems/PhysicsSystem.hpp"
 #include "systems/PlayerSystem.hpp"
-#include "systems/ProjectileSystem.hpp"
 #include "systems/RenderSystem.hpp"
 #include "systems/MovementSystem.hpp"
-#include "systems/WaveSystem.hpp"
-#include "systems/WeaponSystem.hpp"
 #include "systems/ObjectsSystem.hpp"
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
@@ -43,15 +38,12 @@ void GameLoop(const char *host, uint16_t port)
 
     windowManager->Init("R-Type", 1920, 700);
 
-    gCoordinator.RegisterComponent<Enemy>();
     gCoordinator.RegisterComponent<Movement>();
+    gCoordinator.RegisterComponent<NetworkEntity>();
     gCoordinator.RegisterComponent<Player>();
-    gCoordinator.RegisterComponent<Projectile>();
     gCoordinator.RegisterComponent<RigidBody>();
     gCoordinator.RegisterComponent<Sprite>();
     gCoordinator.RegisterComponent<Transform>();
-    gCoordinator.RegisterComponent<Weapon>();
-    gCoordinator.RegisterComponent<NetworkEntity>();
 
     auto renderSystem = gCoordinator.RegisterSystem<RenderSystem>();
     {
@@ -71,15 +63,6 @@ void GameLoop(const char *host, uint16_t port)
     }
     movementSystem->Init();
 
-    auto weaponSystem = gCoordinator.RegisterSystem<WeaponSystem>();
-    {
-        Signature signature;
-        signature.set(gCoordinator.GetComponentType<Weapon>());
-        signature.set(gCoordinator.GetComponentType<Transform>());
-        gCoordinator.SetSystemSignature<WeaponSystem>(signature);
-    }
-    weaponSystem->Init();
-
     auto physicsSystem = gCoordinator.RegisterSystem<PhysicsSystem>();
     {
         Signature signature;
@@ -89,23 +72,6 @@ void GameLoop(const char *host, uint16_t port)
         gCoordinator.SetSystemSignature<PhysicsSystem>(signature);
     }
     physicsSystem->Init(1920, 700);
-
-    auto waveSystem = gCoordinator.RegisterSystem<WaveSystem>();
-    {
-        Signature signature;
-        signature.set(gCoordinator.GetComponentType<Enemy>());
-        signature.set(gCoordinator.GetComponentType<Weapon>());
-        gCoordinator.SetSystemSignature<WaveSystem>(signature);
-    }
-    waveSystem->Init();
-
-    auto projectileSystem = gCoordinator.RegisterSystem<ProjectileSystem>();
-    {
-        Signature signature;
-        signature.set(gCoordinator.GetComponentType<Projectile>());
-        gCoordinator.SetSystemSignature<ProjectileSystem>(signature);
-    }
-    projectileSystem->Init();
 
     gObjectsSystem = gCoordinator.RegisterSystem<ObjectsSystem>();
     {
@@ -138,8 +104,6 @@ void GameLoop(const char *host, uint16_t port)
 
         // Update game.
         playerSystem->Update(windowManager->GetInputs());
-        waveSystem->Update();
-        weaponSystem->Update();
         backgroundSystem->Update();
         movementSystem->Update();
         physicsSystem->Update();
