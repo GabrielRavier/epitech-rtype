@@ -49,7 +49,7 @@ set(r_type_server_SOURCES
   "src/server/core/NetworkClientManager.cpp"
   "src/server/core/NetworkServerManager.cpp"
   "src/server/systems/MovementSystem.cpp"
-  "src/server/systems/ProjectileSystem.cpp"
+  "src/server/systems/PhysicsSystem.cpp"
   "src/server/systems/WaveSystem.cpp"
   "src/server/systems/WeaponSystem.cpp"
   "src/server/packets/connection_state.cpp"

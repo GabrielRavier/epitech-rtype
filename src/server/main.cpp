@@ -11,15 +11,16 @@
 #include "../client/components/Player.hpp"
 #include "core/NetworkServerManager.hpp"
 #include "systems/ObjectsSystem.hpp"
-#include "systems/ProjectileSystem.hpp"
+#include "systems/PhysicsSystem.hpp"
 #include "systems/MovementSystem.hpp"
 #include "systems/WaveSystem.hpp"
 #include "systems/WeaponSystem.hpp"
+#include "components/Enemy.hpp"
 #include "components/Network.hpp"
+#include "components/Projectile.hpp"
+#include "components/RigidBody.hpp"
 #include "components/Transform.hpp"
 #include "components/Weapon.hpp"
-#include "components/Projectile.hpp"
-#include "components/Enemy.hpp"
 
 Coordinator                    gCoordinator;
 std::shared_ptr<ObjectsSystem> gObjectsSystem;
@@ -43,6 +44,7 @@ void GameLoop(uint16_t port)
     gCoordinator.RegisterComponent<Movement>();
     gCoordinator.RegisterComponent<Network>();
     gCoordinator.RegisterComponent<Projectile>();
+    gCoordinator.RegisterComponent<RigidBody>();
     gCoordinator.RegisterComponent<Transform>();
     gCoordinator.RegisterComponent<Weapon>();
 
@@ -80,13 +82,13 @@ void GameLoop(uint16_t port)
     }
     movementSystem->Init();
 
-    auto projectileSystem = gCoordinator.RegisterSystem<ProjectileSystem>();
+    auto physicsSystem = gCoordinator.RegisterSystem<PhysicsSystem>();
     {
         Signature signature;
-        signature.set(gCoordinator.GetComponentType<Projectile>());
-        gCoordinator.SetSystemSignature<ProjectileSystem>(signature);
+        signature.set(gCoordinator.GetComponentType<RigidBody>());
+        gCoordinator.SetSystemSignature<PhysicsSystem>(signature);
     }
-    projectileSystem->Init();
+    physicsSystem->Init();
 
     const double                          fps = 60;
     std::chrono::system_clock::time_point start;
@@ -102,7 +104,7 @@ void GameLoop(uint16_t port)
         waveSystem->Update();
         weaponSystem->Update();
         movementSystem->Update();
-        projectileSystem->Update();
+        physicsSystem->Update();
 
         const std::chrono::duration<double, std::milli> work_time = std::chrono::system_clock::now() - start;
         const std::chrono::duration<double, std::milli> delta_ms((1000 / fps) - work_time.count());

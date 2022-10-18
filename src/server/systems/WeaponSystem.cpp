@@ -19,14 +19,14 @@ void WeaponSystem::Update() const
         auto       &weapon    = gCoordinator.GetComponent<Weapon>(entity);
         auto const &transform = gCoordinator.GetComponent<Transform>(entity);
 
+        if (weapon.shootTimer > 0)
+            weapon.shootTimer--;
+
         if (weapon.haveShot) {
             weapon.haveShot = false;
 
-            if (weapon.shootTimer > 0) {
-                weapon.shootTimer--;
-
-            } else {
-                weapon.shootTimer = maxRateOfFire - weapon.rateOfFire;
+            if (weapon.shootTimer == 0) {
+                weapon.shootTimer = weapon.rateOfFire;
                 createMissileProjectile(weapon, transform);
             }
         }
@@ -40,6 +40,7 @@ void WeaponSystem::createMissileProjectile(Weapon weapon, Transform transform)
     gCoordinator.AddComponent<Projectile>(entity, Projectile{10, weapon.team});
     gCoordinator.AddComponent<Transform>(entity, Transform{EntityType::BULLET, transform.posX, transform.posY});
     gCoordinator.AddComponent<Movement>(entity, Movement{static_cast<int16_t>(1 - (2 * weapon.team)), 0, 40});
+    gCoordinator.AddComponent<RigidBody>(entity, RigidBody{50, 50});
 
     // Broadcast bullet create.
     gServerManager->broadcast(new PacketServerEntityCreate(EntityType::BULLET, static_cast<EntityTeam>(weapon.team),

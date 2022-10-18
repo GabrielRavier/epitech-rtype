@@ -6,10 +6,10 @@
 */
 
 #include "RenderSystem.hpp"
-#include <iostream>
-#include <vector>
+#include "ObjectsSystem.hpp"
 
 extern Coordinator gCoordinator;
+extern std::shared_ptr<ObjectsSystem> gObjectsSystem;
 
 void RenderSystem::Init() {}
 
@@ -18,6 +18,11 @@ void RenderSystem::Update(const std::shared_ptr<WindowManager> &windowManager) c
     windowManager->Clear();
     std::vector<Entity> layer_one;
     for (auto const &entity : mEntities) {
+
+        // Hide player if not alive.
+        if (entity == gObjectsSystem->GetMe() && gCoordinator.GetComponent<Player>(entity).life == 0)
+            continue;
+
         auto const &sprite = gCoordinator.GetComponent<Sprite>(entity);
         if (sprite.layer == 0) {
             auto const &transform = gCoordinator.GetComponent<Transform>(entity);

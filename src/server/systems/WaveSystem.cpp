@@ -24,7 +24,7 @@ void WaveSystem::Update()
         CreateWave();
 
     for (auto const &entity : mEntities) {
-        if (int(_dist(_mt)) / 2 == 1) {
+        if (int(_dist(_mt)) % 100 == 2) {
             auto &weapon    = gCoordinator.GetComponent<Weapon>(entity);
             weapon.haveShot = true;
         }
@@ -47,6 +47,7 @@ void WaveSystem::CreateBlop(int i)
     gCoordinator.AddComponent<Weapon>(entity, Weapon{4, 0, Weapon::Type::MISSILETHROWER, Weapon::Team::ENEMY, false});
     gCoordinator.AddComponent<Movement>(entity, Movement{-1, 0, 4});
     gCoordinator.AddComponent<Transform>(entity, Transform{EntityType::MOB, posX, posY});
+    gCoordinator.AddComponent<RigidBody>(entity, RigidBody{24, 34});
 
     // Broadcast mob create.
     gServerManager->broadcast(new PacketServerEntityCreate(EntityType::MOB, EntityTeam::ENEMY, entity, posX, posY, 1));

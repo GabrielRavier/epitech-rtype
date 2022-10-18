@@ -6,6 +6,7 @@
 */
 
 #include "MovementSystem.hpp"
+#include "../../client/components/Player.hpp"
 #include "../core/NetworkServerManager.hpp"
 
 extern Coordinator           gCoordinator;
@@ -41,6 +42,10 @@ void MovementSystem::Update()
                 network.manager->disconnect();
                 continue;
             }
+
+            // Ignore dead players.
+            if (gCoordinator.GetComponent<Player>(entity).life == 0)
+                continue;
 
             // Shoot when key stay pressed.
             gCoordinator.GetComponent<Weapon>(entity).haveShot =

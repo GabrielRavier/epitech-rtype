@@ -6,6 +6,7 @@
 #include "../components/Network.hpp"
 #include "../components/Transform.hpp"
 #include "../components/Movement.hpp"
+#include "../components/RigidBody.hpp"
 #include "../components/Weapon.hpp"
 #include "../systems/ObjectsSystem.hpp"
 
@@ -19,6 +20,10 @@ NetworkClientManager::NetworkClientManager(NetworkServerManager *server, boost::
     for (auto const &entity : gObjectsSystem->GetEntities()) {
         auto &transform = gCoordinator.GetComponent<Transform>(entity);
 
+        // Ignore dead players.
+        if (transform.type == EntityType::PLAYER && gCoordinator.GetComponent<Player>(entity).life == 0)
+            continue;
+
         this->send(new PacketServerEntityCreate(transform.type, EntityTeam::PLAYER, entity, transform.posX,
                                                 transform.posY, 100));
     }
@@ -28,8 +33,9 @@ NetworkClientManager::NetworkClientManager(NetworkServerManager *server, boost::
     gCoordinator.AddComponent<Player>(m_entity, Player{"Pepo", 100, 0});
     gCoordinator.AddComponent<Transform>(m_entity, Transform{EntityType::PLAYER, 50, 50});
     gCoordinator.AddComponent<Movement>(m_entity, Movement{0, 0, 0});
+    gCoordinator.AddComponent<RigidBody>(m_entity, RigidBody{33,17});
     gCoordinator.AddComponent<Weapon>(m_entity,
-                                      Weapon{30, 0, Weapon::Type::MISSILETHROWER, Weapon::Team::PLAYERS, false});
+                                      Weapon{15, 0, Weapon::Type::MISSILETHROWER, Weapon::Team::PLAYERS, false});
 
     // Send entity ID to client.
     this->send(new PacketServerLogin(LoginState::ACCEPT, m_entity));
@@ -93,9 +99,12 @@ void NetworkClientManager::processClientLogout(PacketClientLogout *packet)
         // Destroy client entity.
         gCoordinator.DestroyEntity(m_entity);
 
-        // Broadcast entity destroy.
-        PacketServerEntityDestroy sentPacket(m_entity);
-        m_server->broadcast(&sentPacket);
+        // Broadcast entity destroy if alive.
+        if (gCoordinator.GetComponent<Player>(m_entity).life > 0) {
+            PacketServerEntityDestroy sentPacket(m_entity);
+
+            m_server->broadcast(&sentPacket);
+        }
     }
 }
 

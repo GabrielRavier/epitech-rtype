@@ -7,12 +7,13 @@
 
 #pragma once
 
+#include <memory>
 #include "../core/System.hpp"
 #include "../core/Coordinator.hpp"
 #include "../core/WindowManager.hpp"
+#include "../components/Player.hpp"
 #include "../components/Transform.hpp"
 #include "../components/Sprite.hpp"
-#include <memory>
 
 class RenderSystem : public System
 {

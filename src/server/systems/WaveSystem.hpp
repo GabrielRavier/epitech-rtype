@@ -10,10 +10,11 @@
 #include <random>
 #include "../../client/core/System.hpp"
 #include "../../client/core/Coordinator.hpp"
-#include "../components/Transform.hpp"
-#include "../components/Movement.hpp"
 #include "../components/Enemy.hpp"
 #include "../components/Weapon.hpp"
+#include "../components/Transform.hpp"
+#include "../components/RigidBody.hpp"
+#include "../components/Movement.hpp"
 
 class WaveSystem : public System
 {

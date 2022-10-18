@@ -5,6 +5,7 @@
 #include "../components/NetworkEntity.hpp"
 #include "../components/Transform.hpp"
 #include "../components/Sprite.hpp"
+#include "../components/Player.hpp"
 
 extern Coordinator                    gCoordinator;
 extern std::shared_ptr<ObjectsSystem> gObjectsSystem;
@@ -82,7 +83,10 @@ void NetworkManager::processServerEntityDestroy(PacketServerEntityDestroy *packe
     gCoordinator.DestroyEntity(gObjectsSystem->GetEntityByNetworkId(packet->entityId));
 }
 
-void NetworkManager::processServerUpdateHealth(PacketServerUpdateHealth *packet) {}
+void NetworkManager::processServerUpdateHealth(PacketServerUpdateHealth *packet)
+{
+    gCoordinator.GetComponent<Player>(gObjectsSystem->GetMe()).life = packet->life;
+}
 
 void NetworkManager::processServerUpdatePos(PacketServerUpdatePos *packet)
 {
