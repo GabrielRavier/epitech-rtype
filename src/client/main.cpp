@@ -26,7 +26,6 @@ NetworkManager                *gNetworkManager;
 
 void NetworkLoop(NetworkManager *networkManager)
 {
-    gNetworkManager = networkManager;
     networkManager->run();
 }
 
@@ -35,6 +34,9 @@ void GameLoop(const char *host, uint16_t port)
     NetworkManager                       networkManager(host, port);
     std::thread                          threadNetworkLoop(NetworkLoop, &networkManager);
     const std::shared_ptr<WindowManager> windowManager = std::make_shared<WindowManager>();
+
+    // Set network manager.
+    gNetworkManager = &networkManager;
 
     windowManager->Init("R-Type", 1920, 700);
 
