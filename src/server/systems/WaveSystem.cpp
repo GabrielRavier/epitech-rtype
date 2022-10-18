@@ -45,7 +45,7 @@ void WaveSystem::CreateBlop(int i)
 
     gCoordinator.AddComponent<Enemy>(entity, Enemy { Enemy::EnemyType::BLOP, 10 });
     gCoordinator.AddComponent<Weapon>(entity, Weapon {4, 0, Weapon::Type::MISSILETHROWER, Weapon::Team::ENEMY, false });
-    gCoordinator.AddComponent<Movement>(entity, Movement { -1, 0, 10 });
+    gCoordinator.AddComponent<Movement>(entity, Movement { -1, 0, 4 });
     gCoordinator.AddComponent<Transform>(entity, Transform { EntityType::MOB, posX, posY });
 
     // Broadcast mob create.

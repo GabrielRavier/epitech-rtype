@@ -31,6 +31,11 @@ void MovementSystem::Update()
             continue;
         }
 
+        // Shoot when key stay pressed.
+        if (transform.type == EntityType::PLAYER) {
+            gCoordinator.GetComponent<Weapon>(entity).haveShot = gCoordinator.GetComponent<Network>(entity).inputs.test(InputType::SHOOT);
+        }
+
         // Send entity position to peers.
         gServerManager->broadcast(new PacketServerUpdatePos(entity, transform.posX, transform.posY));
     }
@@ -38,6 +43,5 @@ void MovementSystem::Update()
     for (auto const &entity : toDelete) {
         gCoordinator.DestroyEntity(entity);
         gServerManager->broadcast(new PacketServerEntityDestroy(entity));
-        std::cout << "DELETED ENTITY WITH ID " << std::to_string(entity) << std::endl;
     }
 }

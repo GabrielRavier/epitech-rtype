@@ -11,6 +11,8 @@
 #include "../../client/core/Coordinator.hpp"
 #include "../components/Movement.hpp"
 #include "../components/Transform.hpp"
+#include "../components/Network.hpp"
+#include "../components/Weapon.hpp"
 
 class MovementSystem : public System
 {
