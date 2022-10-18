@@ -46,7 +46,7 @@ public:
                         throw std::runtime_error("Too big packet.");
 
                     // Ensure packet entirety.
-                    if ((buffer.pos() + packet_len) > len) {
+                    if ((packet_offset + packet_len) > len) {
                         buffer.setPos(packet_offset);
                         break;
                     }
