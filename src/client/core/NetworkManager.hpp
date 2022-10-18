@@ -114,6 +114,9 @@ public:
 
     void close()
     {
+        auto packet = PacketClientLogout();
+
+        this->send(&packet);
         m_socket.shutdown(boost::asio::ip::udp::socket::shutdown_receive);
         m_socket.close();
     }

@@ -33,6 +33,8 @@ public:
         }
     }
 
+    void disconnect();
+
 private:
     void processClientLogin(PacketClientLogin *packet) override;
     void processClientKeepAlive(PacketClientKeepAlive *packet) override;
