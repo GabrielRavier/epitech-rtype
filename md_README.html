@@ -73,12 +73,14 @@ Supported compilers</h1>
 <li>Visual Studio 2022 on Windows</li>
 <li>GCC 11.2 on Ubuntu 22.04</li>
 </ul>
+<p>Note that when using Visual Studio 2022, you should probably use the Visual Studio Developer Prompt to build the project.</p>
 <h1><a class="anchor" id="autotoc_md17"></a>
 Dependencies</h1>
 <p>These dependencies can be installed either through vcpkg (see setup instructions later in this README) or through your local package manager:</p>
 <ul>
 <li>SFML</li>
 <li>Loguru</li>
+<li>Boost</li>
 </ul>
 <h2><a class="anchor" id="autotoc_md18"></a>
 Installing vcpkg</h2>
@@ -95,8 +97,8 @@ Building</h1>
 <div class="fragment"><div class="line">cmake --build build</div>
 </div><!-- fragment --><h1><a class="anchor" id="autotoc_md20"></a>
 Running the game</h1>
-<p>Once built, the <code>r-type_server</code> and <code>r-type_client</code> executables can be found in the top directory. It should be noted that on certain environments, such as Visual Studio, the output location is unpredictable, with the executables often ending up in locations such as <code>Debug/r-type_client.exe</code> or <code>Release/r-type_client.exe</code>.</p>
-<p>In all cases, when running the game, the executables should be ran the top directory of this repository.</p>
+<p>Once built, the <code>r-type_server</code> and <code>r-type_client</code> executables can be found in the top directory. It should be noted that on certain environments, such as Visual Studio, the output location is unreliable, with the executables often ending up in locations such as <code>Debug/r-type_client.exe</code> or <code>Release/r-type_client.exe</code>.</p>
+<p>In all cases, when running the game, the executables should be ran from the top directory of this repository.</p>
 <h1><a class="anchor" id="autotoc_md21"></a>
 Running tests</h1>
 <p>Should you have followed the previous instructions, running tests should be as simple as using either the following command (everywhere but on Windows):</p>

@@ -91,12 +91,12 @@ Collaboration diagram for PacketServerEntityCreate:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a35029c403b5ed6cd412a58222d75ba49"><td class="memItemLeft" align="right" valign="top"><a id="a35029c403b5ed6cd412a58222d75ba49"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>PacketServerEntityCreate</b> (EntityType entityType, uint16_t entityId, uint16_t posX, uint16_t posY, uint16_t life)</td></tr>
-<tr class="separator:a35029c403b5ed6cd412a58222d75ba49"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2faf9a11d3380524fdf41fd0310d95bf"><td class="memItemLeft" align="right" valign="top"><a id="a2faf9a11d3380524fdf41fd0310d95bf"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>readPacket</b> (<a class="el" href="classBuffer.html">Buffer</a> *buffer) override</td></tr>
-<tr class="separator:a2faf9a11d3380524fdf41fd0310d95bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0a478a3e429ed5f98afddca11f833599"><td class="memItemLeft" align="right" valign="top"><a id="a0a478a3e429ed5f98afddca11f833599"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>PacketServerEntityCreate</b> (EntityType entityType, EntityTeam entityTeam, uint16_t entityId, int16_t posX, int16_t posY, uint16_t life)</td></tr>
+<tr class="separator:a0a478a3e429ed5f98afddca11f833599"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a29777bdc179fbd51e3218effbe957e41"><td class="memItemLeft" align="right" valign="top"><a id="a29777bdc179fbd51e3218effbe957e41"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>readPacket</b> (<a class="el" href="classBuffer.html">Buffer</a> *buffer)</td></tr>
+<tr class="separator:a29777bdc179fbd51e3218effbe957e41"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae455cd48c8ef2413c24a9a687c079594"><td class="memItemLeft" align="right" valign="top"><a id="ae455cd48c8ef2413c24a9a687c079594"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>writePacket</b> (<a class="el" href="classBuffer.html">Buffer</a> *buffer) override</td></tr>
 <tr class="separator:ae455cd48c8ef2413c24a9a687c079594"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -109,18 +109,21 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:a82a2032e6e3c97e0ae6e08407fbb416c"><td class="memItemLeft" align="right" valign="top"><a id="a82a2032e6e3c97e0ae6e08407fbb416c"></a>
 EntityType&#160;</td><td class="memItemRight" valign="bottom"><b>entityType</b></td></tr>
 <tr class="separator:a82a2032e6e3c97e0ae6e08407fbb416c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0150b7c2f18555aa6e3c434a2e7739f8"><td class="memItemLeft" align="right" valign="top"><a id="a0150b7c2f18555aa6e3c434a2e7739f8"></a>
+EntityTeam&#160;</td><td class="memItemRight" valign="bottom"><b>entityTeam</b></td></tr>
+<tr class="separator:a0150b7c2f18555aa6e3c434a2e7739f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4eadbda84001f3e3c0f836d8c0a65b13"><td class="memItemLeft" align="right" valign="top"><a id="a4eadbda84001f3e3c0f836d8c0a65b13"></a>
 uint16_t&#160;</td><td class="memItemRight" valign="bottom"><b>entityId</b></td></tr>
 <tr class="separator:a4eadbda84001f3e3c0f836d8c0a65b13"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae4877ebb2f5b065658f62f831cc4b70b"><td class="memItemLeft" align="right" valign="top"><a id="ae4877ebb2f5b065658f62f831cc4b70b"></a>
 uint16_t&#160;</td><td class="memItemRight" valign="bottom"><b>posX</b></td></tr>
 <tr class="separator:ae4877ebb2f5b065658f62f831cc4b70b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a350ffb57310e74f7b01cbcd8b9ecbd01"><td class="memItemLeft" align="right" valign="top"><a id="a350ffb57310e74f7b01cbcd8b9ecbd01"></a>
-uint16_t&#160;</td><td class="memItemRight" valign="bottom"><b>posY</b></td></tr>
-<tr class="separator:a350ffb57310e74f7b01cbcd8b9ecbd01"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a238c7aebd05aa46abab767ae849d0cc0"><td class="memItemLeft" align="right" valign="top"><a id="a238c7aebd05aa46abab767ae849d0cc0"></a>
-uint16_t&#160;</td><td class="memItemRight" valign="bottom"><b>life</b></td></tr>
-<tr class="separator:a238c7aebd05aa46abab767ae849d0cc0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a54752d51c22e865f6323d3dd7bf0e83f"><td class="memItemLeft" align="right" valign="top"><a id="a54752d51c22e865f6323d3dd7bf0e83f"></a>
+int16_t&#160;</td><td class="memItemRight" valign="bottom"><b>posY</b></td></tr>
+<tr class="separator:a54752d51c22e865f6323d3dd7bf0e83f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab467951e1c97e4fab2c71cb08245d129"><td class="memItemLeft" align="right" valign="top"><a id="ab467951e1c97e4fab2c71cb08245d129"></a>
+int16_t&#160;</td><td class="memItemRight" valign="bottom"><b>life</b></td></tr>
+<tr class="separator:ab467951e1c97e4fab2c71cb08245d129"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>src/server/packets/<a class="el" href="packet__server__entity__create_8hpp_source.html">packet_server_entity_create.hpp</a></li>
