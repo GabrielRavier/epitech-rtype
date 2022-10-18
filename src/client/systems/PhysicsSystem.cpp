@@ -6,9 +6,12 @@
 */
 
 #include "PhysicsSystem.hpp"
-#include <iostream>
+#include "../core/NetworkManager.hpp"
+#include "../systems/ObjectsSystem.hpp"
 
 extern Coordinator gCoordinator;
+extern NetworkManager *gNetworkManager;
+extern std::shared_ptr<ObjectsSystem> gObjectsSystem;
 
 void PhysicsSystem::Init(float windowWidth, float windowHeight)
 {
@@ -32,5 +35,16 @@ void PhysicsSystem::Update()
             transform.position.y += movement.speed;
         if (transform.position.y + hitbox.y > _yLimit)
             transform.position.y -= movement.speed;
+    }
+
+    {
+        auto entity     = gObjectsSystem->GetMe();
+        auto &transform = gCoordinator.GetComponent<Transform>(entity);
+
+        // Send position.
+        gNetworkManager->send(new PacketClientPos(
+            static_cast<uint16_t>(transform.position.x),
+            static_cast<uint16_t>(transform.position.y)
+        ));
     }
 }

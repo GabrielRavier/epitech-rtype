@@ -6,8 +6,7 @@
 
 struct Player
 {
-    std::string         name;
-    int                 health;
-    int                 power;
-    std::vector<Entity> weapons;
+    std::string     name;
+    int             health;
+    int             power;
 };
