@@ -16,6 +16,7 @@ These dependencies can be installed either through vcpkg (see setup instructions
 
 - SFML
 - Loguru
+- Boost
 
 ### Installing vcpkg
 
@@ -50,7 +51,7 @@ cmake --build build
 
 Once built, the `r-type_server` and `r-type_client` executables can be found in the top directory. It should be noted that on certain environments, such as Visual Studio, the output location is unpredictable, with the executables often ending up in locations such as `Debug/r-type_client.exe` or `Release/r-type_client.exe`.
 
-In all cases, when running the game, the executables should be ran the top directory of this repository.
+In all cases, when running the game, the executables should be ran from the top directory of this repository.
 
 ## Running tests
 
