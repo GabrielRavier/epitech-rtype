@@ -8,20 +8,22 @@
 #include "RenderSystem.hpp"
 #include "ObjectsSystem.hpp"
 
-extern Coordinator gCoordinator;
+extern Coordinator                    gCoordinator;
 extern std::shared_ptr<ObjectsSystem> gObjectsSystem;
 
 void RenderSystem::Init() {}
 
-void RenderSystem::Update(const std::shared_ptr<WindowManager> &windowManager) const
+void RenderSystem::Update(const std::shared_ptr<WindowManager> &windowManager, bool online) const
 {
     windowManager->Clear();
     std::vector<Entity> layer_one;
     for (auto const &entity : mEntities) {
 
         // Hide player if not alive.
-        if (entity == gObjectsSystem->GetMe() && gCoordinator.GetComponent<Player>(entity).life == 0)
-            continue;
+        if (online) {
+            if (entity == gObjectsSystem->GetMe() && gCoordinator.GetComponent<Player>(entity).life == 0)
+                continue;
+        }
 
         auto const &sprite = gCoordinator.GetComponent<Sprite>(entity);
         if (sprite.layer == 0) {

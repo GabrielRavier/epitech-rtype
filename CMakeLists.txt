@@ -82,6 +82,8 @@ set(r_type_client_SOURCES
   "src/client/systems/PhysicsSystem.cpp"
   "src/client/systems/PlayerSystem.cpp"
   "src/client/systems/RenderSystem.cpp"
+  "src/client/systems/MainMenuSystem.cpp"
+  "src/client/core/SceneManager.cpp"
   "src/client/systems/ObjectsSystem.cpp"
   "src/client/utils/Vec2.cpp"
   "src/server/utils.cpp"

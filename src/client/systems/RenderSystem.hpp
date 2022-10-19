@@ -19,5 +19,5 @@ class RenderSystem : public System
 {
 public:
     void Init();
-    void Update(const std::shared_ptr<WindowManager> &windowManager) const;
+    void Update(const std::shared_ptr<WindowManager> &windowManager, bool online) const;
 };

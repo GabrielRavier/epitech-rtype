@@ -22,10 +22,15 @@ public:
     void                         Clear();
     void                         Update();
     void                         RenderSprite(const std::shared_ptr<sf::Sprite> &sprite, sf::Vector2f position);
-    bool                         ManageEvent(NetworkManager &manager);
+    bool                         ManageNetworkEvent(NetworkManager &manager);
+    bool                         ManageEvent();
     [[nodiscard]] std::bitset<8> GetInputs() const;
+    [[nodiscard]] sf::Vector2i   GetMousePosition() const;
+    [[nodiscard]] bool           MouseClicked() const;
 
 private:
     std::unique_ptr<sf::RenderWindow> _window;
     std::bitset<8>                    _inputs;
+    sf::Vector2i                      _mouse;
+    bool                              _clicked = false;
 };

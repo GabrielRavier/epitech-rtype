@@ -11,7 +11,21 @@
 class NetworkManager : private INetworkHandler
 {
 public:
+    NetworkManager() : m_socket(m_io_context) {}
+
     NetworkManager(const char *host, uint16_t port) : m_socket(m_io_context)
+    {
+        boost::asio::ip::udp::resolver resolver(m_io_context);
+
+        // Set target endpoint and port.
+        m_target_endpoint = *resolver.resolve(boost::asio::ip::udp::v4(), host, "").begin();
+        m_target_endpoint.port(port);
+
+        // Open socket.
+        m_socket.connect(m_target_endpoint);
+    }
+
+    void Init(const char *host, uint16_t port)
     {
         boost::asio::ip::udp::resolver resolver(m_io_context);
 
@@ -29,17 +43,18 @@ public:
 
         try {
             while (m_socket.is_open()) {
-                size_t len = buffer.pos() + m_socket.receive_from(boost::asio::buffer(buffer.data() + buffer.pos(),
-                                                                                      buffer.capacity() - buffer.pos()),
-                                                                  m_target_endpoint);
+                const size_t len =
+                    buffer.pos() + m_socket.receive_from(boost::asio::buffer(buffer.data() + buffer.pos(),
+                                                                             buffer.capacity() - buffer.pos()),
+                                                         m_target_endpoint);
 
                 // Set buffer to begin.
                 buffer.setPos(0);
 
                 // Decode packets.
                 while (buffer.pos() < len) {
-                    size_t   packet_offset = buffer.pos();
-                    uint16_t packet_len    = buffer.readU16();
+                    const size_t   packet_offset = buffer.pos();
+                    const uint16_t packet_len    = buffer.readU16();
 
                     // Ensure packet size.
                     if (packet_len > buffer.capacity())
@@ -52,15 +67,15 @@ public:
                     }
 
                     // Read packet header.
-                    uint16_t seq_client = buffer.readU16();
-                    uint16_t seq_server = buffer.readU16();
+                    const uint16_t seq_client = buffer.readU16();
+                    const uint16_t seq_server = buffer.readU16();
 
                     // TODO: Do something with this ?
                     (void)seq_client;
                     (void)seq_server;
 
-                    uint8_t packet_id = buffer.readU8();
-                    auto   *packet    = CreateServerPacket(packet_id);
+                    const uint8_t packet_id = buffer.readU8();
+                    auto         *packet    = CreateServerPacket(packet_id);
 
                     // Read packet data.
                     packet->readPacket(&buffer);
