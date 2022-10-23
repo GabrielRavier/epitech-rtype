@@ -40,12 +40,14 @@ public:
     SCENE       MultipPlayerScene();
 
 private:
-    char                             *_ip;
-    int                               _port;
-    bool                              _running       = true;
-    std::shared_ptr<WindowManager>    _windowManager = std::make_shared<WindowManager>();
-    SCENE                             _currentScene  = SCENE::MAINMENU;
-    SCENE                             _oldScene      = SCENE::MAINMENU;
+    char                          *_ip;
+    int                            _port;
+    bool                           _running       = true;
+    std::shared_ptr<WindowManager> _windowManager = std::make_shared<WindowManager>();
+    SCENE                          _currentScene  = SCENE::MAINMENU;
+    SCENE                          _oldScene      = SCENE::MAINMENU;
+    SCENE(SceneManager::*_method_function[3])
+    () = {&SceneManager::MainMenuScene, &SceneManager::MultipPlayerScene, &SceneManager::MultipPlayerScene};
     NetworkManager                    _networkManager;
     std::thread                       _threadNetworkLoop;
     std::shared_ptr<BackgroundSystem> _backgroundSystem;

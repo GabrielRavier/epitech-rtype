@@ -161,19 +161,8 @@ void SceneManager::Loop()
     LoadScene();
 
     while (_running) {
-        start = std::chrono::system_clock::now();
-        switch (_currentScene) {
-        case SCENE::MAINMENU:
-            _running = _windowManager->ManageEvent();
-            newScene = MainMenuScene();
-            break;
-        case SCENE::MULTIPLAYER:
-            _running = _windowManager->ManageNetworkEvent(_networkManager);
-            newScene = MultipPlayerScene();
-            break;
-        default:
-            break;
-        }
+        start    = std::chrono::system_clock::now();
+        newScene = (this->*_method_function[_currentScene])();
         if (newScene != _currentScene) {
             _currentScene = newScene;
             LoadScene();
@@ -188,6 +177,7 @@ void SceneManager::Loop()
 
 SCENE SceneManager::MainMenuScene()
 {
+    _running = _windowManager->ManageEvent();
     _renderSystem->Update(_windowManager, false);
     auto scene = _mainMenuSystem->Update(_windowManager->GetMousePosition(), _windowManager->MouseClicked());
     return (scene);
@@ -195,6 +185,7 @@ SCENE SceneManager::MainMenuScene()
 
 SCENE SceneManager::MultipPlayerScene()
 {
+    _running = _windowManager->ManageNetworkEvent(_networkManager);
     _networkManager.processPackets();
 
     _playerSystem->Update(_windowManager->GetInputs());
