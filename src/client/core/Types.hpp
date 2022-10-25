@@ -15,5 +15,6 @@ enum SCENE
 {
     MAINMENU,
     SOLO,
-    MULTIPLAYER
+    MULTIPLAYER,
+    LEVELSMENU
 };

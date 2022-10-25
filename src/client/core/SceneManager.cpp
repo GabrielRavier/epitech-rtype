@@ -34,6 +34,7 @@ void SceneManager::LoadComponents()
     gCoordinator.RegisterComponent<Sprite>();
     gCoordinator.RegisterComponent<Transform>();
     gCoordinator.RegisterComponent<NetworkEntity>();
+    gCoordinator.RegisterComponent<Level>();
 }
 
 void SceneManager::LoadSystems()
@@ -107,6 +108,14 @@ void SceneManager::LoadSystems()
         }
     } else if (_currentScene == SCENE::MAINMENU)
         _mainMenuSystem = gCoordinator.RegisterSystem<MainMenuSystem>();
+    else if (_currentScene == SCENE::LEVELSMENU) {
+        _levelsSystem = gCoordinator.RegisterSystem<LevelsSystem>();
+        {
+            Signature signature;
+            signature.set(gCoordinator.GetComponentType<Level>());
+            gCoordinator.SetSystemSignature<LevelsSystem>(signature);
+        }
+    }
 }
 
 void SceneManager::InitSystems(int windowWidth, int windowHeight)
@@ -125,6 +134,8 @@ void SceneManager::InitSystems(int windowWidth, int windowHeight)
         _backgroundSystem->Init();
     } else if (_currentScene == SCENE::MAINMENU) {
         _mainMenuSystem->Init();
+    } else if (_currentScene == SCENE::LEVELSMENU) {
+        _levelsSystem->Init();
     }
 }
 
@@ -194,4 +205,12 @@ SCENE SceneManager::MultipPlayerScene()
     _physicsSystem->Update();
     _renderSystem->Update(_windowManager, true);
     return (SCENE::MULTIPLAYER);
+}
+
+SCENE SceneManager::LevelsMenuScene()
+{
+    _running = _windowManager->ManageEvent();
+    _renderSystem->Update(_windowManager, false);
+    auto scene = _levelsSystem->Update(_windowManager->GetMousePosition(), _windowManager->MouseClicked());
+    return (scene);
 }

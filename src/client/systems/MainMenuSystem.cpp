@@ -42,7 +42,7 @@ SCENE MainMenuSystem::Update(sf::Vector2i mousePosition, bool clicked)
     SCENE scene = SCENE::MAINMENU;
     if (clicked) {
         if (mousePosition.x > 50 && mousePosition.x < 226 && mousePosition.y > 50 && mousePosition.y < 114)
-            scene = SCENE::SOLO;
+            scene = SCENE::LEVELSMENU;
         else if (mousePosition.x > 50 && mousePosition.x < 226 && mousePosition.y > 120 && mousePosition.y < 184)
             scene = SCENE::MULTIPLAYER;
     }

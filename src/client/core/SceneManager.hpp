@@ -10,6 +10,7 @@
 #include "../core/Coordinator.hpp"
 #include "../core/WindowManager.hpp"
 #include "../core/NetworkManager.hpp"
+#include "../components/Level.hpp"
 #include "../components/Movement.hpp"
 #include "../components/Player.hpp"
 #include "../components/RigidBody.hpp"
@@ -17,6 +18,7 @@
 #include "../components/Transform.hpp"
 #include "../components/NetworkEntity.hpp"
 #include "../systems/BackgroundSystem.hpp"
+#include "../systems/LevelsSystem.hpp"
 #include "../systems/MainMenuSystem.hpp"
 #include "../systems/MovementSystem.hpp"
 #include "../systems/ObjectsSystem.hpp"
@@ -38,6 +40,7 @@ public:
     SCENE       MainMenuScene();
     SCENE       SinglePlayerScene();
     SCENE       MultipPlayerScene();
+    SCENE       LevelsMenuScene();
 
 private:
     char                          *_ip;
@@ -46,11 +49,12 @@ private:
     std::shared_ptr<WindowManager> _windowManager = std::make_shared<WindowManager>();
     SCENE                          _currentScene  = SCENE::MAINMENU;
     SCENE                          _oldScene      = SCENE::MAINMENU;
-    SCENE(SceneManager::*_method_function[3])
-    () = {&SceneManager::MainMenuScene, &SceneManager::MultipPlayerScene, &SceneManager::MultipPlayerScene};
+    SCENE(SceneManager::*_method_function[4])
+    () = {&SceneManager::MainMenuScene, &SceneManager::MultipPlayerScene, &SceneManager::MultipPlayerScene, &SceneManager::LevelsMenuScene};
     NetworkManager                    _networkManager;
     std::thread                       _threadNetworkLoop;
     std::shared_ptr<BackgroundSystem> _backgroundSystem;
+    std::shared_ptr<LevelsSystem>     _levelsSystem;
     std::shared_ptr<MainMenuSystem>   _mainMenuSystem;
     std::shared_ptr<MovementSystem>   _movementSystem;
     std::shared_ptr<PhysicsSystem>    _physicsSystem;
