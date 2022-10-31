@@ -24,7 +24,7 @@ void LevelsSystem::Init()
     closedir(dirp);
 }
 
-SCENE LevelsSystem::Update(sf::Vector2i mousePosition, bool clicked)
+SCENE LevelsSystem::Update(sf::Vector2i mousePosition, bool clicked, std::string *pathLevel)
 {
     if (!clicked)
         return (SCENE::LEVELSMENU);
@@ -37,8 +37,9 @@ SCENE LevelsSystem::Update(sf::Vector2i mousePosition, bool clicked)
             mousePosition.x <= (transform.position.x + sprite.rectSize.x * transform.scale.x) &&
             mousePosition.y >= transform.position.y &&
             mousePosition.y <= (transform.position.y + sprite.rectSize.y * transform.scale.y)) {
-            std::cout << level.path << std::endl;
-            return (SCENE::LEVELSMENU);
+            *pathLevel = level.path;
+            // Change scene to solo
+            return (SCENE::MAINMENU);
         }
     }
     return (SCENE::LEVELSMENU);

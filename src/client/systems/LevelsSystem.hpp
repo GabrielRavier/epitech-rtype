@@ -22,7 +22,7 @@ class LevelsSystem : public System
 {
 public:
     void  Init();
-    SCENE Update(sf::Vector2i mousePosition, bool clicked);
+    SCENE Update(sf::Vector2i mousePosition, bool clicked, std::string *pathLevel);
     void  createLevel(const std::string &name);
 
 private:

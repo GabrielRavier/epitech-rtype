@@ -220,6 +220,6 @@ SCENE SceneManager::LevelsMenuScene()
     _running = _windowManager->ManageEvent();
     _renderSystem->Update(_windowManager, false);
     _textSystem->Update(_windowManager);
-    auto scene = _levelsSystem->Update(_windowManager->GetMousePosition(), _windowManager->MouseClicked());
+    auto scene = _levelsSystem->Update(_windowManager->GetMousePosition(), _windowManager->MouseClicked(), &_levelPath);
     return (scene);
 }

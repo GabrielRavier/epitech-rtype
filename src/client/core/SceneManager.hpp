@@ -47,6 +47,7 @@ public:
 private:
     char                          *_ip;
     int                            _port;
+    std::string                    _levelPath;
     bool                           _running       = true;
     std::shared_ptr<WindowManager> _windowManager = std::make_shared<WindowManager>();
     SCENE                          _currentScene  = SCENE::MAINMENU;
