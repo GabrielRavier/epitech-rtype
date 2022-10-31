@@ -25,6 +25,12 @@ void WindowManager::RenderSprite(const std::shared_ptr<sf::Sprite> &sprite, sf::
     this->_window->draw(*sprite);
 }
 
+void WindowManager::RenderText(const std::shared_ptr<sf::Text> &text, sf::Vector2f position)
+{
+    text->setPosition(position);
+    this->_window->draw(*text);
+}
+
 void WindowManager::Update()
 {
     this->_window->display();

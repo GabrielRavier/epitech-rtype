@@ -22,6 +22,7 @@ public:
     void                         Clear();
     void                         Update();
     void                         RenderSprite(const std::shared_ptr<sf::Sprite> &sprite, sf::Vector2f position);
+    void                         RenderText(const std::shared_ptr<sf::Text> &text, sf::Vector2f position);
     bool                         ManageNetworkEvent(NetworkManager &manager);
     bool                         ManageEvent();
     [[nodiscard]] std::bitset<8> GetInputs() const;

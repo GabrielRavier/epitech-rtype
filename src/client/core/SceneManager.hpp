@@ -15,6 +15,7 @@
 #include "../components/Player.hpp"
 #include "../components/RigidBody.hpp"
 #include "../components/Sprite.hpp"
+#include "../components/Text.hpp"
 #include "../components/Transform.hpp"
 #include "../components/NetworkEntity.hpp"
 #include "../systems/BackgroundSystem.hpp"
@@ -25,6 +26,7 @@
 #include "../systems/PhysicsSystem.hpp"
 #include "../systems/PlayerSystem.hpp"
 #include "../systems/RenderSystem.hpp"
+#include "../systems/TextSystem.hpp"
 
 class SceneManager
 {
@@ -50,7 +52,8 @@ private:
     SCENE                          _currentScene  = SCENE::MAINMENU;
     SCENE                          _oldScene      = SCENE::MAINMENU;
     SCENE(SceneManager::*_method_function[4])
-    () = {&SceneManager::MainMenuScene, &SceneManager::MultipPlayerScene, &SceneManager::MultipPlayerScene, &SceneManager::LevelsMenuScene};
+    () = {&SceneManager::MainMenuScene, &SceneManager::MultipPlayerScene, &SceneManager::MultipPlayerScene,
+          &SceneManager::LevelsMenuScene};
     NetworkManager                    _networkManager;
     std::thread                       _threadNetworkLoop;
     std::shared_ptr<BackgroundSystem> _backgroundSystem;
@@ -60,4 +63,5 @@ private:
     std::shared_ptr<PhysicsSystem>    _physicsSystem;
     std::shared_ptr<PlayerSystem>     _playerSystem;
     std::shared_ptr<RenderSystem>     _renderSystem;
+    std::shared_ptr<TextSystem>       _textSystem;
 };

@@ -32,6 +32,7 @@ void SceneManager::LoadComponents()
     gCoordinator.RegisterComponent<Player>();
     gCoordinator.RegisterComponent<RigidBody>();
     gCoordinator.RegisterComponent<Sprite>();
+    gCoordinator.RegisterComponent<Text>();
     gCoordinator.RegisterComponent<Transform>();
     gCoordinator.RegisterComponent<NetworkEntity>();
     gCoordinator.RegisterComponent<Level>();
@@ -114,6 +115,13 @@ void SceneManager::LoadSystems()
             Signature signature;
             signature.set(gCoordinator.GetComponentType<Level>());
             gCoordinator.SetSystemSignature<LevelsSystem>(signature);
+        }
+        _textSystem = gCoordinator.RegisterSystem<TextSystem>();
+        {
+            Signature signature;
+            signature.set(gCoordinator.GetComponentType<Text>());
+            signature.set(gCoordinator.GetComponentType<Transform>());
+            gCoordinator.SetSystemSignature<TextSystem>(signature);
         }
     }
 }
@@ -211,6 +219,7 @@ SCENE SceneManager::LevelsMenuScene()
 {
     _running = _windowManager->ManageEvent();
     _renderSystem->Update(_windowManager, false);
+    _textSystem->Update(_windowManager);
     auto scene = _levelsSystem->Update(_windowManager->GetMousePosition(), _windowManager->MouseClicked());
     return (scene);
 }

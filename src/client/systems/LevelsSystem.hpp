@@ -10,18 +10,21 @@
 #include "../core/System.hpp"
 #include "../core/Coordinator.hpp"
 #include "../components/Sprite.hpp"
+#include "../components/Text.hpp"
 #include "../components/Transform.hpp"
 #include "../components/Level.hpp"
 #include <sys/types.h>
 #include <dirent.h>
 #include <iostream>
+#include <algorithm>
 
 class LevelsSystem : public System
 {
 public:
     void  Init();
     SCENE Update(sf::Vector2i mousePosition, bool clicked);
-    void  createLevel(std::string name);
+    void  createLevel(const std::string &name);
+
 private:
     int _nbOfLevel = 0;
 };
