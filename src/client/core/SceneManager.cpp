@@ -6,6 +6,7 @@
 */
 
 #include "SceneManager.hpp"
+#include <thread>
 
 extern Coordinator                    gCoordinator;
 extern std::shared_ptr<ObjectsSystem> gObjectsSystem;
