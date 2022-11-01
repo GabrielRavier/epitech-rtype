@@ -50,7 +50,7 @@ void WaveSystem::CreateBlop(int i)
     gCoordinator.AddComponent<RigidBody>(entity, RigidBody{24, 34});
 
     // Broadcast mob create.
-    gServerManager->broadcast(new PacketServerEntityCreate(EntityType::MOB, EntityTeam::ENEMY, entity, posX, posY, 1));
+    gServerManager->broadcast(new PacketServerEntityCreate(EntityType::MOB, EntityTeam::ENEMY, MobType::BLOP, entity, posX, posY, 1));
 }
 
 void WaveSystem::CreateCrop(int i)
@@ -64,5 +64,5 @@ void WaveSystem::CreateCrop(int i)
     gCoordinator.AddComponent<Transform>(entity, Transform{EntityType::MOB, posX, posY});
     gCoordinator.AddComponent<RigidBody>(entity, RigidBody{29, 29});
 
-    gServerManager->broadcast(new PacketServerEntityCreate(EntityType::MOB, EntityTeam::ENEMY, entity, posX, posY, 1));
+    gServerManager->broadcast(new PacketServerEntityCreate(EntityType::MOB, EntityTeam::ENEMY, MobType::CROP, entity, posX, posY, 1));
 }

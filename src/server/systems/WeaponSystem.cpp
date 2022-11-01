@@ -43,6 +43,6 @@ void WeaponSystem::createMissileProjectile(Weapon weapon, Transform transform)
     gCoordinator.AddComponent<RigidBody>(entity, RigidBody{50, 50});
 
     // Broadcast bullet create.
-    gServerManager->broadcast(new PacketServerEntityCreate(EntityType::BULLET, static_cast<EntityTeam>(weapon.team),
+    gServerManager->broadcast(new PacketServerEntityCreate(EntityType::BULLET, static_cast<EntityTeam>(weapon.team), MobType::NONE,
                                                            entity, transform.posX, transform.posY, 1));
 }
