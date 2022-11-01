@@ -13,8 +13,8 @@ void PhysicsSystem::Update() const
     std::unordered_set<Entity> toDelete;
 
     for (auto const &entity : mEntities) {
-        auto &entityTransform   = gCoordinator.GetComponent<Transform>(entity);
-        auto &entityRigidBody   = gCoordinator.GetComponent<RigidBody>(entity);
+        auto &entityTransform = gCoordinator.GetComponent<Transform>(entity);
+        auto &entityRigidBody = gCoordinator.GetComponent<RigidBody>(entity);
 
         for (auto const &target : mEntities) {
             auto &targetTransform = gCoordinator.GetComponent<Transform>(target);
@@ -46,7 +46,7 @@ void PhysicsSystem::Update() const
             }
 
             // Detect collision.
-            if (this->Collided(entityTransform, entityRigidBody, targetTransform, targetRigidBody))
+            if (PhysicsSystem::Collided(entityTransform, entityRigidBody, targetTransform, targetRigidBody))
                 toDelete.emplace(target);
         }
     }
@@ -72,12 +72,9 @@ void PhysicsSystem::Update() const
     }
 }
 
-bool PhysicsSystem::Collided(Transform &transformA, RigidBody &bodyA, Transform &transformB, RigidBody &bodyB) const
+bool PhysicsSystem::Collided(const Transform &transformA, const RigidBody &bodyA, const Transform &transformB,
+                             const RigidBody &bodyB)
 {
-    return (
-        transformA.posX < transformB.posX + bodyB.width     &&
-        transformA.posX + bodyA.width > transformB.posX     &&
-        transformA.posY < transformB.posY + bodyB.height    &&
-        bodyA.height + transformA.posY > transformB.posY
-    );
+    return (transformA.posX < transformB.posX + bodyB.width && transformA.posX + bodyA.width > transformB.posX &&
+            transformA.posY < transformB.posY + bodyB.height && bodyA.height + transformA.posY > transformB.posY);
 }

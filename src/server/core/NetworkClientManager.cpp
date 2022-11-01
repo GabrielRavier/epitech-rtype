@@ -33,7 +33,7 @@ NetworkClientManager::NetworkClientManager(NetworkServerManager *server, boost::
     gCoordinator.AddComponent<Player>(m_entity, Player{"Pepo", 100, 0});
     gCoordinator.AddComponent<Transform>(m_entity, Transform{EntityType::PLAYER, 50, 50});
     gCoordinator.AddComponent<Movement>(m_entity, Movement{0, 0, 0});
-    gCoordinator.AddComponent<RigidBody>(m_entity, RigidBody{33,17});
+    gCoordinator.AddComponent<RigidBody>(m_entity, RigidBody{33, 17});
     gCoordinator.AddComponent<Weapon>(m_entity,
                                       Weapon{15, 0, Weapon::Type::MISSILETHROWER, Weapon::Team::PLAYERS, false});
 

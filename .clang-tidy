@@ -65,7 +65,7 @@ Checks: "abseil-cleanup-ctad,abseil-duration-addition,abseil-duration-comparison
         performance-inefficient-vector-operation,performance-move-const-arg,performance-move-constructor-init,performance-no-automatic-move,performance-noexcept-move-constructor,performance-no-int-to-ptr, \
         performance-trivially-destructible,performance-type-promotion-in-math-fn,performance-unnecessary-copy-initialization,performance-unnecessary-value-param,portability-restrict-system-includes, \
         portability-simd-intrinsics,portability-std-allocator-const,readability-avoid-const-params-in-decls,readability-const-return-type,readability-container-contains,readability-container-data-pointer, \
-        readability-container-size-empty,readability-convert-member-functions-to-static,readability-delete-null-pointer,readability-duplicate-include,readability-else-after-return,readability-function-cognitive-complexity, \
+        readability-container-size-empty,readability-convert-member-functions-to-static,readability-delete-null-pointer,readability-duplicate-include,readability-else-after-return, \
         readability-function-size,readability-identifier-naming,readability-implicit-bool-conversion,readability-inconsistent-declaration-parameter-name,readability-make-member-function-const, \
         readability-misleading-indentation,readability-misplaced-array-index,readability-named-parameter,readability-non-const-parameter,readability-qualified-auto, \
         readability-redundant-control-flow,readability-redundant-function-ptr-dereference,readability-redundant-member-init,readability-redundant-preprocessor,readability-redundant-smartptr-get, \
