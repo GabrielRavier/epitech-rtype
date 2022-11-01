@@ -7,7 +7,8 @@ struct Enemy
 {
     enum EnemyType
     {
-        BLOP
+        BLOP,
+        CROP
     };
 
     Enemy::EnemyType type;
