@@ -94,13 +94,19 @@ $(function() {
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <span class="keywordtype">void</span>                         Clear();</div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keywordtype">void</span>                         Update();</div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="keywordtype">void</span>                         RenderSprite(<span class="keyword">const</span> std::shared_ptr&lt;sf::Sprite&gt; &amp;sprite, sf::Vector2f position);</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="keywordtype">bool</span>                         ManageEvent(<a class="code" href="classNetworkManager.html">NetworkManager</a> &amp;manager);</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    [[nodiscard]] std::bitset&lt;8&gt; GetInputs() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    std::unique_ptr&lt;sf::RenderWindow&gt; _window;</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    std::bitset&lt;8&gt;                    _inputs;</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;};</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="keywordtype">void</span>                         RenderText(<span class="keyword">const</span> std::shared_ptr&lt;sf::Text&gt; &amp;text, sf::Vector2f position);</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keywordtype">bool</span>                         ManageNetworkEvent(<a class="code" href="classNetworkManager.html">NetworkManager</a> &amp;manager);</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <span class="keywordtype">bool</span>                         ManageEvent();</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    [[nodiscard]] std::bitset&lt;8&gt; GetInputs() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    [[nodiscard]] sf::Vector2i   GetMousePosition() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    [[nodiscard]] <span class="keywordtype">bool</span>           MouseClicked() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    std::unique_ptr&lt;sf::RenderWindow&gt; _window;</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    std::bitset&lt;8&gt;                    _inputs;</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    sf::Vector2i                      _mouse;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keywordtype">bool</span>                              _clicked = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;};</div>
 </div><!-- fragment --></div><!-- contents -->
 <div class="ttc" id="aclassNetworkManager_html"><div class="ttname"><a href="classNetworkManager.html">NetworkManager</a></div><div class="ttdef"><b>Definition:</b> NetworkManager.hpp:11</div></div>
 <div class="ttc" id="aclassWindowManager_html"><div class="ttname"><a href="classWindowManager.html">WindowManager</a></div><div class="ttdef"><b>Definition:</b> WindowManager.hpp:18</div></div>

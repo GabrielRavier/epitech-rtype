@@ -1,21 +1,4 @@
 var searchData=
 [
-  ['packet_230',['Packet',['../classPacket.html',1,'']]],
-  ['packetclientinput_231',['PacketClientInput',['../classPacketClientInput.html',1,'']]],
-  ['packetclientkeepalive_232',['PacketClientKeepAlive',['../classPacketClientKeepAlive.html',1,'']]],
-  ['packetclientlogin_233',['PacketClientLogin',['../classPacketClientLogin.html',1,'']]],
-  ['packetclientlogout_234',['PacketClientLogout',['../classPacketClientLogout.html',1,'']]],
-  ['packetclientpos_235',['PacketClientPos',['../classPacketClientPos.html',1,'']]],
-  ['packetserverentitycreate_236',['PacketServerEntityCreate',['../classPacketServerEntityCreate.html',1,'']]],
-  ['packetserverentitydestroy_237',['PacketServerEntityDestroy',['../classPacketServerEntityDestroy.html',1,'']]],
-  ['packetserverkeepalive_238',['PacketServerKeepAlive',['../classPacketServerKeepAlive.html',1,'']]],
-  ['packetserverlogin_239',['PacketServerLogin',['../classPacketServerLogin.html',1,'']]],
-  ['packetserverupdatehealth_240',['PacketServerUpdateHealth',['../classPacketServerUpdateHealth.html',1,'']]],
-  ['packetserverupdatepos_241',['PacketServerUpdatePos',['../classPacketServerUpdatePos.html',1,'']]],
-  ['packetserverupdatescore_242',['PacketServerUpdateScore',['../classPacketServerUpdateScore.html',1,'']]],
-  ['physicssystem_243',['PhysicsSystem',['../classPhysicsSystem.html',1,'']]],
-  ['player_244',['Player',['../structPlayer.html',1,'']]],
-  ['playersystem_245',['PlayerSystem',['../classPlayerSystem.html',1,'']]],
-  ['projectile_246',['Projectile',['../structProjectile.html',1,'']]],
-  ['projectilesystem_247',['ProjectileSystem',['../classProjectileSystem.html',1,'']]]
+  ['objectssystem_237',['ObjectsSystem',['../classObjectsSystem.html',1,'']]]
 ];

@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['authoring_20script_20ports_275',['Authoring Script Ports',['../md_vcpkg_docs_maintainers_authoring-script-ports.html',1,'']]],
-  ['asset_20caching_276',['Asset Caching',['../md_vcpkg_docs_users_assetcaching.html',1,'']]],
-  ['authentication_20for_20source_20code_277',['Authentication for Source Code',['../md_vcpkg_docs_users_authentication.html',1,'']]]
+  ['authoring_20script_20ports_285',['Authoring Script Ports',['../md_vcpkg_docs_maintainers_authoring-script-ports.html',1,'']]],
+  ['asset_20caching_286',['Asset Caching',['../md_vcpkg_docs_users_assetcaching.html',1,'']]],
+  ['authentication_20for_20source_20code_287',['Authentication for Source Code',['../md_vcpkg_docs_users_authentication.html',1,'']]]
 ];
