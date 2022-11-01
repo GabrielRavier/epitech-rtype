@@ -56,8 +56,8 @@ void WaveSystem::CreateBlop(int i)
 void WaveSystem::CreateCrop(int i)
 {
     Entity entity = gCoordinator.CreateEntity();
-    auto posX = static_cast<int16_t>(1920 + i * 100);
-    auto posY = static_cast<int16_t>(_dist(_mt) + 100);
+    auto   posX   = static_cast<int16_t>(1920 + i * 100);
+    auto   posY   = static_cast<int16_t>(_dist(_mt) + 100);
     gCoordinator.AddComponent<Enemy>(entity, Enemy{Enemy::EnemyType::CROP, 10});
     gCoordinator.AddComponent<Weapon>(entity, Weapon{4, 0, Weapon::Type::MISSILETHROWER, Weapon::Team::ENEMY, false});
     gCoordinator.AddComponent<Movement>(entity, Movement{-1, 0, 4});

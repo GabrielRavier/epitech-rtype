@@ -89,8 +89,8 @@ void NetworkManager::processServerEntityCreate(PacketServerEntityCreate *packet)
         gCoordinator.AddComponent<Sprite>(entity,
                                           Sprite{texture, sprite, sf::Vector2i(29, 29), sf::Vector2i(1, 29), 1});
         gCoordinator.AddComponent<Transform>(entity, Transform{sf::Vector2f(packet->posX, packet->posY), scale, 0});
-        
-        } else {
+
+    } else {
         throw std::runtime_error("Invalid Entity Type.");
     }
 }
