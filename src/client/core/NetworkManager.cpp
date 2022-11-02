@@ -39,7 +39,7 @@ void NetworkManager::processServerEntityCreate(PacketServerEntityCreate *packet)
         gCoordinator.AddComponent<Transform>(
             entity, Transform{sf::Vector2f(packet->posX, packet->posY), sf::Vector2f(3, 3), 0});
 
-    } else if (packet->entityType == EntityType::BULLET) {
+    } else if (packet->entityType == EntityType::MOB && packet->entityType == EntityType::BULLET) {
         Entity entity = gCoordinator.CreateEntity();
 
         const std::shared_ptr<sf::Texture> texture = std::make_shared<sf::Texture>();
@@ -73,7 +73,7 @@ void NetworkManager::processServerEntityCreate(PacketServerEntityCreate *packet)
                                           Sprite{texture, sprite, sf::Vector2i(24, 34), sf::Vector2i(5, 34), 1});
         gCoordinator.AddComponent<Transform>(entity, Transform{sf::Vector2f(packet->posX, packet->posY), scale, 0});
 
-    } else if (packet->entityType == EntityType::MOB && packet->mobType == MobType::CROP) {
+    } else if (packet->mobType == MobType::CROP) {
         Entity entity = gCoordinator.CreateEntity();
 
         const std::shared_ptr<sf::Texture> texture = std::make_shared<sf::Texture>();
