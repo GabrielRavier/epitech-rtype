@@ -104,3 +104,10 @@ cmake --build build --target package
 [Programmer documentation (i.e. information for people who want to dive into the project's code) is here](./docs/INTRODUCTION.md)
 
 [Doxygen-generated documentation](https://gabrielravier.github.io/epitech-rtype/)
+
+
+
+
+
+add indication to remove build folder when certain build problems probably
+also advice to use Visual Studio terminal
