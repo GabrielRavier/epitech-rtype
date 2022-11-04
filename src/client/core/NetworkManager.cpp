@@ -39,7 +39,7 @@ void NetworkManager::processServerEntityCreate(PacketServerEntityCreate *packet)
         gCoordinator.AddComponent<Transform>(
             entity, Transform{sf::Vector2f(packet->posX, packet->posY), sf::Vector2f(3, 3), 0});
 
-    } else if (packet->entityType == EntityType::MOB && packet->entityType == EntityType::BULLET) {
+    } else if (packet->entityType == EntityType::BULLET) {
         Entity entity = gCoordinator.CreateEntity();
 
         const std::shared_ptr<sf::Texture> texture = std::make_shared<sf::Texture>();
@@ -52,44 +52,48 @@ void NetworkManager::processServerEntityCreate(PacketServerEntityCreate *packet)
         sprite->setTextureRect(sf::IntRect(248, 100, 16, 16));
 
         gCoordinator.AddComponent<NetworkEntity>(entity, NetworkEntity{packet->entityId});
-        gCoordinator.AddComponent<Sprite>(entity,
-                                          Sprite{texture, sprite, sf::Vector2i(50, 50), sf::Vector2i(250, 100), 1});
+        gCoordinator.AddComponent<Sprite>(entity, Sprite{texture, sprite, sf::Vector2i(50, 50), sf::Vector2i(250, 100), 1});
         gCoordinator.AddComponent<Transform>(entity, Transform{sf::Vector2f(packet->posX, packet->posY), scale, 0});
 
-    } else if (packet->entityType == EntityType::MOB && packet->mobType == MobType::BLOP) {
-        Entity entity = gCoordinator.CreateEntity();
+    } else if (packet->entityType == EntityType::MOB) {
+        switch (packet->mobType) {
+            case MobType::BLOP: {
+                Entity entity = gCoordinator.CreateEntity();
 
-        const std::shared_ptr<sf::Texture> texture = std::make_shared<sf::Texture>();
-        const std::shared_ptr<sf::Sprite>  sprite  = std::make_shared<sf::Sprite>();
-        const sf::Vector2f                 scale   = sf::Vector2f(3, 3);
+                const std::shared_ptr<sf::Texture> texture = std::make_shared<sf::Texture>();
+                const std::shared_ptr<sf::Sprite>  sprite  = std::make_shared<sf::Sprite>();
+                const sf::Vector2f                 scale   = sf::Vector2f(3, 3);
 
-        texture->loadFromFile("./assets/blop.gif");
-        sprite->setTexture(*texture, false);
-        sprite->setScale(scale);
-        sprite->setTextureRect(sf::IntRect(5, 34, 24, 34));
+                texture->loadFromFile("./assets/blop.gif");
+                sprite->setTexture(*texture, false);
+                sprite->setScale(scale);
+                sprite->setTextureRect(sf::IntRect(5, 34, 24, 34));
 
-        gCoordinator.AddComponent<NetworkEntity>(entity, NetworkEntity{packet->entityId});
-        gCoordinator.AddComponent<Sprite>(entity,
-                                          Sprite{texture, sprite, sf::Vector2i(24, 34), sf::Vector2i(5, 34), 1});
-        gCoordinator.AddComponent<Transform>(entity, Transform{sf::Vector2f(packet->posX, packet->posY), scale, 0});
+                gCoordinator.AddComponent<NetworkEntity>(entity, NetworkEntity{packet->entityId});
+                gCoordinator.AddComponent<Sprite>(entity, Sprite{texture, sprite, sf::Vector2i(24, 34), sf::Vector2i(5, 34), 1});
+                gCoordinator.AddComponent<Transform>(entity, Transform{sf::Vector2f(packet->posX, packet->posY), scale, 0});
+                break;
+            }
 
-    } else if (packet->mobType == MobType::CROP) {
-        Entity entity = gCoordinator.CreateEntity();
+            case MobType::CROP: {
+                Entity entity = gCoordinator.CreateEntity();
 
-        const std::shared_ptr<sf::Texture> texture = std::make_shared<sf::Texture>();
-        const std::shared_ptr<sf::Sprite>  sprite  = std::make_shared<sf::Sprite>();
-        const sf::Vector2f                 scale   = sf::Vector2f(3, 3);
+                const std::shared_ptr<sf::Texture> texture = std::make_shared<sf::Texture>();
+                const std::shared_ptr<sf::Sprite>  sprite  = std::make_shared<sf::Sprite>();
+                const sf::Vector2f                 scale   = sf::Vector2f(3, 3);
 
-        texture->loadFromFile("./assets/crop.gif");
-        sprite->setTexture(*texture, false);
-        sprite->setScale(scale);
-        sprite->setTextureRect(sf::IntRect(1, 29, 29, 29));
+                texture->loadFromFile("./assets/crop.gif");
+                sprite->setTexture(*texture, false);
+                sprite->setScale(scale);
+                sprite->setTextureRect(sf::IntRect(1, 29, 29, 29));
 
-        gCoordinator.AddComponent<NetworkEntity>(entity, NetworkEntity{packet->entityId});
-        gCoordinator.AddComponent<Sprite>(entity,
-                                          Sprite{texture, sprite, sf::Vector2i(29, 29), sf::Vector2i(1, 29), 1});
-        gCoordinator.AddComponent<Transform>(entity, Transform{sf::Vector2f(packet->posX, packet->posY), scale, 0});
-        
+                gCoordinator.AddComponent<NetworkEntity>(entity, NetworkEntity{packet->entityId});
+                gCoordinator.AddComponent<Sprite>(entity, Sprite{texture, sprite, sf::Vector2i(29, 29), sf::Vector2i(1, 29), 1});
+                gCoordinator.AddComponent<Transform>(entity, Transform{sf::Vector2f(packet->posX, packet->posY), scale, 0});
+                break;
+            }
+        }
+
     } else {
         throw std::runtime_error("Invalid Entity Type.");
     }
