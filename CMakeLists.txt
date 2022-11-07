@@ -127,6 +127,13 @@ rtype_set_common_target_properties(basic-ecs-test OFF)
 
 add_test(NAME basic-ecs-test COMMAND basic-ecs-test)
 
+add_executable(reliable-udp-test
+  "src/tests/reliable-udp.cpp"
+)
+rtype_set_common_target_properties(reliable-udp-test OFF)
+
+add_test(NAME reliable-udp-test COMMAND reliable-udp-test)
+
 # This RUNTIME_DEPENDENCIES+EXCLUDE_REGEXES mess is done so that DLL dependencies from Windows are copied
 # We filter out .so so that we don't uselessly try to copy dependencies on Linux
 list(APPEND RTYPE_INSTALL_PRE_EXCLUDE_REGEXES "api-ms-win-.*")

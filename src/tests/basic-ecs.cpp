@@ -1,5 +1,4 @@
 #include "../client/core/Coordinator.hpp"
-#include <cassert>
 
 struct TestComponent
 {

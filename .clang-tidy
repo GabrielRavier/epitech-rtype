@@ -42,7 +42,7 @@ Checks: "abseil-cleanup-ctad,abseil-duration-addition,abseil-duration-comparison
         cppcoreguidelines-interfaces-global-init,cppcoreguidelines-macro-to-enum,cppcoreguidelines-no-malloc, \
         cppcoreguidelines-pro-type-const-cast,cppcoreguidelines-pro-type-cstyle-cast,cppcoreguidelines-pro-type-reinterpret-cast,cppcoreguidelines-pro-type-static-cast-downcast, \
         cppcoreguidelines-slicing,cppcoreguidelines-virtual-class-destructor,darwin-avoid-spinlock, \
-        darwin-dispatch-once-nonstatic,deadcode.DeadStores,fixes,fuchsia-default-arguments-declarations,fuchsia-header-anon-namespaces,fuchsia-multiple-inheritance,fuchsia-overloaded-operator,fuchsia-trailing-return, \
+        darwin-dispatch-once-nonstatic,deadcode.DeadStores,fixes,fuchsia-header-anon-namespaces,fuchsia-multiple-inheritance,fuchsia-overloaded-operator,fuchsia-trailing-return, \
         fuchsia-virtual-inheritance,google-build-explicit-make-pair,google-build-namespaces,google-default-arguments,google-explicit-constructor,google-global-names-in-headers, \
         google-objc-avoid-nsobject-new,google-objc-avoid-throwing-exception,google-objc-function-naming,google-objc-global-variable-declaration,google-readability-avoid-underscore-in-googletest-name, \
         google-readability-function-size,google-readability-namespace-comments,google-runtime-operator,google-upgrade-googletest-case,hicpp-avoid-goto,hicpp-exception-baseclass, \
