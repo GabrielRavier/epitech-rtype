@@ -92,6 +92,10 @@ void NetworkManager::processServerEntityCreate(PacketServerEntityCreate *packet)
                 gCoordinator.AddComponent<Transform>(entity, Transform{sf::Vector2f(packet->posX, packet->posY), scale, 0});
                 break;
             }
+
+            default: {
+                throw std::runtime_error("Invalid Mob Type.");
+            }
         }
 
     } else {

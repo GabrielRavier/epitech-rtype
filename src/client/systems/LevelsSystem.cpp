@@ -10,9 +10,9 @@
 extern Coordinator gCoordinator;
 
 void LevelsSystem::Init()
-{   
+{
     for (const auto & entry : std::filesystem::directory_iterator("./levels"))
-        this->createLevel(entry.path());
+        this->createLevel(entry.path().string());
     /*
     for (const auto &name : names)
         std::sort(names.begin(), names.end());
