@@ -85,10 +85,28 @@ void NetworkManager::processServerEntityCreate(PacketServerEntityCreate *packet)
                 texture->loadFromFile("./assets/crop.gif");
                 sprite->setTexture(*texture, false);
                 sprite->setScale(scale);
-                sprite->setTextureRect(sf::IntRect(1, 29, 29, 29));
+                sprite->setTextureRect(sf::IntRect(1, 1, 29, 29));
 
                 gCoordinator.AddComponent<NetworkEntity>(entity, NetworkEntity{packet->entityId});
-                gCoordinator.AddComponent<Sprite>(entity, Sprite{texture, sprite, sf::Vector2i(29, 29), sf::Vector2i(1, 29), 1});
+                gCoordinator.AddComponent<Sprite>(entity, Sprite{texture, sprite, sf::Vector2i(29, 29), sf::Vector2i(1, 1), 1});
+                gCoordinator.AddComponent<Transform>(entity, Transform{sf::Vector2f(packet->posX, packet->posY), scale, 0});
+                break;
+            }
+
+            case MobType::BOSS: {
+                Entity entity = gCoordinator.CreateEntity();
+
+                const std::shared_ptr<sf::Texture> texture = std::make_shared<sf::Texture>();
+                const std::shared_ptr<sf::Sprite>  sprite  = std::make_shared<sf::Sprite>();
+                const sf::Vector2f                 scale   = sf::Vector2f(3, 3);
+
+                texture->loadFromFile("./assets/boss.gif");
+                sprite->setTexture(*texture, false);
+                sprite->setScale(scale);
+                sprite->setTextureRect(sf::IntRect(6, 430, 180, 470));
+
+                gCoordinator.AddComponent<NetworkEntity>(entity, NetworkEntity{packet->entityId});
+                gCoordinator.AddComponent<Sprite>(entity, Sprite{texture, sprite, sf::Vector2i(180, 470), sf::Vector2i(6, 430), 1});
                 gCoordinator.AddComponent<Transform>(entity, Transform{sf::Vector2f(packet->posX, packet->posY), scale, 0});
                 break;
             }

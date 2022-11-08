@@ -66,3 +66,17 @@ void WaveSystem::CreateCrop(int i)
 
     gServerManager->broadcast(new PacketServerEntityCreate(EntityType::MOB, EntityTeam::ENEMY, MobType::CROP, entity, posX, posY, 1));
 }
+
+void WaveSystem::CreateBoss(int i)
+{
+    Entity entity = gCoordinator.CreateEntity();
+    auto posX = static_cast<int16_t>(1920 + i * 100);
+    auto posY = static_cast<int16_t>(_dist(_mt) + 100);
+    gCoordinator.AddComponent<Enemy>(entity, Enemy{Enemy::EnemyType::BOSS, 10});
+    gCoordinator.AddComponent<Weapon>(entity, Weapon{4, 0, Weapon::Type::MISSILETHROWER, Weapon::Team::ENEMY, false});
+    gCoordinator.AddComponent<Movement>(entity, Movement{-1, 0, 4});
+    gCoordinator.AddComponent<Transform>(entity, Transform{EntityType::MOB, MobType::BOSS, posX, posY});
+    gCoordinator.AddComponent<RigidBody>(entity, RigidBody{180, 470});
+
+    gServerManager->broadcast(new PacketServerEntityCreate(EntityType::MOB, EntityTeam::ENEMY, MobType::BOSS, entity, posX, posY, 1));
+}

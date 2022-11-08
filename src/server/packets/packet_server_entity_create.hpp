@@ -13,7 +13,8 @@ enum class MobType
 {
     NONE = 0,
     BLOP = 1,
-    CROP = 2
+    CROP = 2,
+    BOSS = 3
 };
 
 enum class EntityTeam
