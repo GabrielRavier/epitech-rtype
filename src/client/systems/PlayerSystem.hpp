@@ -15,6 +15,7 @@
 #include "../components/RigidBody.hpp"
 #include "../components/Transform.hpp"
 #include "../components/Sprite.hpp"
+#include "../components/Weapon.hpp"
 #include "../components/NetworkEntity.hpp"
 
 class PlayerSystem : public System

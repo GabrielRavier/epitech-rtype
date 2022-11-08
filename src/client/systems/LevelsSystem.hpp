@@ -13,9 +13,7 @@
 #include "../components/Text.hpp"
 #include "../components/Transform.hpp"
 #include "../components/Level.hpp"
-#include <sys/types.h>
-#include <dirent.h>
-#include <iostream>
+#include <filesystem>
 #include <algorithm>
 
 class LevelsSystem : public System

@@ -11,17 +11,14 @@ extern Coordinator gCoordinator;
 
 void LevelsSystem::Init()
 {
-    DIR                     *dirp = opendir("./levels");
-    struct dirent           *dp;
-    std::vector<std::string> names;
+    std::vector<std::string> filenames;
 
-    while ((dp = readdir(dirp)) != nullptr)
-        names.emplace_back(dp->d_name);
-    for (const auto &name : names)
-        std::sort(names.begin(), names.end());
-    for (const auto &name : names)
-        this->createLevel(name);
-    closedir(dirp);
+    for (const auto &entry : std::filesystem::directory_iterator("./assets/levels"))
+        filenames.push_back(entry.path().filename());
+    for (const auto &filename : filenames)
+        std::sort(filenames.begin(), filenames.end());
+    for (const auto &filename : filenames)
+        this->createLevel(filename);
 }
 
 SCENE LevelsSystem::Update(sf::Vector2i mousePosition, bool clicked, std::string *pathLevel)
@@ -38,8 +35,7 @@ SCENE LevelsSystem::Update(sf::Vector2i mousePosition, bool clicked, std::string
             mousePosition.y >= transform.position.y &&
             mousePosition.y <= (transform.position.y + sprite.rectSize.y * transform.scale.y)) {
             *pathLevel = level.path;
-            // Change scene to solo
-            return (SCENE::MAINMENU);
+            return (SCENE::SOLO);
         }
     }
     return (SCENE::LEVELSMENU);
@@ -50,7 +46,7 @@ void LevelsSystem::createLevel(const std::string &name)
     if (name.length() <= 6 || name.compare(name.length() - 6, 6, ".level") != 0)
         return;
     auto level = gCoordinator.CreateEntity();
-    gCoordinator.AddComponent(level, Level{"./levels/" + name});
+    gCoordinator.AddComponent(level, Level{"./assets/levels/" + name});
     const std::shared_ptr<sf::Texture> mtexture = std::make_shared<sf::Texture>();
     const std::shared_ptr<sf::Sprite>  msprite  = std::make_shared<sf::Sprite>();
     mtexture->loadFromFile("./assets/play_button.png");

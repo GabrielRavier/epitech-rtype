@@ -25,7 +25,7 @@ void PlayerSystem::Init()
     gCoordinator.AddComponent(_player, Transform{sf::Vector2f(50, 50), sf::Vector2f(3, 3), 0});
     gCoordinator.AddComponent(_player, Player{"Player One", 10, 10});
     gCoordinator.AddComponent(_player, Movement{sf::Vector2f(0, 0), 5});
-    gCoordinator.AddComponent(_player, RigidBody{sf::Vector2f(33, 17)});
+    gCoordinator.AddComponent(_player, RigidBody{sf::Vector2f(33 * 3, 17 * 3), RigidBody::Type::PLAYER});
     gCoordinator.AddComponent(_player, NetworkEntity{static_cast<Entity>(-1)});
 }
 
@@ -43,7 +43,10 @@ void PlayerSystem::Update(std::bitset<8> inputs) const
         y += 1;
     if (inputs.test(InputType::UP))
         y -= 1;
-
+    if (inputs.test(InputType::SHOOT)) {
+        auto &weapon    = gCoordinator.GetComponent<Weapon>(_player);
+        weapon.haveShot = true;
+    }
     movement.movement.x = x;
     movement.movement.y = y;
 }

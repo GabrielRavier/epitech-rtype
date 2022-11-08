@@ -29,14 +29,17 @@ void SceneManager::Init(char *ip, int port)
 
 void SceneManager::LoadComponents()
 {
+    gCoordinator.RegisterComponent<Enemy>();
+    gCoordinator.RegisterComponent<Level>();
+    gCoordinator.RegisterComponent<NetworkEntity>();
     gCoordinator.RegisterComponent<Movement>();
     gCoordinator.RegisterComponent<Player>();
+    gCoordinator.RegisterComponent<Projectile>();
     gCoordinator.RegisterComponent<RigidBody>();
     gCoordinator.RegisterComponent<Sprite>();
     gCoordinator.RegisterComponent<Text>();
     gCoordinator.RegisterComponent<Transform>();
-    gCoordinator.RegisterComponent<NetworkEntity>();
-    gCoordinator.RegisterComponent<Level>();
+    gCoordinator.RegisterComponent<Weapon>();
 }
 
 void SceneManager::LoadSystems()
@@ -108,6 +111,20 @@ void SceneManager::LoadSystems()
             signature.set(gCoordinator.GetComponentType<Transform>());
             gCoordinator.SetSystemSignature<BackgroundSystem>(signature);
         }
+
+        _waveSystem = gCoordinator.RegisterSystem<WaveSystem>();
+        {
+            Signature signature;
+            signature.set(gCoordinator.GetComponentType<Enemy>());
+            gCoordinator.SetSystemSignature<WaveSystem>(signature);
+        }
+
+        _weaponSystem = gCoordinator.RegisterSystem<WeaponSystem>();
+        {
+            Signature signature;
+            signature.set(gCoordinator.GetComponentType<Weapon>());
+            gCoordinator.SetSystemSignature<WeaponSystem>(signature);
+        }
     } else if (_currentScene == SCENE::MAINMENU)
         _mainMenuSystem = gCoordinator.RegisterSystem<MainMenuSystem>();
     else if (_currentScene == SCENE::LEVELSMENU) {
@@ -137,9 +154,11 @@ void SceneManager::InitSystems(int windowWidth, int windowHeight)
         gObjectsSystem->Init(_playerSystem->GetEntityId());
         _backgroundSystem->Init();
     } else if (_currentScene == SCENE::SOLO) {
-        _playerSystem->Init();
         _movementSystem->Init();
         _physicsSystem->Init(windowWidth, windowHeight);
+        _weaponSystem->Init();
+        _waveSystem->Init();
+        _playerSystem->Init();
         _backgroundSystem->Init();
     } else if (_currentScene == SCENE::MAINMENU) {
         _mainMenuSystem->Init();
@@ -214,6 +233,20 @@ SCENE SceneManager::MultipPlayerScene()
     _physicsSystem->Update();
     _renderSystem->Update(_windowManager, true);
     return (SCENE::MULTIPLAYER);
+}
+
+SCENE SceneManager::SinglePlayerScene()
+{
+    _running = _windowManager->ManageEvent();
+
+    _playerSystem->Update(_windowManager->GetInputs());
+    _weaponSystem->Update();
+    _backgroundSystem->Update();
+    _movementSystem->Update();
+    _waveSystem->Update();
+    _physicsSystem->ClientUpdate();
+    _renderSystem->Update(_windowManager, false);
+    return (SCENE::SOLO);
 }
 
 SCENE SceneManager::LevelsMenuScene()
