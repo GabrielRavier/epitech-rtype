@@ -25,7 +25,7 @@ void WeaponSystem::Update() const
             weapon.haveShot = false;
 
             if (weapon.shootTimer == 0) {
-                weapon.shootTimer = weapon.rateOfFire;
+                weapon.shootTimer = 100 - weapon.rateOfFire;
                 createMissileProjectile(weapon, transform, rigidbody);
             }
         }
@@ -51,7 +51,7 @@ void WeaponSystem::createMissileProjectile(Weapon weapon, Transform transform, R
     gCoordinator.AddComponent<Sprite>(entity, Sprite{texture, sprite, sf::Vector2i(16, 8), sf::Vector2i(248, 105), 1});
     gCoordinator.AddComponent<Projectile>(entity, Projectile{1, weapon.team});
     gCoordinator.AddComponent<Transform>(entity, Transform{pos, scale, rotate});
-    gCoordinator.AddComponent<Movement>(entity, Movement{sf::Vector2f(1 - (2 * weapon.team), 0), 10});
+    gCoordinator.AddComponent<Movement>(entity, Movement{sf::Vector2f(1 - (2 * weapon.team), 0), 20});
     gCoordinator.AddComponent<RigidBody>(
         entity, RigidBody{sf::Vector2f(16 * scale.x, 8 * scale.y), RigidBody::Type::PROJECTILE});
 }

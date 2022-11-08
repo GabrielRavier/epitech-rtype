@@ -98,13 +98,14 @@ void PhysicsSystem::ClientUpdate()
 
             // Detect collision.
             if (PhysicsSystem::Collided(entityTransform, entityRigidBody, targetTransform, targetRigidBody)) {
-                std::cout << "Got hit" << std::endl;
                 toDelete.emplace(target);
+                toDelete.emplace(entity);
             }
-            if (targetTransform.position.x < -100 ||
-                (targetTransform.position.x > 2000 && targetRigidBody.type != RigidBody::Type::ENEMY))
-                toDelete.emplace(target);
         }
+        if (entityTransform.position.x < -100)
+            toDelete.emplace(entity);
+        if (entityTransform.position.x > 2000 && entityRigidBody.type == RigidBody::Type::PROJECTILE)
+            toDelete.emplace(entity);
     }
 
     for (auto const &entity : toDelete) {

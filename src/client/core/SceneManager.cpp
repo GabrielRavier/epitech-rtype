@@ -150,15 +150,15 @@ void SceneManager::InitSystems(int windowWidth, int windowHeight)
     if (_currentScene == SCENE::MULTIPLAYER) {
         _movementSystem->Init();
         _physicsSystem->Init(windowWidth, windowHeight);
-        _playerSystem->Init();
+        _playerSystem->Init(_currentScene);
         gObjectsSystem->Init(_playerSystem->GetEntityId());
         _backgroundSystem->Init();
     } else if (_currentScene == SCENE::SOLO) {
         _movementSystem->Init();
         _physicsSystem->Init(windowWidth, windowHeight);
         _weaponSystem->Init();
-        _waveSystem->Init();
-        _playerSystem->Init();
+        _waveSystem->Init(_levelPath);
+        _playerSystem->Init(_currentScene);
         _backgroundSystem->Init();
     } else if (_currentScene == SCENE::MAINMENU) {
         _mainMenuSystem->Init();
@@ -246,7 +246,8 @@ SCENE SceneManager::SinglePlayerScene()
     _waveSystem->Update();
     _physicsSystem->ClientUpdate();
     _renderSystem->Update(_windowManager, false);
-    return (SCENE::SOLO);
+    auto scene = _playerSystem->checkPlayersLife(SCENE::SOLO);
+    return (scene);
 }
 
 SCENE SceneManager::LevelsMenuScene()

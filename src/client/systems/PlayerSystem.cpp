@@ -5,28 +5,29 @@
 ** PlayerSystem
 */
 
-#include <iostream>
 #include "PlayerSystem.hpp"
-#include "../../server/packets/packet_client_input.hpp"
 
 extern Coordinator gCoordinator;
 
-void PlayerSystem::Init()
+void PlayerSystem::Init(SCENE scene)
 {
     const std::shared_ptr<sf::Texture> texture = std::make_shared<sf::Texture>();
     const std::shared_ptr<sf::Sprite>  sprite  = std::make_shared<sf::Sprite>();
     texture->loadFromFile("./assets/players.gif");
     sprite->setTexture(*texture, false);
+    sprite->setTextureRect(sf::IntRect(1, 3, 32, 14));
     sprite->setScale(sf::Vector2f(3, 3));
-    sprite->setTextureRect(sf::IntRect(0, 0, 33, 17));
 
     _player = gCoordinator.CreateEntity();
-    gCoordinator.AddComponent(_player, Sprite{texture, sprite, sf::Vector2i(33, 17), sf::Vector2i(0, 0), 1});
+    gCoordinator.AddComponent(_player, Sprite{texture, sprite, sf::Vector2i(32, 14), sf::Vector2i(1, 3), 1});
     gCoordinator.AddComponent(_player, Transform{sf::Vector2f(50, 50), sf::Vector2f(3, 3), 0});
     gCoordinator.AddComponent(_player, Player{"Player One", 10, 10});
     gCoordinator.AddComponent(_player, Movement{sf::Vector2f(0, 0), 5});
-    gCoordinator.AddComponent(_player, RigidBody{sf::Vector2f(33 * 3, 17 * 3), RigidBody::Type::PLAYER});
-    gCoordinator.AddComponent(_player, NetworkEntity{static_cast<Entity>(-1)});
+    gCoordinator.AddComponent(_player, RigidBody{sf::Vector2f(32 * 3, 14 * 3), RigidBody::Type::PLAYER});
+    if (scene == SCENE::MULTIPLAYER)
+        gCoordinator.AddComponent(_player, NetworkEntity{static_cast<Entity>(-1)});
+    else if (scene == SCENE::SOLO)
+        gCoordinator.AddComponent(_player, Weapon{80, 0, Weapon::Type::MISSILETHROWER, Weapon::Team::PLAYERS, false});
 }
 
 void PlayerSystem::Update(std::bitset<8> inputs) const
@@ -49,6 +50,15 @@ void PlayerSystem::Update(std::bitset<8> inputs) const
     }
     movement.movement.x = x;
     movement.movement.y = y;
+}
+
+SCENE PlayerSystem::checkPlayersLife(SCENE scene) const
+{
+    const auto &player = gCoordinator.GetComponent<Player>(_player);
+
+    if (player.life <= 0)
+        return (SCENE::MAINMENU);
+    return (scene);
 }
 
 Entity PlayerSystem::GetEntityId() const

@@ -8,6 +8,9 @@
 #pragma once
 
 #include <random>
+#include <string>
+#include <fstream>
+#include <vector>
 #include "../../client/core/System.hpp"
 #include "../../client/core/Coordinator.hpp"
 #include "../components/Enemy.hpp"
@@ -20,13 +23,18 @@
 class WaveSystem : public System
 {
 public:
-    void Init();
+    void Init(std::string levelPath);
     void Update();
 
 private:
-    void                                  CreateWave();
+    void                                  ReadWave();
+    void                                  CreateWave(std::string line);
     void                                  CreateBlop(int i);
-    //void                                  CreateCrop(int i);
+    void                                  CreateCrop(int i);
+    std::string                           _levelPath;
+    int                                   _waveIndex;
+    bool                                  _finish;
     std::mt19937                          _mt;
     std::uniform_real_distribution<float> _dist;
+    void (WaveSystem::*_method_function[1]) (int) = {&WaveSystem::CreateBlop};
 };
