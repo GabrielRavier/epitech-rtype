@@ -38,7 +38,7 @@ void WeaponSystem::createMissileProjectile(Weapon weapon, Transform transform)
     Entity entity = gCoordinator.CreateEntity();
 
     gCoordinator.AddComponent<Projectile>(entity, Projectile{10, weapon.team});
-    gCoordinator.AddComponent<Transform>(entity, Transform{EntityType::BULLET, transform.posX, transform.posY});
+    gCoordinator.AddComponent<Transform>(entity, Transform{EntityType::BULLET, MobType::NONE, transform.posX, transform.posY});
     gCoordinator.AddComponent<Movement>(entity, Movement{static_cast<int16_t>(1 - (2 * weapon.team)), 0, 40});
     gCoordinator.AddComponent<RigidBody>(entity, RigidBody{50, 50});
 

@@ -46,7 +46,7 @@ void WaveSystem::CreateBlop(int i)
     gCoordinator.AddComponent<Enemy>(entity, Enemy{Enemy::EnemyType::BLOP, 10});
     gCoordinator.AddComponent<Weapon>(entity, Weapon{4, 0, Weapon::Type::MISSILETHROWER, Weapon::Team::ENEMY, false});
     gCoordinator.AddComponent<Movement>(entity, Movement{-1, 0, 4});
-    gCoordinator.AddComponent<Transform>(entity, Transform{EntityType::MOB, posX, posY});
+    gCoordinator.AddComponent<Transform>(entity, Transform{EntityType::MOB, MobType::BLOP, posX, posY});
     gCoordinator.AddComponent<RigidBody>(entity, RigidBody{24, 34});
 
     // Broadcast mob create.
@@ -61,7 +61,7 @@ void WaveSystem::CreateCrop(int i)
     gCoordinator.AddComponent<Enemy>(entity, Enemy{Enemy::EnemyType::CROP, 10});
     gCoordinator.AddComponent<Weapon>(entity, Weapon{4, 0, Weapon::Type::MISSILETHROWER, Weapon::Team::ENEMY, false});
     gCoordinator.AddComponent<Movement>(entity, Movement{-1, 0, 4});
-    gCoordinator.AddComponent<Transform>(entity, Transform{EntityType::MOB, posX, posY});
+    gCoordinator.AddComponent<Transform>(entity, Transform{EntityType::MOB, MobType::CROP, posX, posY});
     gCoordinator.AddComponent<RigidBody>(entity, RigidBody{29, 29});
 
     gServerManager->broadcast(new PacketServerEntityCreate(EntityType::MOB, EntityTeam::ENEMY, MobType::CROP, entity, posX, posY, 1));
