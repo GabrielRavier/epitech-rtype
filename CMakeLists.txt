@@ -66,6 +66,7 @@ set(r_type_server_SOURCES
   "src/server/packets/packet_server_update_health.cpp"
   "src/server/packets/packet_server_update_pos.cpp"
   "src/server/packets/packet_server_update_score.cpp"
+  "src/reliable-udp/ReliableUdpConnection.cpp"
 )
 
 add_executable(r-type_server "${r_type_server_SOURCES}")
@@ -103,6 +104,7 @@ set(r_type_client_SOURCES
   "src/server/packets/packet_server_update_health.cpp"
   "src/server/packets/packet_server_update_pos.cpp"
   "src/server/packets/packet_server_update_score.cpp"
+  "src/reliable-udp/ReliableUdpConnection.cpp"
 )
 if (WIN32)
   list(APPEND r_type_client_SOURCES "${LOGURU_INCLUDE_DIRS}/loguru/loguru.cpp")
@@ -129,6 +131,7 @@ add_test(NAME basic-ecs-test COMMAND basic-ecs-test)
 
 add_executable(reliable-udp-test
   "src/tests/reliable-udp.cpp"
+  "src/reliable-udp/ReliableUdpConnection.cpp"
 )
 rtype_set_common_target_properties(reliable-udp-test OFF)
 

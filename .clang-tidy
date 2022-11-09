@@ -40,7 +40,7 @@ Checks: "abseil-cleanup-ctad,abseil-duration-addition,abseil-duration-comparison
         core.UndefinedBinaryOperatorResult,core.uninitialized.ArraySubscript,core.uninitialized.Assign,core.uninitialized.Branch,core.uninitialized.UndefReturn,core.VLASize,cplusplus.Move,cplusplus.NewDelete, \
         cplusplus.NewDeleteLeaks,cppcoreguidelines-avoid-const-or-ref-data-members,cppcoreguidelines-avoid-goto,cppcoreguidelines-c-copy-assignment-signature,cppcoreguidelines-explicit-virtual-functions, \
         cppcoreguidelines-interfaces-global-init,cppcoreguidelines-macro-to-enum,cppcoreguidelines-no-malloc, \
-        cppcoreguidelines-pro-type-const-cast,cppcoreguidelines-pro-type-cstyle-cast,cppcoreguidelines-pro-type-reinterpret-cast,cppcoreguidelines-pro-type-static-cast-downcast, \
+        cppcoreguidelines-pro-type-const-cast,cppcoreguidelines-pro-type-cstyle-cast,cppcoreguidelines-pro-type-static-cast-downcast, \
         cppcoreguidelines-slicing,cppcoreguidelines-virtual-class-destructor,darwin-avoid-spinlock, \
         darwin-dispatch-once-nonstatic,deadcode.DeadStores,fixes,fuchsia-header-anon-namespaces,fuchsia-multiple-inheritance,fuchsia-overloaded-operator,fuchsia-trailing-return, \
         fuchsia-virtual-inheritance,google-build-explicit-make-pair,google-build-namespaces,google-default-arguments,google-explicit-constructor,google-global-names-in-headers, \

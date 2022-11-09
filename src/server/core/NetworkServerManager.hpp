@@ -6,13 +6,14 @@
 #include <boost/asio.hpp>
 #include "NetworkClientManager.hpp"
 #include "../packets/connection_state.hpp"
+#include "../../reliable-udp/ReliableUdpConnection.hpp"
 
 class NetworkServerManager
 {
 public:
     explicit NetworkServerManager(uint16_t port)
-        : m_socket(m_io_context, boost::asio::ip::udp::endpoint(boost::asio::ip::udp::v4(), port))
     {
+        m_connection.prepareReceiving(port);
     }
 
     void run();
@@ -31,19 +32,14 @@ public:
         }
     }
 
-    void close()
-    {
-        m_socket.shutdown(boost::asio::ip::udp::socket::shutdown_receive);
-        m_socket.close();
-    }
+    void close() {}
 
-    boost::asio::ip::udp::socket &socket()
+    ReliableUdpConnection &connection()
     {
-        return m_socket;
+        return m_connection;
     }
 
 private:
-    boost::asio::io_context                       m_io_context;
-    boost::asio::ip::udp::socket                  m_socket;
+    ReliableUdpConnection                         m_connection;
     std::map<std::string, NetworkClientManager *> m_client_managers;
 };

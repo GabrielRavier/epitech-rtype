@@ -60,7 +60,7 @@ void NetworkClientManager::send(Packet *packet)
     buffer.writeU16(static_cast<uint16_t>(packetSize));
 
     // Send packet.
-    m_server->socket().send_to(boost::asio::buffer(buffer.data(), packetSize), m_remote_endpoint);
+    m_server->connection().sendPacket(m_remote_endpoint, boost::asio::buffer(buffer.data(), packetSize));
 }
 
 void NetworkClientManager::processClientLogin(PacketClientLogin *packet) {}
