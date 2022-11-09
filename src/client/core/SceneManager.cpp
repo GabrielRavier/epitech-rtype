@@ -12,6 +12,15 @@ extern Coordinator                    gCoordinator;
 extern std::shared_ptr<ObjectsSystem> gObjectsSystem;
 extern NetworkManager                *gNetworkManager;
 
+SceneManager::~SceneManager()
+{
+    if (_currentScene == SCENE::MULTIPLAYER) {
+        _networkManager.close();
+        _threadNetworkLoop.join();
+    }
+    gCoordinator.Clear();
+}
+
 void SceneManager::Clear()
 {
     if (_currentScene == SCENE::MULTIPLAYER) {

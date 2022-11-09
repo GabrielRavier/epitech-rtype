@@ -34,6 +34,7 @@
 class SceneManager
 {
 public:
+    ~SceneManager();
     void        Init(char *ip, int port);
     void        LoadScene();
     static void LoadComponents();

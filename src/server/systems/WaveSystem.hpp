@@ -26,6 +26,7 @@ private:
     void                                  CreateWave();
     void                                  CreateBlop(int i);
     void                                  CreateCrop(int i);
+    void                                  CreateBoss(int i);
     std::mt19937                          _mt;
     std::uniform_real_distribution<float> _dist;
 };
