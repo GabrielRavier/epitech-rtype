@@ -20,8 +20,12 @@ void WaveSystem::Init(std::string levelPath)
     _finish    = false;
 }
 
-void WaveSystem::Update()
+SCENE WaveSystem::Update()
 {
+    if (_finish) {
+        MarkLevelDone();
+        return (SCENE::MAINMENU);
+    }
     if (mEntities.empty() && !_finish)
         ReadWave();
 
@@ -31,6 +35,7 @@ void WaveSystem::Update()
             weapon.haveShot = true;
         }
     }
+    return (SCENE::SOLO);
 }
 
 void WaveSystem::ReadWave()
@@ -53,6 +58,32 @@ void WaveSystem::ReadWave()
             lineToAnalyse = true;
     }
     _finish = true;
+}
+
+void WaveSystem::MarkLevelDone()
+{
+    std::ifstream            file;
+    std::string              line;
+    std::vector<std::string> lines;
+    int                      i = 0;
+
+    file.open(_levelPath);
+    while (file) {
+        std::getline(file, line);
+        if (i == 1)
+            lines.push_back("1");
+        else
+            lines.push_back(line);
+        i += 1;
+    }
+    std::ofstream ofile(_levelPath);
+    i = 0;
+    for (const std::string &l : lines) {
+        if (i == lines.size() - 1)
+            return;
+        ofile << l << std::endl;
+        i += 1;
+    }
 }
 
 void WaveSystem::CreateWave(std::string line)

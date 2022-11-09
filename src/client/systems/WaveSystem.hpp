@@ -23,14 +23,15 @@
 class WaveSystem : public System
 {
 public:
-    void Init(std::string levelPath);
-    void Update();
+    void  Init(std::string levelPath);
+    SCENE Update();
 
 private:
     void                                  ReadWave();
     void                                  CreateWave(std::string line);
     void                                  CreateBlop(int i);
     void                                  CreateCrop(int i);
+    void                                  MarkLevelDone();
     std::string                           _levelPath;
     int                                   _waveIndex;
     bool                                  _finish;

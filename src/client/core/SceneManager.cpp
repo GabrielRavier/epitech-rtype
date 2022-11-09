@@ -237,16 +237,17 @@ SCENE SceneManager::MultipPlayerScene()
 
 SCENE SceneManager::SinglePlayerScene()
 {
+    SCENE scene = SCENE::SOLO;
     _running = _windowManager->ManageEvent();
 
     _playerSystem->Update(_windowManager->GetInputs());
     _weaponSystem->Update();
     _backgroundSystem->Update();
     _movementSystem->Update();
-    _waveSystem->Update();
+    scene = _waveSystem->Update();
     _physicsSystem->ClientUpdate();
     _renderSystem->Update(_windowManager, false);
-    auto scene = _playerSystem->checkPlayersLife(SCENE::SOLO);
+    scene = _playerSystem->checkPlayersLife(scene);
     return (scene);
 }
 

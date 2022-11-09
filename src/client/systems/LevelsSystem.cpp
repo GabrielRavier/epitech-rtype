@@ -63,11 +63,33 @@ void LevelsSystem::createLevel(const std::string &name)
     font->loadFromFile("./assets/font/font.ttf");
     text->setFont(*font);
     text->setString(name.substr(0, name.size() - 6));
-    text->setFillColor(sf::Color::White);
+    if (isLevelFinished("./assets/levels/" + name))
+        text->setFillColor(sf::Color::Green);
+    else
+        text->setFillColor(sf::Color::White);
     text->setCharacterSize(10);
     gCoordinator.AddComponent(
         title, Transform{sf::Vector2f{float(200 * (_nbOfLevel % 6 + 1)), float(200 * (int(_nbOfLevel / 6) + 1) + 85)},
                          sf::Vector2f{1, 1}, 0});
     gCoordinator.AddComponent(title, Text{text, font});
     _nbOfLevel += 1;
+}
+
+bool LevelsSystem::isLevelFinished(std::string path)
+{
+    std::ifstream file;
+    std::string   line;
+    int           i = 0;
+
+    file.open(path);
+    while (file) {
+        std::getline(file, line);
+        if (i == 1) {
+            if (line == "1")
+                return (true);
+            return (false);
+        }
+        i += 1;
+    }
+    return (false);
 }

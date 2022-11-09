@@ -15,6 +15,8 @@
 #include "../components/Level.hpp"
 #include <filesystem>
 #include <algorithm>
+#include <string>
+#include <fstream>
 
 class LevelsSystem : public System
 {
@@ -22,6 +24,7 @@ public:
     void  Init();
     SCENE Update(sf::Vector2i mousePosition, bool clicked, std::string *pathLevel);
     void  createLevel(const std::string &name);
+    bool  isLevelFinished(std::string path);
 
 private:
     int _nbOfLevel = 0;
