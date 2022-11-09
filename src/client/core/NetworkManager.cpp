@@ -103,10 +103,10 @@ void NetworkManager::processServerEntityCreate(PacketServerEntityCreate *packet)
                 texture->loadFromFile("./assets/boss.gif");
                 sprite->setTexture(*texture, false);
                 sprite->setScale(scale);
-                sprite->setTextureRect(sf::IntRect(6, 430, 180, 470));
+                sprite->setTextureRect(sf::IntRect(6, 430, 180, 210));
 
                 gCoordinator.AddComponent<NetworkEntity>(entity, NetworkEntity{packet->entityId});
-                gCoordinator.AddComponent<Sprite>(entity, Sprite{texture, sprite, sf::Vector2i(180, 470), sf::Vector2i(6, 430), 1});
+                gCoordinator.AddComponent<Sprite>(entity, Sprite{texture, sprite, sf::Vector2i(180, 210), sf::Vector2i(6, 430), 1});
                 gCoordinator.AddComponent<Transform>(entity, Transform{sf::Vector2f(packet->posX, packet->posY), scale, 0});
                 break;
             }

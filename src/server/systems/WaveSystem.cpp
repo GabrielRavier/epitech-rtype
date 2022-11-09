@@ -33,8 +33,10 @@ void WaveSystem::Update()
 
 void WaveSystem::CreateWave()
 {
+    int j = 0;
     for (int i = 0; i < 3; i++)
         CreateBlop(i);
+        CreateBoss(j);
 }
 
 void WaveSystem::CreateBlop(int i)
@@ -70,13 +72,12 @@ void WaveSystem::CreateCrop(int i)
 void WaveSystem::CreateBoss(int i)
 {
     Entity entity = gCoordinator.CreateEntity();
-    auto posX = static_cast<int16_t>(1920 + i * 100);
-    auto posY = static_cast<int16_t>(_dist(_mt) + 100);
+    auto posX = static_cast<int16_t>(1200);
+    auto posY = static_cast<int16_t>(50);
     gCoordinator.AddComponent<Enemy>(entity, Enemy{Enemy::EnemyType::BOSS, 10});
     gCoordinator.AddComponent<Weapon>(entity, Weapon{4, 0, Weapon::Type::MISSILETHROWER, Weapon::Team::ENEMY, false});
-    gCoordinator.AddComponent<Movement>(entity, Movement{-1, 0, 4});
     gCoordinator.AddComponent<Transform>(entity, Transform{EntityType::MOB, MobType::BOSS, posX, posY});
-    gCoordinator.AddComponent<RigidBody>(entity, RigidBody{180, 470});
+    gCoordinator.AddComponent<RigidBody>(entity, RigidBody{180, 210});
 
     gServerManager->broadcast(new PacketServerEntityCreate(EntityType::MOB, EntityTeam::ENEMY, MobType::BOSS, entity, posX, posY, 1));
 }
