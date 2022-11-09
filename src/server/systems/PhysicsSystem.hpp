@@ -12,7 +12,8 @@
 class PhysicsSystem : public System
 {
 public:
-    void Init();
-    void Update() const;
-    bool Collided(Transform &transformA, RigidBody &bodyA, Transform &transformB, RigidBody &bodyB) const;
+    void        Init();
+    void        Update() const;
+    static bool Collided(const Transform &transformA, const RigidBody &bodyA, const Transform &transformB,
+                         const RigidBody &bodyB);
 };

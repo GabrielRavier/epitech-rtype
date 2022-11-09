@@ -115,7 +115,6 @@ void NetworkManager::processServerEntityCreate(PacketServerEntityCreate *packet)
                 throw std::runtime_error("Invalid Mob Type.");
             }
         }
-
     } else {
         throw std::runtime_error("Invalid Entity Type.");
     }
