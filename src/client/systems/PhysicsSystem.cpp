@@ -42,7 +42,8 @@ void PhysicsSystem::Update()
         auto &transform = gCoordinator.GetComponent<Transform>(entity);
 
         // Send position.
-        gNetworkManager->send(new PacketClientPos(static_cast<int16_t>(transform.position.x),
-                                                  static_cast<int16_t>(transform.position.y)));
+        PacketClientPos packetClientPos(static_cast<int16_t>(transform.position.x),
+                                        static_cast<int16_t>(transform.position.y));
+        gNetworkManager->send(&packetClientPos);
     }
 }

@@ -16,7 +16,8 @@ SceneManager::~SceneManager()
 {
     if (_currentScene == SCENE::MULTIPLAYER) {
         _networkManager.close();
-        _threadNetworkLoop.join();
+        if (_threadNetworkLoop.joinable())
+            _threadNetworkLoop.join();
     }
     gCoordinator.Clear();
 }
@@ -25,7 +26,8 @@ void SceneManager::Clear()
 {
     if (_currentScene == SCENE::MULTIPLAYER) {
         _networkManager.close();
-        _threadNetworkLoop.join();
+        if (_threadNetworkLoop.joinable())
+            _threadNetworkLoop.join();
     }
     gCoordinator.Clear();
 }
