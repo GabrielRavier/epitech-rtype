@@ -249,7 +249,7 @@ SCENE SceneManager::MultipPlayerScene()
 SCENE SceneManager::SinglePlayerScene()
 {
     SCENE scene = SCENE::SOLO;
-    _running = _windowManager->ManageEvent();
+    _running    = _windowManager->ManageEvent();
 
     _playerSystem->Update(_windowManager->GetInputs());
     _weaponSystem->Update();
