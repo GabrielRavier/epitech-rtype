@@ -11,14 +11,14 @@ extern Coordinator gCoordinator;
 
 void LevelsSystem::Init()
 {
-    for (const auto & entry : std::filesystem::directory_iterator("./levels"))
-        this->createLevel(entry.path().string());
-    /*
-    for (const auto &name : names)
-        std::sort(names.begin(), names.end());
-    for (const auto &name : names)
-        this->createLevel(name);
-    */
+    std::vector<std::string> filenames;
+
+    for (const auto &entry : std::filesystem::directory_iterator("./assets/levels"))
+        filenames.push_back(entry.path().filename());
+    for (const auto &filename : filenames)
+        std::sort(filenames.begin(), filenames.end());
+    for (const auto &filename : filenames)
+        this->createLevel(filename);
 }
 
 SCENE LevelsSystem::Update(sf::Vector2i mousePosition, bool clicked, std::string *pathLevel)
@@ -35,8 +35,7 @@ SCENE LevelsSystem::Update(sf::Vector2i mousePosition, bool clicked, std::string
             mousePosition.y >= transform.position.y &&
             mousePosition.y <= (transform.position.y + sprite.rectSize.y * transform.scale.y)) {
             *pathLevel = level.path;
-            // Change scene to solo
-            return (SCENE::MAINMENU);
+            return (SCENE::SOLO);
         }
     }
     return (SCENE::LEVELSMENU);
@@ -47,7 +46,7 @@ void LevelsSystem::createLevel(const std::string &name)
     if (name.length() <= 6 || name.compare(name.length() - 6, 6, ".level") != 0)
         return;
     auto level = gCoordinator.CreateEntity();
-    gCoordinator.AddComponent(level, Level{name});
+    gCoordinator.AddComponent(level, Level{"./assets/levels/" + name});
     const std::shared_ptr<sf::Texture> mtexture = std::make_shared<sf::Texture>();
     const std::shared_ptr<sf::Sprite>  msprite  = std::make_shared<sf::Sprite>();
     mtexture->loadFromFile("./assets/play_button.png");
@@ -64,11 +63,33 @@ void LevelsSystem::createLevel(const std::string &name)
     font->loadFromFile("./assets/font/font.ttf");
     text->setFont(*font);
     text->setString(name.substr(0, name.size() - 6));
-    text->setFillColor(sf::Color::White);
+    if (isLevelFinished("./assets/levels/" + name))
+        text->setFillColor(sf::Color::Green);
+    else
+        text->setFillColor(sf::Color::White);
     text->setCharacterSize(10);
     gCoordinator.AddComponent(
         title, Transform{sf::Vector2f{float(200 * (_nbOfLevel % 6 + 1)), float(200 * (int(_nbOfLevel / 6) + 1) + 85)},
                          sf::Vector2f{1, 1}, 0});
     gCoordinator.AddComponent(title, Text{text, font});
     _nbOfLevel += 1;
+}
+
+bool LevelsSystem::isLevelFinished(std::string path)
+{
+    std::ifstream file;
+    std::string   line;
+    int           i = 0;
+
+    file.open(path);
+    while (file) {
+        std::getline(file, line);
+        if (i == 1) {
+            if (line == "1")
+                return (true);
+            return (false);
+        }
+        i += 1;
+    }
+    return (false);
 }

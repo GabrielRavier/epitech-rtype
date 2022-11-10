@@ -47,3 +47,82 @@ void PhysicsSystem::Update()
         gNetworkManager->send(&packetClientPos);
     }
 }
+
+void PhysicsSystem::ClientUpdate()
+{
+    std::unordered_set<Entity> toDelete;
+
+    for (auto const &entity : mEntities) {
+        auto &entityTransform = gCoordinator.GetComponent<Transform>(entity);
+        auto &entityRigidBody = gCoordinator.GetComponent<RigidBody>(entity);
+
+        if (entityRigidBody.type == RigidBody::Type::PLAYER) {
+            auto &movement = gCoordinator.GetComponent<Movement>(entity);
+            if (entityTransform.position.x < 0)
+                entityTransform.position.x += movement.speed;
+            if (entityTransform.position.x + entityRigidBody.hitbox.x > _xLimit)
+                entityTransform.position.x -= movement.speed;
+            if (entityTransform.position.y < 0)
+                entityTransform.position.y += movement.speed;
+            if (entityTransform.position.y + entityRigidBody.hitbox.y > _yLimit)
+                entityTransform.position.y -= movement.speed;
+        }
+
+        for (auto const &target : mEntities) {
+            auto &targetRigidBody = gCoordinator.GetComponent<RigidBody>(target);
+
+            // Ignore same entity.
+            if (entityRigidBody.type == targetRigidBody.type || targetRigidBody.type == RigidBody::Type::PROJECTILE)
+                continue;
+
+            // Ignore if player is already dead.
+            if (entityRigidBody.type == RigidBody::Type::PLAYER && gCoordinator.GetComponent<Player>(entity).life == 0)
+                continue;
+
+            // Ignore if player is already dead.
+            if (targetRigidBody.type == RigidBody::Type::PLAYER && gCoordinator.GetComponent<Player>(target).life == 0)
+                continue;
+
+            auto &targetTransform = gCoordinator.GetComponent<Transform>(target);
+
+            if (entityRigidBody.type == RigidBody::Type::PROJECTILE) {
+                auto &entityProjectile = gCoordinator.GetComponent<Projectile>(entity);
+
+                // Skip same team mob.
+                if (entityProjectile.team == Weapon::Team::ENEMY && targetRigidBody.type == RigidBody::Type::ENEMY)
+                    continue;
+
+                // Skip same team player.
+                if (entityProjectile.team == Weapon::Team::PLAYERS && targetRigidBody.type == RigidBody::Type::PLAYER)
+                    continue;
+            }
+
+            // Detect collision.
+            if (PhysicsSystem::Collided(entityTransform, entityRigidBody, targetTransform, targetRigidBody)) {
+                toDelete.emplace(target);
+                toDelete.emplace(entity);
+            }
+        }
+        if (entityTransform.position.x < -100)
+            toDelete.emplace(entity);
+        if (entityTransform.position.x > 2000 && entityRigidBody.type == RigidBody::Type::PROJECTILE)
+            toDelete.emplace(entity);
+    }
+
+    for (auto const &entity : toDelete) {
+        if (gCoordinator.GetComponent<RigidBody>(entity).type == RigidBody::Type::PLAYER) {
+            gCoordinator.GetComponent<Player>(entity).life = 0;
+        } else {
+            gCoordinator.DestroyEntity(entity);
+        }
+    }
+}
+
+bool PhysicsSystem::Collided(const Transform &transformA, const RigidBody &bodyA, const Transform &transformB,
+                             const RigidBody &bodyB)
+{
+    return (transformA.position.x < transformB.position.x + bodyB.hitbox.x &&
+            transformA.position.x + bodyA.hitbox.x > transformB.position.x &&
+            transformA.position.y < transformB.position.y + bodyB.hitbox.y &&
+            transformA.position.y + bodyA.hitbox.y > transformB.position.y);
+}
