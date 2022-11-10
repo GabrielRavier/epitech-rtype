@@ -1,7 +1,9 @@
 #include "ReliableUdpConnection.hpp"
 #include <boost/asio/error.hpp>
-#include <boost/system/detail/error_code.hpp>
+#include <boost/endian.hpp>
+#include <boost/uuid/random_generator.hpp>
 #include <chrono>
+#include <iostream>
 #include <mutex>
 
 static constexpr bool gReliableUdpConnectionDebugPrints = false;
@@ -278,20 +280,15 @@ void ReliableUdpConnection::receiveThreadFunction()
                         if (gReliableUdpConnectionDebugPrints)
                             std::cerr << std::this_thread::get_id() << " Handling ACK " << receivedPacketId
                                       << " with next packet id " << receivedAckNextExpectedPacketId << '\n';
-                        if (receivedAckNextExpectedPacketId > individualConnection->second.remoteNextExpectedPacketId) {
-                            individualConnection->second.remoteNextExpectedPacketId = receivedAckNextExpectedPacketId;
-                            individualConnection->second.remoteAcknowledgedPacketsAboveNextExpectedPacketId.erase(
-                                individualConnection->second.remoteAcknowledgedPacketsAboveNextExpectedPacketId.begin(),
-                                individualConnection->second.remoteAcknowledgedPacketsAboveNextExpectedPacketId
-                                    .lower_bound(receivedAckNextExpectedPacketId));
-                        }
+                        individualConnection->second.handleReceivedAckNextExpectedPacketId(
+                            receivedAckNextExpectedPacketId);
                         if (receivedPacketId > individualConnection->second.remoteNextExpectedPacketId)
                             individualConnection->second.remoteAcknowledgedPacketsAboveNextExpectedPacketId.insert(
                                 receivedPacketId);
                     } else if (receivedDataSize != 0) { // Handle normal packet
                         if (gReliableUdpConnectionDebugPrints)
                             std::cerr << std::this_thread::get_id() << " Handling normal packet " << receivedPacketId
-                                      << '\n';
+                                      << " with next packet id " << receivedAckNextExpectedPacketId << '\n';
                         if (individualConnection->second.bufferedBytes.size() <
                             (ReliableUdpConnection::packetHeaderSize + receivedDataSize))
                             throw std::logic_error(
@@ -308,16 +305,11 @@ void ReliableUdpConnection::receiveThreadFunction()
                                     individualConnection->second.bufferedBytes.begin() +
                                         (ReliableUdpConnection::packetHeaderSize + receivedDataSize));
                         }
+                        individualConnection->second.handleReceivedAckNextExpectedPacketId(
+                            receivedAckNextExpectedPacketId);
 
                         std::uint64_t ackNextExpectedPacketId =
-                            std::max(individualConnection->second.nextUnreadPacketId, static_cast<std::uint64_t>(1)) -
-                            1;
-                        for (auto &i : individualConnection->second.availablePackets)
-                            if (i.first == ackNextExpectedPacketId + 1)
-                                ackNextExpectedPacketId = i.first;
-                            else
-                                break;
-                        ++ackNextExpectedPacketId;
+                            individualConnection->second.getAckNextExpectedPacketId();
                         for (int i = 0; i < 5; ++i)
                             if (this->rawSendPacket({}, individualConnection->first,
                                                     individualConnection->second.uuid.value(), false, true, false,
@@ -344,6 +336,75 @@ void ReliableUdpConnection::beginReceiveThread()
                    [this]() { this->receiveThread.emplace(([this] { this->receiveThreadFunction(); })); });
 }
 
+void ReliableUdpConnection::sendThreadFunction()
+{
+    while (true) {
+        std::unique_lock<std::mutex> individualConnectionsLock(this->individualConnectionsMutex);
+
+        if (this->allThreadsShouldStop)
+            break;
+
+        for (auto &i : this->individualConnections) {
+            if (i.second.isConnectionDead || !i.second.uuid.has_value())
+                continue;
+            auto        jIt = i.second.packetsToSend.begin();
+            std::size_t j   = 0;
+            if (jIt == i.second.packetsToSend.end())
+                continue;
+            std::size_t jMax = 100;
+            if (jIt->second.sendAttempts > 10 && jIt->second.sendAttempts < 20)
+                jMax = 100 - (6 * (jIt->second.sendAttempts - 10));
+            if (jIt->second.sendAttempts >= 20 && jIt->second.sendAttempts < 40)
+                jMax = 40 - ((jIt->second.sendAttempts - 20) / 2);
+            if (jIt->second.sendAttempts >= 40)
+                jMax = 30;
+            while (j < i.second.packetsToSend.size() && jIt != i.second.packetsToSend.end()) {
+                if (j > jMax)
+                    break;
+                if (jIt->first < i.second.remoteNextExpectedPacketId ||
+                    (i.second.remoteAcknowledgedPacketsAboveNextExpectedPacketId.find(jIt->first) !=
+                     i.second.remoteAcknowledgedPacketsAboveNextExpectedPacketId.end())) {
+                    if (gReliableUdpConnectionDebugPrints)
+                        std::cerr << "Flushing packet " << jIt->first << " as received on the other end\n";
+                    i.second.packetsToSend.erase(jIt++);
+                } else {
+                    auto now = std::chrono::steady_clock::now();
+
+                    decltype(now) timeToCheckAgainst;
+                    if (jIt->second.lastSendTime.has_value()) {
+                        timeToCheckAgainst = *jIt->second.lastSendTime + std::chrono::milliseconds(10);
+                        while (j > 30) {
+                            timeToCheckAgainst += std::chrono::milliseconds(100);
+                            if (j > 100)
+                                timeToCheckAgainst += std::chrono::milliseconds(200);
+                            j -= 29;
+                        }
+                    }
+                    if (!jIt->second.lastSendTime.has_value() || (now > timeToCheckAgainst)) {
+                        auto ackNextExpectedPacketId = i.second.getAckNextExpectedPacketId();
+                        for (int k = 0; k < 2; ++k)
+                            this->rawSendPacket(
+                                boost::asio::const_buffer(jIt->second.data.data(), jIt->second.data.size()), i.first,
+                                i.second.uuid.value(), false, false, false, ackNextExpectedPacketId, jIt->first);
+                        jIt->second.lastSendTime = now;
+                        ++jIt->second.sendAttempts;
+                    }
+                    ++jIt;
+                }
+                ++j;
+            }
+        }
+
+        this->individualConnectionsCondVar.wait_for(individualConnectionsLock, std::chrono::milliseconds(10));
+    }
+}
+
+void ReliableUdpConnection::beginSendThread()
+{
+    std::call_once(this->beginSendThreadOnceFlag,
+                   [this]() { this->sendThread.emplace(([this] { this->sendThreadFunction(); })); });
+}
+
 ReliableUdpConnection::~ReliableUdpConnection() // NOLINT(bugprone-exception-escape)
 {
     this->close();
@@ -367,6 +428,7 @@ boost::asio::ip::udp::endpoint ReliableUdpConnection::openConnection(std::string
     // Open socket.
     this->socket.connect(target_endpoint);
     this->beginReceiveThread();
+    this->beginSendThread();
 
     this->isReceiver = false;
     auto insertResult =
@@ -403,14 +465,13 @@ void ReliableUdpConnection::prepareReceiving(std::uint16_t port)
     this->isReceiver = true;
     this->socket.bind(boost::asio::ip::udp::endpoint(boost::asio::ip::udp::v4(), port));
     this->beginReceiveThread();
+    this->beginSendThread();
 }
 
-void ReliableUdpConnection::sendPacket(const boost::asio::ip::udp::endpoint &endpoint, boost::asio::const_buffer data,
-                                       bool isBlocking)
+void ReliableUdpConnection::sendPacket(const boost::asio::ip::udp::endpoint &endpoint, boost::asio::const_buffer data)
 {
     if (data.size() > 4900000)
         throw std::runtime_error("Packets above 4.9 MB are not allowed (sorry)");
-    std::uint64_t              sentPacketId;
     std::vector<unsigned char> dataCopy;
     dataCopy.insert(dataCopy.begin(), static_cast<const unsigned char *>(data.data()),
                     static_cast<const unsigned char *>(data.data()) + data.size());
@@ -426,96 +487,15 @@ void ReliableUdpConnection::sendPacket(const boost::asio::ip::udp::endpoint &end
         if (connection->second.isConnectionDead)
             return;
 
-        sentPacketId = connection->second.nextSentPacketId++;
-        if (connection->second.remoteNextExpectedPacketId + 500 < sentPacketId) {
-            bool hadError = false;
-            for (int i = 0; i < 5; ++i)
-                if (!this->rawSendPacket(data, endpoint, connection->second.uuid.value(), false, false, false, 0,
-                                         sentPacketId))
-                    hadError = true;
-            if (hadError)
-                return;
-        }
+        std::uint64_t sentPacketId = connection->second.nextSentPacketId++;
+
+        if (gReliableUdpConnectionDebugPrints)
+            std::cerr << "Just started sending packet " << sentPacketId << '\n';
+
+        connection->second.packetsToSend.insert({sentPacketId, {dataCopy}});
     }
 
-    if (gReliableUdpConnectionDebugPrints)
-        std::cerr << "Just started sending packet " << sentPacketId << '\n';
-
-    this->packetThreadsInFlight++;
-    if (this->allThreadsShouldStop) {
-        this->packetThreadsInFlight--;
-        return;
-    }
-
-    std::thread senderThread([this, endpoint, sentPacketId, dataCopyForThread = std::move(dataCopy)] {
-        std::unique_lock<std::mutex> connectionsLock(this->individualConnectionsMutex);
-
-        std::size_t                           attempts     = 0;
-        std::chrono::steady_clock::time_point lastSendTime = std::chrono::steady_clock::now();
-        while (true) {
-            auto connection = this->individualConnections.find(endpoint);
-
-            if (connection != this->individualConnections.end())
-                connection->second.checkLastPacket();
-
-            // Conditions under which we just have to end ASAP
-            if (connection == this->individualConnections.end() || this->allThreadsShouldStop ||
-                connection->second.isConnectionDead || !connection->second.uuid.has_value()) {
-                this->packetThreadsInFlight--;
-                return;
-            }
-
-            // Check if packet has been received yet
-            if (connection->second.remoteNextExpectedPacketId > sentPacketId ||
-                connection->second.remoteAcknowledgedPacketsAboveNextExpectedPacketId.find(sentPacketId) !=
-                    connection->second.remoteAcknowledgedPacketsAboveNextExpectedPacketId.end()) {
-                this->packetThreadsInFlight--;
-                return;
-            }
-
-            if ((connection->second.remoteNextExpectedPacketId + 300) > sentPacketId &&
-                lastSendTime + std::chrono::milliseconds(
-                                   std::min(5 * (sentPacketId - connection->second.remoteNextExpectedPacketId),
-                                            static_cast<std::uint64_t>(50000))) <
-                    std::chrono::steady_clock::now()) {
-                for (int i = 0; i < 5; ++i)
-                    if (!this->rawSendPacket(
-                            boost::asio::const_buffer(dataCopyForThread.data(), dataCopyForThread.size()), endpoint,
-                            connection->second.uuid.value(), false, false, false, 0, sentPacketId))
-                        return;
-                lastSendTime = std::chrono::steady_clock::now();
-            }
-            auto waitTime = std::chrono::milliseconds(1);
-            if (connection->second.remoteNextExpectedPacketId + 30 < sentPacketId) {
-                waitTime *= 3;
-                if (this->packetThreadsInFlight > 30)
-                    waitTime *= 3;
-            }
-            if (connection->second.remoteNextExpectedPacketId + 90 < sentPacketId) {
-                waitTime *= 3;
-                if (this->packetThreadsInFlight > 90)
-                    waitTime *= 3;
-            }
-            waitTime = std::min(waitTime, std::chrono::milliseconds(1000));
-
-            auto sleepUntilTime = std::chrono::steady_clock::now() + waitTime;
-            this->individualConnectionsCondVar.wait_for(connectionsLock, waitTime);
-            connectionsLock.unlock();
-            {
-                std::unique_lock<std::mutex> allThreadsShouldStopNotificationMutexLock(
-                    this->allThreadsShouldStopNotificationMutex);
-                this->allThreadShouldStopNotification.wait_until(allThreadsShouldStopNotificationMutexLock,
-                                                                 sleepUntilTime);
-            }
-            connectionsLock.lock();
-            ++attempts;
-        }
-    });
-
-    if (isBlocking)
-        senderThread.join();
-    else
-        senderThread.detach();
+    this->individualConnectionsCondVar.notify_all();
 }
 
 std::size_t ReliableUdpConnection::receivePacket(boost::asio::ip::udp::endpoint &endpoint,
@@ -525,7 +505,6 @@ std::size_t ReliableUdpConnection::receivePacket(boost::asio::ip::udp::endpoint 
     bool                         hasFinished = false;
     std::size_t                  receivedSize;
 
-    ++this->packetThreadsInFlight;
     while (true) {
         if (this->allThreadsShouldStop)
             break;
@@ -556,7 +535,6 @@ std::size_t ReliableUdpConnection::receivePacket(boost::asio::ip::udp::endpoint 
             if (hasFinished) {
                 if (gReliableUdpConnectionDebugPrints)
                     std::cerr << "Successfully retrieved packet " << i.second.nextUnreadPacketId - 1 << '\n';
-                --this->packetThreadsInFlight;
                 return receivedSize;
             }
         }
@@ -564,7 +542,6 @@ std::size_t ReliableUdpConnection::receivePacket(boost::asio::ip::udp::endpoint 
             break;
         this->individualConnectionsCondVar.wait(connectionsLock);
     }
-    --this->packetThreadsInFlight;
     return 0;
 }
 
@@ -588,23 +565,17 @@ void ReliableUdpConnection::close()
                 }
     }
     if (gReliableUdpConnectionDebugPrints)
-        std::cerr << "this->packetThreadsInFlight = " << this->packetThreadsInFlight << '\n';
+        std::cerr << "Closing ReliableUdpConnection...\n";
     this->allThreadsShouldStop = true;
     this->individualConnectionsCondVar.notify_all();
-    this->allThreadShouldStopNotification.notify_all();
     if (this->receiveThread.has_value()) {
         this->receiveThread->join();
         this->receiveThread.reset();
     }
     this->individualConnectionsCondVar.notify_all();
-    std::this_thread::yield();
-    while (this->packetThreadsInFlight != 0) {
-        if (gReliableUdpConnectionDebugPrints)
-            std::cerr << "this->packetThreadsInFlight = " << this->packetThreadsInFlight << '\n';
-        this->individualConnectionsCondVar.notify_all();
-        this->allThreadShouldStopNotification.notify_all();
-        std::this_thread::yield();
+    if (this->sendThread.has_value()) {
+        this->sendThread->join();
+        this->sendThread.reset();
     }
-
     this->socket.close();
 }

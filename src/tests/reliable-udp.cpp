@@ -1,5 +1,5 @@
 #include "../reliable-udp/ReliableUdpConnection.hpp"
-#include <string_view>
+#include <iostream>
 #include <cassert>
 
 int program()
@@ -22,6 +22,7 @@ int program()
     decltype(endpoint)  receiptEndpoint;
     auto sizeReceived = connectionServer.receivePacket(receiptEndpoint, {receivedPacket.data(), receivedPacket.size()});
 
+    std::cerr << "Got first packet\n";
     assert(sizeReceived == 4);
     assert(receivedPacket[0] == 1);
     assert(receivedPacket[1] == 2);

@@ -86,7 +86,7 @@ public:
         std::cerr << "DISCONNECTED." << std::endl;
     }
 
-    void send(Packet *packet, bool isBlocking = false)
+    void send(Packet *packet)
     {
         Buffer buffer(4096);
         size_t packetSize;
@@ -102,7 +102,7 @@ public:
         buffer.writeU16(static_cast<uint16_t>(packetSize));
 
         // Send packet.
-        m_connection.sendPacket(m_target_endpoint, boost::asio::buffer(buffer.data(), packetSize), isBlocking);
+        m_connection.sendPacket(m_target_endpoint, boost::asio::buffer(buffer.data(), packetSize));
     }
 
     void processPackets()

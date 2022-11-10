@@ -2,17 +2,11 @@
 
 #include <boost/asio.hpp>
 #include <boost/asio/buffer.hpp>
-#include <boost/asio/use_future.hpp>
-#include <boost/endian/conversion.hpp>
-#include <boost/system/detail/error_code.hpp>
 #include <boost/uuid/uuid.hpp>
-#include <boost/uuid/random_generator.hpp>
-#include <boost/endian.hpp>
 #include <boost/crc.hpp>
 #include <chrono>
 #include <condition_variable>
 #include <thread>
-#include <iostream>
 #include <map>
 #include <deque>
 #include <set>
@@ -26,16 +20,46 @@ class ReliableUdpConnection
 
     struct IndividualReliableUdpConnection
     {
+        struct PacketToSend
+        {
+            std::vector<unsigned char>                           data;
+            std::optional<std::chrono::steady_clock::time_point> lastSendTime;
+            std::size_t                                          sendAttempts = 0;
+        };
+
         std::deque<unsigned char>                           bufferedBytes;
         std::uint64_t                                       remoteNextExpectedPacketId = 0;
         std::uint64_t                                       nextSentPacketId           = 1;
         std::map<std::uint64_t, std::vector<unsigned char>> availablePackets;
-        std::uint64_t                                       nextExpectedPacketId = 1;
-        std::uint64_t                                       nextUnreadPacketId   = 1;
+        std::map<std::uint64_t, PacketToSend>               packetsToSend;
+        std::uint64_t                                       nextUnreadPacketId = 1;
         std::set<std::uint64_t>                             remoteAcknowledgedPacketsAboveNextExpectedPacketId;
         std::optional<boost::uuids::uuid>                   uuid;
         bool                                                isConnectionDead = false;
         std::chrono::time_point<std::chrono::steady_clock>  lastPacketTime   = std::chrono::steady_clock::now();
+
+        std::uint64_t getAckNextExpectedPacketId()
+        {
+            std::uint64_t result = std::max(this->nextUnreadPacketId, static_cast<std::uint64_t>(1)) - 1;
+            for (auto &i : this->availablePackets)
+                if (i.first == result + 1)
+                    result = i.first;
+                else
+                    break;
+            ++result;
+            return result;
+        }
+
+        void handleReceivedAckNextExpectedPacketId(std::uint64_t receivedAckNextExpectedPacketId)
+        {
+            if (receivedAckNextExpectedPacketId > this->remoteNextExpectedPacketId) {
+                this->remoteNextExpectedPacketId = receivedAckNextExpectedPacketId;
+                this->remoteAcknowledgedPacketsAboveNextExpectedPacketId.erase(
+                    this->remoteAcknowledgedPacketsAboveNextExpectedPacketId.begin(),
+                    this->remoteAcknowledgedPacketsAboveNextExpectedPacketId.lower_bound(
+                        receivedAckNextExpectedPacketId));
+            }
+        }
 
         void killThisConnection()
         {
@@ -78,20 +102,17 @@ class ReliableUdpConnection
     // If this is set to true, then all threads will stop as soon as they can
     std::atomic<bool> allThreadsShouldStop = false;
 
-    // The condition variable (which is to be used with the preceding mutex) will be repeatedly notified upon closure
-    // until all threads stop
-    std::mutex              allThreadsShouldStopNotificationMutex;
-    std::condition_variable allThreadShouldStopNotification;
-
-    // This counts the amount of packet threads that are currently being run. The destructor waits for this to be 0
-    // before exiting
-    std::atomic<std::uintmax_t> packetThreadsInFlight = 0;
-
     // Contains the thread that manages receiving data when we have a connection up
     std::optional<std::thread> receiveThread;
 
     // Ensures the receiver thread is only started once
     std::once_flag beginReceiveThreadOnceFlag;
+
+    // Contains the thread that manages sending data when we have a connection up
+    std::optional<std::thread> sendThread;
+
+    // Ensures the sender thread is only started once
+    std::once_flag beginSendThreadOnceFlag;
 
     bool isReceiver      = false;
     using our_crc64_type = boost::crc_optimal<64, 0x42F0E1EBA9EA3693>;
@@ -107,6 +128,9 @@ class ReliableUdpConnection
     void receiveThreadFunction();
     void beginReceiveThread();
 
+    void sendThreadFunction();
+    void beginSendThread();
+
 public:
     ReliableUdpConnection() : socket(ioContext, boost::asio::ip::udp::v4()) {}
 
@@ -121,8 +145,7 @@ public:
     // amount of connections)
     void prepareReceiving(std::uint16_t port);
 
-    void sendPacket(const boost::asio::ip::udp::endpoint &endpoint, boost::asio::const_buffer data,
-                    bool isBlocking = false);
+    void sendPacket(const boost::asio::ip::udp::endpoint &endpoint, boost::asio::const_buffer data);
 
     std::size_t receivePacket(boost::asio::ip::udp::endpoint &endpoint, boost::asio::mutable_buffer result,
                               bool isBlocking = true);
