@@ -37,5 +37,5 @@ private:
     bool                                  _finish;
     std::mt19937                          _mt;
     std::uniform_real_distribution<float> _dist;
-    void (WaveSystem::*_method_function[1]) (int) = {&WaveSystem::CreateBlop};
+    void (WaveSystem::*_method_function[1])(int) = {&WaveSystem::CreateBlop};
 };
