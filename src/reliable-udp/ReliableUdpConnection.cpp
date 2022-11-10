@@ -321,8 +321,9 @@ void ReliableUdpConnection::receiveThreadFunction()
                     individualConnection->second.bufferedBytes.erase(
                         individualConnection->second.bufferedBytes.begin(),
                         individualConnection->second.bufferedBytes.begin() +
-                            std::min(ReliableUdpConnection::packetHeaderSize + receivedDataSize,
-                                     individualConnection->second.bufferedBytes.size()));
+                            std::min(
+                                static_cast<std::size_t>(ReliableUdpConnection::packetHeaderSize + receivedDataSize),
+                                individualConnection->second.bufferedBytes.size()));
                 }
             }
             this->individualConnectionsCondVar.notify_all();
