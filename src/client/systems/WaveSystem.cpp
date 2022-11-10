@@ -15,7 +15,7 @@ void WaveSystem::Init(std::string levelPath)
     std::random_device rd;
     _mt        = std::mt19937(rd());
     _dist      = std::uniform_real_distribution<float>(0.0, 400.0);
-    _levelPath = levelPath;
+    _levelPath = std::move(levelPath);
     _waveIndex = 0;
     _finish    = false;
 }
@@ -71,9 +71,9 @@ void WaveSystem::MarkLevelDone()
     while (file) {
         std::getline(file, line);
         if (i == 1)
-            lines.push_back("1");
+            lines.emplace_back("1");
         else
-            lines.push_back(line);
+            lines.emplace_back(line);
         i += 1;
     }
     std::ofstream ofile(_levelPath);
@@ -98,11 +98,10 @@ void WaveSystem::CreateWave(std::string line)
     }
     mobs.push_back(line.substr(0, pos));
 
-    int i           = 0;
-    int methodIndex = 0;
+    int i = 0;
 
     for (const auto &mob : mobs) {
-        methodIndex = std::stoi(mob);
+        int methodIndex = std::stoi(mob);
         if (methodIndex >= 1)
             continue;
         (this->*_method_function[methodIndex])(i);

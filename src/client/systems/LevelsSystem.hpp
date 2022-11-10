@@ -21,10 +21,10 @@
 class LevelsSystem : public System
 {
 public:
-    void  Init();
-    SCENE Update(sf::Vector2i mousePosition, bool clicked, std::string *pathLevel);
-    void  createLevel(const std::string &name);
-    bool  isLevelFinished(std::string path);
+    void        Init();
+    SCENE       Update(sf::Vector2i mousePosition, bool clicked, std::string *pathLevel);
+    void        createLevel(const std::string &name);
+    static bool isLevelFinished(const std::string &path);
 
 private:
     int _nbOfLevel = 0;

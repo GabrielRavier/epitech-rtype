@@ -13,8 +13,9 @@ void LevelsSystem::Init()
 {
     std::vector<std::string> filenames;
 
-    for (const auto &entry : std::filesystem::directory_iterator("./assets/levels"))
-        filenames.push_back(entry.path().filename());
+    auto assetsLevelsContents = std::filesystem::directory_iterator("./assets/levels");
+    std::transform(begin(assetsLevelsContents), end(assetsLevelsContents), std::back_inserter(filenames),
+                   [](auto &i) { return i.path().filename(); });
     for (const auto &filename : filenames)
         std::sort(filenames.begin(), filenames.end());
     for (const auto &filename : filenames)
@@ -75,7 +76,7 @@ void LevelsSystem::createLevel(const std::string &name)
     _nbOfLevel += 1;
 }
 
-bool LevelsSystem::isLevelFinished(std::string path)
+bool LevelsSystem::isLevelFinished(const std::string &path)
 {
     std::ifstream file;
     std::string   line;
