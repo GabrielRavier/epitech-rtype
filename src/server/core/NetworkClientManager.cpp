@@ -24,14 +24,14 @@ NetworkClientManager::NetworkClientManager(NetworkServerManager *server, boost::
         if (transform.type == EntityType::PLAYER && gCoordinator.GetComponent<Player>(entity).life == 0)
             continue;
 
-        this->send(new PacketServerEntityCreate(transform.type, EntityTeam::PLAYER, entity, transform.posX,
+        this->send(new PacketServerEntityCreate(transform.type, EntityTeam::PLAYER, transform.mobType, entity, transform.posX,
                                                 transform.posY, 100));
     }
 
     m_entity = gCoordinator.CreateEntity();
     gCoordinator.AddComponent<Network>(m_entity, Network{this});
     gCoordinator.AddComponent<Player>(m_entity, Player{"Pepo", 100, 0});
-    gCoordinator.AddComponent<Transform>(m_entity, Transform{EntityType::PLAYER, 50, 50});
+    gCoordinator.AddComponent<Transform>(m_entity, Transform{EntityType::PLAYER, MobType::NONE, 50, 50});
     gCoordinator.AddComponent<Movement>(m_entity, Movement{0, 0, 0});
     gCoordinator.AddComponent<RigidBody>(m_entity, RigidBody{33, 17});
     gCoordinator.AddComponent<Weapon>(m_entity,
@@ -41,7 +41,7 @@ NetworkClientManager::NetworkClientManager(NetworkServerManager *server, boost::
     this->send(new PacketServerLogin(LoginState::ACCEPT, m_entity));
 
     // Broadcast entity creation.
-    m_server->broadcast(new PacketServerEntityCreate(EntityType::PLAYER, EntityTeam::PLAYER, m_entity, 50, 50, 100));
+    m_server->broadcast(new PacketServerEntityCreate(EntityType::PLAYER, EntityTeam::PLAYER, MobType::NONE, m_entity, 50, 50, 100));
 }
 
 void NetworkClientManager::send(Packet *packet)
