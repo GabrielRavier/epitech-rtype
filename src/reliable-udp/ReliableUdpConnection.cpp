@@ -240,7 +240,7 @@ void ReliableUdpConnection::receiveThreadFunction()
                     ReliableUdpConnection::our_crc64_type crc64_checksum;
                     crc64_checksum.process_block(
                         &packetHeaderBytes.at(ReliableUdpConnection::packetBeginMagic.size() + sizeof(std::uint64_t)),
-                        packetHeaderBytes.end());
+                        packetHeaderBytes.data() + packetHeaderBytes.size());
                     for (std::size_t i = ReliableUdpConnection::packetHeaderSize;
                          i < ReliableUdpConnection::packetHeaderSize + receivedDataSize; ++i)
                         crc64_checksum.process_byte(individualConnection->second.bufferedBytes.at(i));
