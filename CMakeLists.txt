@@ -134,6 +134,7 @@ add_executable(reliable-udp-test
   "src/reliable-udp/ReliableUdpConnection.cpp"
 )
 rtype_set_common_target_properties(reliable-udp-test OFF)
+target_link_libraries(reliable-udp-test PRIVATE Boost::boost Boost::thread)
 
 add_test(NAME reliable-udp-test COMMAND reliable-udp-test)
 
