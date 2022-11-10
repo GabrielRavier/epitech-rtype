@@ -36,7 +36,7 @@ void WaveSystem::CreateWave()
     int j = 0;
     for (int i = 0; i < 3; i++)
         CreateBlop(i);
-        CreateBoss(j);
+    CreateBoss(j);
 }
 
 void WaveSystem::CreateBlop(int i)
@@ -52,7 +52,8 @@ void WaveSystem::CreateBlop(int i)
     gCoordinator.AddComponent<RigidBody>(entity, RigidBody{24, 34});
 
     // Broadcast mob create.
-    gServerManager->broadcast(new PacketServerEntityCreate(EntityType::MOB, EntityTeam::ENEMY, MobType::BLOP, entity, posX, posY, 1));
+    gServerManager->broadcast(
+        new PacketServerEntityCreate(EntityType::MOB, EntityTeam::ENEMY, MobType::BLOP, entity, posX, posY, 1));
 }
 
 void WaveSystem::CreateCrop(int i)
@@ -66,18 +67,22 @@ void WaveSystem::CreateCrop(int i)
     gCoordinator.AddComponent<Transform>(entity, Transform{EntityType::MOB, MobType::CROP, posX, posY});
     gCoordinator.AddComponent<RigidBody>(entity, RigidBody{29, 29});
 
-    gServerManager->broadcast(new PacketServerEntityCreate(EntityType::MOB, EntityTeam::ENEMY, MobType::CROP, entity, posX, posY, 1));
+    gServerManager->broadcast(
+        new PacketServerEntityCreate(EntityType::MOB, EntityTeam::ENEMY, MobType::CROP, entity, posX, posY, 1));
 }
 
 void WaveSystem::CreateBoss(int i)
 {
+    (void)i; // Unused for now
+
     Entity entity = gCoordinator.CreateEntity();
-    auto posX = static_cast<int16_t>(1200);
-    auto posY = static_cast<int16_t>(50);
+    auto   posX   = static_cast<int16_t>(1200);
+    auto   posY   = static_cast<int16_t>(50);
     gCoordinator.AddComponent<Enemy>(entity, Enemy{Enemy::EnemyType::BOSS, 10});
     gCoordinator.AddComponent<Weapon>(entity, Weapon{4, 0, Weapon::Type::MISSILETHROWER, Weapon::Team::ENEMY, false});
     gCoordinator.AddComponent<Transform>(entity, Transform{EntityType::MOB, MobType::BOSS, posX, posY});
     gCoordinator.AddComponent<RigidBody>(entity, RigidBody{180, 210});
 
-    gServerManager->broadcast(new PacketServerEntityCreate(EntityType::MOB, EntityTeam::ENEMY, MobType::BOSS, entity, posX, posY, 1));
+    gServerManager->broadcast(
+        new PacketServerEntityCreate(EntityType::MOB, EntityTeam::ENEMY, MobType::BOSS, entity, posX, posY, 1));
 }

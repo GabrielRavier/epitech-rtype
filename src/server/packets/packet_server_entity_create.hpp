@@ -35,9 +35,10 @@ public:
     int16_t    life;
 
 public:
-    PacketServerEntityCreate(EntityType entityType, EntityTeam entityTeam, MobType mobType, uint16_t entityId, int16_t posX,
-                             int16_t posY, int16_t life)
-        : entityType(entityType), entityTeam(entityTeam), mobType(mobType), entityId(entityId), posX(posX), posY(posY), life(life)
+    PacketServerEntityCreate(EntityType entityType, EntityTeam entityTeam, MobType mobType, uint16_t entityId,
+                             int16_t posX, int16_t posY, int16_t life)
+        : entityType(entityType), entityTeam(entityTeam), mobType(mobType), entityId(entityId), posX(posX), posY(posY),
+          life(life)
     {
     }
 
