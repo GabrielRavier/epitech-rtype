@@ -8,6 +8,7 @@
 #include <condition_variable>
 #include <thread>
 #include <map>
+#include <unordered_map>
 #include <deque>
 #include <set>
 #include <string_view>
