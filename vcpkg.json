@@ -10,7 +10,7 @@
             "name": "boost-asio"
         },
         {
-            "name": "boost-thread"
+            "name": "boost-uuid"
         }
     ]
 }

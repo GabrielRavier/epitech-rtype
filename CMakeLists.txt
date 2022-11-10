@@ -33,7 +33,7 @@ find_package(SFML 2.5
     system window graphics network audio REQUIRED
 )
 
-find_package(Boost REQUIRED COMPONENTS thread)
+find_package(Boost REQUIRED)
 
 # I do not comprehend why vcpkg is setup like it is but it makes it so we have to do this cursed stuff depending on whether this is a Windows build
 if (WIN32)
@@ -71,7 +71,7 @@ set(r_type_server_SOURCES
 
 add_executable(r-type_server "${r_type_server_SOURCES}")
 rtype_set_common_target_properties(r-type_server ON)
-target_link_libraries(r-type_server PRIVATE Boost::boost Boost::thread)
+target_link_libraries(r-type_server PRIVATE Boost::boost)
 
 # Go complain to whoever set up vcpkg like it is if you think this is bad
 set(r_type_client_SOURCES
@@ -112,7 +112,7 @@ endif()
 
 add_executable(r-type_client "${r_type_client_SOURCES}")
 rtype_set_common_target_properties(r-type_client ON)
-target_link_libraries(r-type_client PRIVATE Boost::boost Boost::thread)
+target_link_libraries(r-type_client PRIVATE Boost::boost)
 target_link_libraries(r-type_client PRIVATE sfml-graphics)
 target_link_libraries(r-type_client PRIVATE sfml-system)
 target_link_libraries(r-type_client PRIVATE sfml-window)
@@ -134,7 +134,7 @@ add_executable(reliable-udp-test
   "src/reliable-udp/ReliableUdpConnection.cpp"
 )
 rtype_set_common_target_properties(reliable-udp-test OFF)
-target_link_libraries(reliable-udp-test PRIVATE Boost::boost Boost::thread)
+target_link_libraries(reliable-udp-test PRIVATE Boost::boost)
 
 add_test(NAME reliable-udp-test COMMAND reliable-udp-test)
 
