@@ -15,7 +15,7 @@ void LevelsSystem::Init()
 
     auto assetsLevelsContents = std::filesystem::directory_iterator("./assets/levels");
     std::transform(begin(assetsLevelsContents), end(assetsLevelsContents), std::back_inserter(filenames),
-                   [](auto &i) { return i.path().filename(); });
+                   [](auto &i) { return i.path().filename().string(); });
     for (const auto &filename : filenames)
         std::sort(filenames.begin(), filenames.end());
     for (const auto &filename : filenames)
