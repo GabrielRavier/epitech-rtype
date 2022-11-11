@@ -116,9 +116,11 @@ public:
 
     void close()
     {
-        auto packet = PacketClientLogout();
-        for (int i = 0; i < 10; ++i)
-            this->send(&packet);
+        if (m_target_endpoint.port() != 0) {
+            auto packet = PacketClientLogout();
+            for (int i = 0; i < 10; ++i)
+                this->send(&packet);
+        }
         m_connection.close();
     }
 
@@ -143,7 +145,7 @@ private:
 
 private:
     ReliableUdpConnection          m_connection;
-    boost::asio::ip::udp::endpoint m_target_endpoint;
+    boost::asio::ip::udp::endpoint m_target_endpoint{};
     SynchronisedQueue<Packet *>    m_queue_in;
     SynchronisedQueue<Buffer *>    m_queue_out;
 };
