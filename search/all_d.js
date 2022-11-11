@@ -21,8 +21,9 @@ var searchData=
   ['packetserverupdatehealth_76',['PacketServerUpdateHealth',['../classPacketServerUpdateHealth.html',1,'']]],
   ['packetserverupdatepos_77',['PacketServerUpdatePos',['../classPacketServerUpdatePos.html',1,'']]],
   ['packetserverupdatescore_78',['PacketServerUpdateScore',['../classPacketServerUpdateScore.html',1,'']]],
-  ['physicssystem_79',['PhysicsSystem',['../classPhysicsSystem.html',1,'']]],
-  ['player_80',['Player',['../structPlayer.html',1,'']]],
-  ['playersystem_81',['PlayerSystem',['../classPlayerSystem.html',1,'']]],
-  ['projectile_82',['Projectile',['../structProjectile.html',1,'']]]
+  ['packettosend_79',['PacketToSend',['../structReliableUdpConnection_1_1IndividualReliableUdpConnection_1_1PacketToSend.html',1,'ReliableUdpConnection::IndividualReliableUdpConnection']]],
+  ['physicssystem_80',['PhysicsSystem',['../classPhysicsSystem.html',1,'']]],
+  ['player_81',['Player',['../structPlayer.html',1,'']]],
+  ['playersystem_82',['PlayerSystem',['../classPlayerSystem.html',1,'']]],
+  ['projectile_83',['Projectile',['../structProjectile.html',1,'']]]
 ];
