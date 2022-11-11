@@ -12,12 +12,13 @@
 #include "../core/NetworkManager.hpp"
 #include "../components/Level.hpp"
 #include "../components/Movement.hpp"
+#include "../components/NetworkEntity.hpp"
 #include "../components/Player.hpp"
+#include "../components/Projectile.hpp"
 #include "../components/RigidBody.hpp"
 #include "../components/Sprite.hpp"
 #include "../components/Text.hpp"
 #include "../components/Transform.hpp"
-#include "../components/NetworkEntity.hpp"
 #include "../systems/BackgroundSystem.hpp"
 #include "../systems/LevelsSystem.hpp"
 #include "../systems/MainMenuSystem.hpp"
@@ -27,10 +28,13 @@
 #include "../systems/PlayerSystem.hpp"
 #include "../systems/RenderSystem.hpp"
 #include "../systems/TextSystem.hpp"
+#include "../systems/WaveSystem.hpp"
+#include "../systems/WeaponSystem.hpp"
 
 class SceneManager
 {
 public:
+    ~SceneManager();
     void        Init(char *ip, int port);
     void        LoadScene();
     static void LoadComponents();
@@ -53,7 +57,7 @@ private:
     SCENE                          _currentScene  = SCENE::MAINMENU;
     SCENE                          _oldScene      = SCENE::MAINMENU;
     SCENE(SceneManager::*_method_function[4])
-    () = {&SceneManager::MainMenuScene, &SceneManager::MultipPlayerScene, &SceneManager::MultipPlayerScene,
+    () = {&SceneManager::MainMenuScene, &SceneManager::SinglePlayerScene, &SceneManager::MultipPlayerScene,
           &SceneManager::LevelsMenuScene};
     NetworkManager                    _networkManager;
     std::thread                       _threadNetworkLoop;
@@ -65,4 +69,6 @@ private:
     std::shared_ptr<PlayerSystem>     _playerSystem;
     std::shared_ptr<RenderSystem>     _renderSystem;
     std::shared_ptr<TextSystem>       _textSystem;
+    std::shared_ptr<WaveSystem>       _waveSystem;
+    std::shared_ptr<WeaponSystem>     _weaponSystem;
 };

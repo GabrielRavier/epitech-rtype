@@ -33,7 +33,7 @@ find_package(SFML 2.5
     system window graphics network audio REQUIRED
 )
 
-find_package(Boost REQUIRED COMPONENTS thread)
+find_package(Boost REQUIRED)
 
 # I do not comprehend why vcpkg is setup like it is but it makes it so we have to do this cursed stuff depending on whether this is a Windows build
 if (WIN32)
@@ -66,11 +66,12 @@ set(r_type_server_SOURCES
   "src/server/packets/packet_server_update_health.cpp"
   "src/server/packets/packet_server_update_pos.cpp"
   "src/server/packets/packet_server_update_score.cpp"
+  "src/reliable-udp/ReliableUdpConnection.cpp"
 )
 
 add_executable(r-type_server "${r_type_server_SOURCES}")
 rtype_set_common_target_properties(r-type_server ON)
-target_link_libraries(r-type_server PRIVATE Boost::boost Boost::thread)
+target_link_libraries(r-type_server PRIVATE Boost::boost)
 
 # Go complain to whoever set up vcpkg like it is if you think this is bad
 set(r_type_client_SOURCES
@@ -85,6 +86,8 @@ set(r_type_client_SOURCES
   "src/client/systems/MainMenuSystem.cpp"
   "src/client/systems/LevelsSystem.cpp"
   "src/client/systems/TextSystem.cpp"
+  "src/client/systems/WaveSystem.cpp"
+  "src/client/systems/WeaponSystem.cpp"
   "src/client/core/SceneManager.cpp"
   "src/client/systems/ObjectsSystem.cpp"
   "src/client/utils/Vec2.cpp"
@@ -103,6 +106,7 @@ set(r_type_client_SOURCES
   "src/server/packets/packet_server_update_health.cpp"
   "src/server/packets/packet_server_update_pos.cpp"
   "src/server/packets/packet_server_update_score.cpp"
+  "src/reliable-udp/ReliableUdpConnection.cpp"
 )
 if (WIN32)
   list(APPEND r_type_client_SOURCES "${LOGURU_INCLUDE_DIRS}/loguru/loguru.cpp")
@@ -110,7 +114,7 @@ endif()
 
 add_executable(r-type_client "${r_type_client_SOURCES}")
 rtype_set_common_target_properties(r-type_client ON)
-target_link_libraries(r-type_client PRIVATE Boost::boost Boost::thread)
+target_link_libraries(r-type_client PRIVATE Boost::boost)
 target_link_libraries(r-type_client PRIVATE sfml-graphics)
 target_link_libraries(r-type_client PRIVATE sfml-system)
 target_link_libraries(r-type_client PRIVATE sfml-window)
@@ -126,6 +130,15 @@ add_executable(basic-ecs-test
 rtype_set_common_target_properties(basic-ecs-test OFF)
 
 add_test(NAME basic-ecs-test COMMAND basic-ecs-test)
+
+add_executable(reliable-udp-test
+  "src/tests/reliable-udp.cpp"
+  "src/reliable-udp/ReliableUdpConnection.cpp"
+)
+rtype_set_common_target_properties(reliable-udp-test OFF)
+target_link_libraries(reliable-udp-test PRIVATE Boost::boost)
+
+add_test(NAME reliable-udp-test COMMAND reliable-udp-test)
 
 # This RUNTIME_DEPENDENCIES+EXCLUDE_REGEXES mess is done so that DLL dependencies from Windows are copied
 # We filter out .so so that we don't uselessly try to copy dependencies on Linux

@@ -13,17 +13,18 @@
 #include "../components/Text.hpp"
 #include "../components/Transform.hpp"
 #include "../components/Level.hpp"
-#include <sys/types.h>
-#include <dirent.h>
-#include <iostream>
+#include <filesystem>
 #include <algorithm>
+#include <string>
+#include <fstream>
 
 class LevelsSystem : public System
 {
 public:
-    void  Init();
-    SCENE Update(sf::Vector2i mousePosition, bool clicked, std::string *pathLevel);
-    void  createLevel(const std::string &name);
+    void        Init();
+    SCENE       Update(sf::Vector2i mousePosition, bool clicked, std::string *pathLevel);
+    void        createLevel(const std::string &name);
+    static bool isLevelFinished(const std::string &path);
 
 private:
     int _nbOfLevel = 0;

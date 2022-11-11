@@ -6,6 +6,7 @@
 struct Transform
 {
     EntityType type;
+    MobType    mobType;
     int16_t    posX;
     int16_t    posY;
 };
