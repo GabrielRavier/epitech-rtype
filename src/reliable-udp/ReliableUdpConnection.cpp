@@ -132,7 +132,7 @@ void ReliableUdpConnection::receiveThreadFunction()
                 if (receiveErrorCodeResult.failed() &&
                     receiveErrorCodeResult != boost::asio::error::operation_aborted) {
                     individualConnection->second.killThisConnection();
-                    break;
+                    continue;
                 }
                 individualConnection->second.isConnectionDead = false;
                 individualConnection->second.bufferedBytes.insert(individualConnection->second.bufferedBytes.end(),
