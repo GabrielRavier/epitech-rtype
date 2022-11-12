@@ -211,8 +211,9 @@ void SceneManager::Loop()
     LoadScene();
 
     while (_running) {
-        start    = std::chrono::system_clock::now();
-        newScene = (this->*_method_function[_currentScene])();
+        start                  = std::chrono::system_clock::now();
+        auto methodFunctionPtr = _method_function[_currentScene];
+        newScene               = std::invoke(methodFunctionPtr, this);
         if (newScene != _currentScene) {
             _currentScene = newScene;
             LoadScene();
