@@ -8,6 +8,7 @@
 #include "../components/Projectile.hpp"
 #include "../components/Transform.hpp"
 #include "../components/RigidBody.hpp"
+#include "../components/Enemy.hpp"
 
 class PhysicsSystem : public System
 {

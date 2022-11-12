@@ -108,7 +108,6 @@ void SceneManager::LoadSystems()
         _physicsSystem = gCoordinator.RegisterSystem<PhysicsSystem>();
         {
             Signature signature;
-            signature.set(gCoordinator.GetComponentType<Movement>());
             signature.set(gCoordinator.GetComponentType<Transform>());
             signature.set(gCoordinator.GetComponentType<RigidBody>());
             gCoordinator.SetSystemSignature<PhysicsSystem>(signature);

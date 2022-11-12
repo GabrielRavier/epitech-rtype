@@ -4,6 +4,8 @@ project(rtype CXX)
 
 include(CTest)
 
+set(THREADS_PREFER_PTHREAD_FLAG ON)
+
 function(rtype_set_common_target_properties target_name is_top_directory)
   if (${is_top_directory})
     set_target_properties(${target_name}
@@ -34,6 +36,9 @@ find_package(SFML 2.5
 )
 
 find_package(Boost REQUIRED)
+
+find_package(Threads REQUIRED)
+
 
 # I do not comprehend why vcpkg is setup like it is but it makes it so we have to do this cursed stuff depending on whether this is a Windows build
 if (WIN32)
@@ -72,6 +77,7 @@ set(r_type_server_SOURCES
 add_executable(r-type_server "${r_type_server_SOURCES}")
 rtype_set_common_target_properties(r-type_server ON)
 target_link_libraries(r-type_server PRIVATE Boost::boost)
+target_link_libraries(r-type_server PRIVATE Threads::Threads)
 
 # Go complain to whoever set up vcpkg like it is if you think this is bad
 set(r_type_client_SOURCES
@@ -118,6 +124,8 @@ target_link_libraries(r-type_client PRIVATE Boost::boost)
 target_link_libraries(r-type_client PRIVATE sfml-graphics)
 target_link_libraries(r-type_client PRIVATE sfml-system)
 target_link_libraries(r-type_client PRIVATE sfml-window)
+target_link_libraries(r-type_client PRIVATE Threads::Threads)
+
 if (WIN32)
   target_include_directories(r-type_client PRIVATE "${LOGURU_INCLUDE_DIRS}/loguru")
 else()
@@ -137,6 +145,7 @@ add_executable(reliable-udp-test
 )
 rtype_set_common_target_properties(reliable-udp-test OFF)
 target_link_libraries(reliable-udp-test PRIVATE Boost::boost)
+target_link_libraries(reliable-udp-test PRIVATE Threads::Threads)
 
 add_test(NAME reliable-udp-test COMMAND reliable-udp-test)
 

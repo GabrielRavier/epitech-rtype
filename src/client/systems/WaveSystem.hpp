@@ -31,11 +31,13 @@ private:
     void                                  CreateWave(std::string line);
     void                                  CreateBlop(int i);
     void                                  CreateCrop(int i);
+    void                                  CreateBoss(int i);
     void                                  MarkLevelDone();
     std::string                           _levelPath;
     int                                   _waveIndex;
     bool                                  _finish;
     std::mt19937                          _mt;
     std::uniform_real_distribution<float> _dist;
-    void (WaveSystem::*_method_function[1])(int) = {&WaveSystem::CreateBlop};
+    void (WaveSystem::*_method_function[3])(int) = {&WaveSystem::CreateBlop, &WaveSystem::CreateCrop,
+                                                    &WaveSystem::CreateBoss};
 };
