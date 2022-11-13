@@ -153,7 +153,9 @@ void WaveSystem::CreateCrop(int i)
                                          RigidBody{sf::Vector2f(33 * scale.x, 32 * scale.x), RigidBody::Type::ENEMY});
 }
 
-void WaveSystem::CreateBoss(int i)
+// Note: the NOLINT is here because clang-tidy thinks this can be made static. It cannot, as we use it in an array of
+// member function pointers, alongside the other Create methods
+void WaveSystem::CreateBoss(int i) // NOLINT(readability-convert-member-functions-to-static)
 {
     const sf::Vector2f                 position(1200, i * 0);
     const Entity                       entity  = gCoordinator.CreateEntity();
