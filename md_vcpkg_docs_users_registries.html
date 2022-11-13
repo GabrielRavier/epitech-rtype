@@ -68,7 +68,7 @@ $(function() {
 <div class="contents">
 <div class="textblock"><p><b>The latest version of this documentation is available on <a href="https://github.com/Microsoft/vcpkg/tree/master/docs/users/registries.md">GitHub</a>.</b></p>
 <p>There are two parts to using registries; this documents the use side of the relationship. In order to learn more about creating registries for others to use, please read ../maintainers/registries.md "this documentation".</p>
-<h1><a class="anchor" id="autotoc_md1351"></a>
+<h1><a class="anchor" id="autotoc_md1369"></a>
 Table of Contents</h1>
 <ul>
 <li><a href="#using-registries">Using Registries</a><ul>
@@ -93,10 +93,10 @@ Table of Contents</h1>
 </ul>
 </li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1352"></a>
+<h1><a class="anchor" id="autotoc_md1370"></a>
 &lt;tt&gt;vcpkg-configuration.json&lt;/tt&gt;</h1>
 <p>From a high level perspective, everything that a project needs to define about registries is contained in the vcpkg configuration file. In classic mode, the configuration file lies in the vcpkg root; for manifest mode, the file must exist next to the project's <code>vcpkg.json</code> file. This file is named <code>vcpkg-configuration.json</code>, and it's a simple top-level object file.</p>
-<h2><a class="anchor" id="autotoc_md1353"></a>
+<h2><a class="anchor" id="autotoc_md1371"></a>
 Registry Objects</h2>
 <p>Registries are defined in JSON as objects. They must contain at least the <code>"kind"</code> and <code>"baseline"</code> fields, and additionally the different kinds of registry will have their own way of defining where the registry can be found:</p>
 <ul>
@@ -104,7 +104,7 @@ Registry Objects</h2>
 <li>filesystem registries require the <code>"path"</code> field</li>
 <li>built-in registries do not require a field, since there is only one built-in registry.</li>
 </ul>
-<h3><a class="anchor" id="autotoc_md1354"></a>
+<h3><a class="anchor" id="autotoc_md1372"></a>
 Registry Objects: &lt;tt&gt;"kind"&lt;/tt&gt;</h3>
 <p>The <code>"kind"</code> field must be a string:</p>
 <ul>
@@ -112,12 +112,12 @@ Registry Objects: &lt;tt&gt;"kind"&lt;/tt&gt;</h3>
 <li>For filesystem registries: <code>"filesystem"</code></li>
 <li>For the builtin registry: <code>"builtin"</code></li>
 </ul>
-<h3><a class="anchor" id="autotoc_md1355"></a>
+<h3><a class="anchor" id="autotoc_md1373"></a>
 Registry Objects: &lt;tt&gt;"baseline"&lt;/tt&gt;</h3>
 <p>The <code>"baseline"</code> field must be a string. It defines a minimum version for all packages coming from this registry configuration.</p>
 <p>For <a href="../maintainers/registries.md#git-registries">Git Registries</a> and for the <a href="../maintainers/registries.md#builtin-registries">Builtin Registry</a>, it should be a 40-character git commit sha in the registry's repository that contains a <code>versions/baseline.json</code>.</p>
 <p>For <a href="../maintainers/registries.md#filesystem-registries">Filesystem Registries</a>, it can be any valid baseline string that the registry defines.</p>
-<h3><a class="anchor" id="autotoc_md1356"></a>
+<h3><a class="anchor" id="autotoc_md1374"></a>
 Registry Objects: &lt;tt&gt;"repository"&lt;/tt&gt;</h3>
 <p>This should be a string, of any repository format that git understands:</p>
 <ul>
@@ -125,17 +125,17 @@ Registry Objects: &lt;tt&gt;"repository"&lt;/tt&gt;</h3>
 <li><code>"git@github.com:microsoft/vcpkg"</code></li>
 <li><code>"/dev/vcpkg-registry"</code></li>
 </ul>
-<h3><a class="anchor" id="autotoc_md1357"></a>
+<h3><a class="anchor" id="autotoc_md1375"></a>
 Registry Objects: &lt;tt&gt;"path"&lt;/tt&gt;</h3>
 <p>This should be a path; it can be either absolute or relative; relative paths will be based at the directory the <code>vcpkg-configuration.json</code> lives in.</p>
-<h2><a class="anchor" id="autotoc_md1358"></a>
+<h2><a class="anchor" id="autotoc_md1376"></a>
 Configuration: &lt;tt&gt;"default-registry"&lt;/tt&gt;</h2>
 <p>The <code>"default-registry"</code> field should be a registry object. It defines the registry that is used for all packages that are not claimed by any package registries. It may also be <code>null</code>, in which case no packages that are not claimed by package registries may be installed.</p>
-<h2><a class="anchor" id="autotoc_md1359"></a>
+<h2><a class="anchor" id="autotoc_md1377"></a>
 Configuration: &lt;tt&gt;"registries"&lt;/tt&gt;</h2>
 <p>The <code>"registries"</code> field should be an array of registry objects, each of which additionally contain a <code>"packages"</code> field, which should be an array of package names. These define the package registries, which are used for the specific packages named by the <code>"packages"</code> field.</p>
 <p>The <code>"packages"</code> fields of all the package registries must be disjoint.</p>
-<h2><a class="anchor" id="autotoc_md1360"></a>
+<h2><a class="anchor" id="autotoc_md1378"></a>
 Example Configuration File</h2>
 <p>Let's assume that you have mirrored <a href="https://github.com/microsoft/vcpkg">https://github.com/microsoft/vcpkg</a> at <a href="https://git.example.com/vcpkg">https://git.example.com/vcpkg</a>: this will be your default registry. Additionally, you want to use North Wind Trader's registry for their beison and beicode libraries. The following <code>vcpkg-configuration.json</code> will work:</p>
 <div class="fragment"><div class="line">{</div>
@@ -153,7 +153,7 @@ Example Configuration File</h2>
 <div class="line">    }</div>
 <div class="line">  ]</div>
 <div class="line">}</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md1361"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md1379"></a>
 Package Name Resolution</h1>
 <p>The way package name resolution works in vcpkg is fairly distinct from many package managers. It is very carefully designed to <em>never</em> implicitly choose the registry that a package is fetched from. Just from <code>vcpkg-configuration.json</code>, one can tell exactly from which registry a package definition will be fetched from.</p>
 <p>The name resolution algorithm is as follows:</p>
@@ -163,7 +163,7 @@ Package Name Resolution</h1>
 <li>If the default registry is set to <code>null</code>, error out; otherwise</li>
 <li>use the built-in registry.</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md1362"></a>
+<h2><a class="anchor" id="autotoc_md1380"></a>
 Versioning Support</h2>
 <p>Versioning with custom registries works exactly as it does in the built-in registry. You can read more about that in the versioning documentation. </p>
 </div></div><!-- contents -->

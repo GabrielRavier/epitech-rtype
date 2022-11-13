@@ -68,7 +68,7 @@ $(function() {
 <div class="contents">
 <div class="textblock"><p>The latest version of this document lives in the <a href="https://github.com/Microsoft/vcpkg/blob/master/docs/maintainers/vcpkg_install_nmake.md">vcpkg repo</a>.</p>
 <p>Build and install a msvc makefile project.</p>
-<h1><a class="anchor" id="autotoc_md1048"></a>
+<h1><a class="anchor" id="autotoc_md1066"></a>
 Usage:</h1>
 <div class="fragment"><div class="line">vcpkg_install_nmake(</div>
 <div class="line">    SOURCE_PATH &lt;${SOURCE_PATH}&gt;</div>
@@ -82,51 +82,51 @@ Usage:</h1>
 <div class="line">    [OPTIONS &lt;-DUSE_THIS_IN_ALL_BUILDS=1&gt;...]</div>
 <div class="line">    [OPTIONS_RELEASE &lt;-DOPTIMIZE=1&gt;...]</div>
 <div class="line">    [OPTIONS_DEBUG &lt;-DDEBUGGABLE=1&gt;...]</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md1049"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md1067"></a>
 Parameters</h1>
-<h2><a class="anchor" id="autotoc_md1050"></a>
+<h2><a class="anchor" id="autotoc_md1068"></a>
 SOURCE_PATH</h2>
 <p>Specifies the directory containing the source files. By convention, this is usually set in the portfile as the variable <code>SOURCE_PATH</code>.</p>
-<h2><a class="anchor" id="autotoc_md1051"></a>
+<h2><a class="anchor" id="autotoc_md1069"></a>
 PROJECT_SUBPATH</h2>
 <p>Specifies the sub directory containing the <code>makefile.vc</code>/<code>makefile.mak</code>/<code>makefile.msvc</code> or other msvc makefile.</p>
-<h2><a class="anchor" id="autotoc_md1052"></a>
+<h2><a class="anchor" id="autotoc_md1070"></a>
 PROJECT_NAME</h2>
 <p>Specifies the name of msvc makefile name. Default is makefile.vc</p>
-<h2><a class="anchor" id="autotoc_md1053"></a>
+<h2><a class="anchor" id="autotoc_md1071"></a>
 NO_DEBUG</h2>
 <p>This port doesn't support debug mode.</p>
-<h2><a class="anchor" id="autotoc_md1054"></a>
+<h2><a class="anchor" id="autotoc_md1072"></a>
 PRERUN_SHELL</h2>
 <p>Script that needs to be called before build</p>
-<h2><a class="anchor" id="autotoc_md1055"></a>
+<h2><a class="anchor" id="autotoc_md1073"></a>
 PRERUN_SHELL_DEBUG</h2>
 <p>Script that needs to be called before debug build</p>
-<h2><a class="anchor" id="autotoc_md1056"></a>
+<h2><a class="anchor" id="autotoc_md1074"></a>
 PRERUN_SHELL_RELEASE</h2>
 <p>Script that needs to be called before release build</p>
-<h2><a class="anchor" id="autotoc_md1057"></a>
+<h2><a class="anchor" id="autotoc_md1075"></a>
 OPTIONS</h2>
 <p>Additional options passed to generate during the generation.</p>
-<h2><a class="anchor" id="autotoc_md1058"></a>
+<h2><a class="anchor" id="autotoc_md1076"></a>
 OPTIONS_RELEASE</h2>
 <p>Additional options passed to generate during the Release generation. These are in addition to <code>OPTIONS</code>.</p>
-<h2><a class="anchor" id="autotoc_md1059"></a>
+<h2><a class="anchor" id="autotoc_md1077"></a>
 OPTIONS_DEBUG</h2>
 <p>Additional options passed to generate during the Debug generation. These are in addition to <code>OPTIONS</code>.</p>
-<h1><a class="anchor" id="autotoc_md1060"></a>
+<h1><a class="anchor" id="autotoc_md1078"></a>
 Parameters:</h1>
 <p>See `vcpkg_build_nmake()`.</p>
-<h1><a class="anchor" id="autotoc_md1061"></a>
+<h1><a class="anchor" id="autotoc_md1079"></a>
 Notes:</h1>
 <p>This command transparently forwards to `vcpkg_build_nmake()`, adding <code>ENABLE_INSTALL</code></p>
-<h1><a class="anchor" id="autotoc_md1062"></a>
+<h1><a class="anchor" id="autotoc_md1080"></a>
 Examples</h1>
 <ul>
 <li><a href="https://github.com/Microsoft/vcpkg/blob/master/ports/tcl/portfile.cmake">tcl</a></li>
 <li><a href="https://github.com/Microsoft/vcpkg/blob/master/ports/freexl/portfile.cmake">freexl</a></li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1063"></a>
+<h1><a class="anchor" id="autotoc_md1081"></a>
 Source</h1>
 <p><a href="https://github.com/Microsoft/vcpkg/blob/master/scripts/cmake/vcpkg_install_nmake.cmake">scripts/cmake/vcpkg_install_nmake.cmake</a> </p>
 </div></div><!-- contents -->

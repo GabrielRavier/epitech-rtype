@@ -218,15 +218,22 @@ $(function() {
 <div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;    <span class="comment">// amount of connections)</span></div>
 <div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;    <span class="keywordtype">void</span> prepareReceiving(std::uint16_t port);</div>
 <div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160; </div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;    <span class="keywordtype">void</span> sendPacket(<span class="keyword">const</span> boost::asio::ip::udp::endpoint &amp;endpoint, boost::asio::const_buffer data);</div>
-<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160; </div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;    std::size_t receivePacket(boost::asio::ip::udp::endpoint &amp;endpoint, boost::asio::mutable_buffer result,</div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;                              <span class="keywordtype">bool</span> isBlocking = <span class="keyword">true</span>);</div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160; </div>
-<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;    <span class="keywordtype">bool</span> isOpen();</div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160; </div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;    <span class="keywordtype">void</span> close();</div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;};</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;    <span class="comment">// This sends the given data to the given endpoint, so long as the given endpoint is tied to an active connection</span></div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;    <span class="keywordtype">void</span> sendPacket(<span class="keyword">const</span> boost::asio::ip::udp::endpoint &amp;endpoint, boost::asio::const_buffer data);</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160; </div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;    <span class="comment">// This waits for the next packet to be received (unless isBlocking is false, in which case the operation</span></div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;    <span class="comment">// immediately returns 0) and then fills `result` with it and `endpoint` with the endpoint from which it was</span></div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;    <span class="comment">// received.</span></div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;    std::size_t receivePacket(boost::asio::ip::udp::endpoint &amp;endpoint, boost::asio::mutable_buffer result,</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;                              <span class="keywordtype">bool</span> isBlocking = <span class="keyword">true</span>);</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160; </div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;    <span class="comment">// This function checks whether the socket associated with the ReliableUdpConnection object is open</span></div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;    <span class="keywordtype">bool</span> isOpen();</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160; </div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;    <span class="comment">// This function asks for all the connections associated with this ReliableUdpConnection object to be closed, and</span></div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;    <span class="comment">// for the associated socket to be closed.</span></div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;    <span class="keywordtype">void</span> close();</div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;};</div>
 </div><!-- fragment --></div><!-- contents -->
 <div class="ttc" id="aclassReliableUdpConnection_html"><div class="ttname"><a href="classReliableUdpConnection.html">ReliableUdpConnection</a></div><div class="ttdef"><b>Definition:</b> ReliableUdpConnection.hpp:17</div></div>
 <div class="ttc" id="astructReliableUdpConnection_1_1IndividualReliableUdpConnection_1_1PacketToSend_html"><div class="ttname"><a href="structReliableUdpConnection_1_1IndividualReliableUdpConnection_1_1PacketToSend.html">ReliableUdpConnection::IndividualReliableUdpConnection::PacketToSend</a></div><div class="ttdef"><b>Definition:</b> ReliableUdpConnection.hpp:24</div></div>

@@ -67,7 +67,7 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p>This page gives instructions on how one should be able to build the R-Type project.</p>
-<h1><a class="anchor" id="autotoc_md73"></a>
+<h1><a class="anchor" id="autotoc_md91"></a>
 Supported compilers</h1>
 <p>This project is tested and known to be able to be compiled and run on:</p><ul>
 <li>Visual Studio 2022 on Windows</li>
@@ -75,7 +75,7 @@ Supported compilers</h1>
 </ul>
 <p>This does not mean it will not compile on other compilers, but rather that those configurations are untested and it may be possible that, for example, the code does not compile on Clang or MacOS.</p>
 <p>Note that when using Visual Studio 2022, you should probably use the Visual Studio Developer Prompt to build the project. This is usually accessible by entering the Start Menu and searching for the corresponding app, which will have a name alike to "Developer PowerShell for VS 2022".</p>
-<h1><a class="anchor" id="autotoc_md74"></a>
+<h1><a class="anchor" id="autotoc_md92"></a>
 Dependencies</h1>
 <p>These dependencies can be installed either through vcpkg (see setup instructions later in this README) or through your local package manager:</p>
 <ul>
@@ -83,10 +83,10 @@ Dependencies</h1>
 <li>Loguru</li>
 <li>Boost</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md75"></a>
+<h2><a class="anchor" id="autotoc_md93"></a>
 Installing vcpkg</h2>
 <p>vcpkg is a submodule of this repository. If you wish to use vcpkg and did not clone this repository with <code>--recurse-submodules</code>, please run <code>git submodule update --init</code> before continuing.</p>
-<h1><a class="anchor" id="autotoc_md76"></a>
+<h1><a class="anchor" id="autotoc_md94"></a>
 Building</h1>
 <p>This project uses CMake, allowing it to be built with a large range of compilers.</p>
 <p>Generating files for your build system is as simple as executing the following command, from the top directory of this repository (i.e. the folder containing this README file):</p>
@@ -96,7 +96,7 @@ Building</h1>
 </div><!-- fragment --><p>if you are using vcpkg (this will automatically install all necessary dependencies).</p>
 <p>You can then compile the project with this command (again, from the top directory of this repository):</p>
 <div class="fragment"><div class="line">cmake --build build</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md77"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md95"></a>
 Running the game</h1>
 <p>Once built, the <code>r-type_server</code> and <code>r-type_client</code> executables can be found in the top directory. It should be noted that on certain environments, such as Visual Studio, the output location is unreliable, with the executables often ending up in locations such as <code>Debug/r-type_client.exe</code> (which is usually the case on Windows by default) or <code>Release/r-type_client.exe</code>.</p>
 <p>In all cases, when running the game, the executables should be ran from the top directory of this repository.</p>
@@ -107,20 +107,20 @@ Running the game</h1>
 <div class="fragment"><div class="line">./r-type_client [server-host] [port]</div>
 </div><!-- fragment --><p>(<code>[server-host]</code> should be replaced by an ip/hostname/domain-name that a server is located at, and <code>[port]</code> by the port a server is using at that location)</p>
 <p>The paths to the <code>r-type_server</code> and <code>r-type_client</code> executables should be used in place of <code>./r-type_server</code> and <code>./r-type_client</code> if they are not located in the top directory of the project.</p>
-<h1><a class="anchor" id="autotoc_md78"></a>
+<h1><a class="anchor" id="autotoc_md96"></a>
 Running tests</h1>
 <p>Should you have followed the previous instructions, running tests should be as simple as using either the following command (everywhere but on Windows):</p>
 <div class="fragment"><div class="line">cmake --build build --target test</div>
 </div><!-- fragment --><p>or the following command (only on Windows):</p>
 <div class="fragment"><div class="line">cmake --build build --target RUN_TESTS</div>
 </div><!-- fragment --><p>This will run tests set up for this project, and will report the results (success is normally signified by text stating "100% tests passed" somewhere in the output)</p>
-<h1><a class="anchor" id="autotoc_md79"></a>
+<h1><a class="anchor" id="autotoc_md97"></a>
 Making a binary package</h1>
 <p>(preliminary note: this does not aim to make a package containing the source code. To do so, you should probably just use <code>git archive</code>)</p>
 <p>Should you have followed the previous instructions, creating a binary package for the project should be as simple as using the following command:</p>
 <div class="fragment"><div class="line">cmake --build build --target package</div>
 </div><!-- fragment --><p>The resulting package (for example, a <code>.tar.gz</code>, a <code>.tar.Z</code> and a <code>.sh</code> file on Linux, and a <code>.exe</code> installer on Windows) should then be usable to install and use the project independently of the source code's presence.</p>
-<h1><a class="anchor" id="autotoc_md80"></a>
+<h1><a class="anchor" id="autotoc_md98"></a>
 Troubleshooting</h1>
 <p>If you are having trouble building the game, certain fixes may require the entire game to be rebuilt. Remove the build folder with a command such as <code>rm -r build</code> before doing so if this is the case (or you suspect it is - in particular most things involving changing the <code>cmake</code> command line will require this). </p>
 </div></div><!-- contents -->

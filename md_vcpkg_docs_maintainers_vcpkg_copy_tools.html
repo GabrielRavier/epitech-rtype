@@ -68,7 +68,7 @@ $(function() {
 <div class="contents">
 <div class="textblock"><p>The latest version of this document lives in the <a href="https://github.com/Microsoft/vcpkg/blob/master/docs/maintainers/vcpkg_copy_tools.md">vcpkg repo</a>.</p>
 <p>Copy tools and all their DLL dependencies into the <code>tools</code> folder.</p>
-<h1><a class="anchor" id="autotoc_md806"></a>
+<h1><a class="anchor" id="autotoc_md824"></a>
 Usage</h1>
 <div class="fragment"><div class="line">vcpkg_copy_tools(</div>
 <div class="line">    TOOL_NAMES &lt;tool1&gt;...</div>
@@ -76,28 +76,28 @@ Usage</h1>
 <div class="line">    [DESTINATION &lt;${CURRENT_PACKAGES_DIR}/tools/${PORT}&gt;]</div>
 <div class="line">    [AUTO_CLEAN]</div>
 <div class="line">)</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md807"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md825"></a>
 Parameters</h1>
-<h2><a class="anchor" id="autotoc_md808"></a>
+<h2><a class="anchor" id="autotoc_md826"></a>
 TOOL_NAMES</h2>
 <p>A list of tool filenames without extension.</p>
-<h2><a class="anchor" id="autotoc_md809"></a>
+<h2><a class="anchor" id="autotoc_md827"></a>
 SEARCH_DIR</h2>
 <p>The path to the directory containing the tools. This will be set to <code>${CURRENT_PACKAGES_DIR}/bin</code> if omitted.</p>
-<h2><a class="anchor" id="autotoc_md810"></a>
+<h2><a class="anchor" id="autotoc_md828"></a>
 DESTINATION</h2>
 <p>Destination to copy the tools to. This will be set to <code>${CURRENT_PACKAGES_DIR}/tools/${PORT}</code> if omitted.</p>
-<h2><a class="anchor" id="autotoc_md811"></a>
+<h2><a class="anchor" id="autotoc_md829"></a>
 AUTO_CLEAN</h2>
 <p>Auto clean the copied executables from <code>${CURRENT_PACKAGES_DIR}/bin</code> and <code>${CURRENT_PACKAGES_DIR}/debug/bin</code>.</p>
-<h1><a class="anchor" id="autotoc_md812"></a>
+<h1><a class="anchor" id="autotoc_md830"></a>
 Examples</h1>
 <ul>
 <li><a href="https://github.com/microsoft/vcpkg/blob/master/ports/cpuinfo/portfile.cmake">cpuinfo</a></li>
 <li><a href="https://github.com/microsoft/vcpkg/blob/master/ports/nanomsg/portfile.cmake">nanomsg</a></li>
 <li><a href="https://github.com/microsoft/vcpkg/blob/master/ports/uriparser/portfile.cmake">uriparser</a></li>
 </ul>
-<h1><a class="anchor" id="autotoc_md813"></a>
+<h1><a class="anchor" id="autotoc_md831"></a>
 Source</h1>
 <p><a href="https://github.com/Microsoft/vcpkg/blob/master/scripts/cmake/vcpkg_copy_tools.cmake">scripts/cmake/vcpkg_copy_tools.cmake</a> </p>
 </div></div><!-- contents -->

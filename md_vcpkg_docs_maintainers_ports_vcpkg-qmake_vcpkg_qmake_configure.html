@@ -68,7 +68,7 @@ $(function() {
 <div class="contents">
 <div class="textblock"><p>The latest version of this document lives in the <a href="https://github.com/Microsoft/vcpkg/blob/master/docs/maintainers/ports/vcpkg-qmake/vcpkg_qmake_configure.md">vcpkg repo</a>.</p>
 <p>Configure a qmake-based project.</p>
-<h2><a class="anchor" id="autotoc_md568"></a>
+<h2><a class="anchor" id="autotoc_md586"></a>
 User setable triplet variables:</h2>
 <p>VCPKG_OSX_DEPLOYMENT_TARGET: Determines QMAKE_MACOSX_DEPLOYMENT_TARGET VCPKG_QMAKE_COMMAND: Path to qmake. (default: "${CURRENT_HOST_INSTALLED_DIR}/tools/Qt6/bin/qmake${VCPKG_HOST_EXECUTABLE_SUFFIX}") VCPKG_QT_CONF_(RELEASE|DEBUG): Path to qt.config being used for RELEASE/DEBUG. (default: "${CURRENT_INSTALLED_DIR}/tools/Qt6/qt_(release|debug).conf") VCPKG_QMAKE_OPTIONS(_RELEASE|_DEBUG)?: Extra options to pass to QMake</p>
 <div class="fragment"><div class="line">vcpkg_qmake_configure(</div>
@@ -80,16 +80,16 @@ User setable triplet variables:</h2>
 <div class="line">    [OPTIONS_RELEASE arg1 [arg2 ...]]</div>
 <div class="line">    [OPTIONS_DEBUG arg1 [arg2 ...]]</div>
 <div class="line">)</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md569"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md587"></a>
 SOURCE_PATH</h2>
 <p>The path to the *.pro qmake project file.</p>
-<h2><a class="anchor" id="autotoc_md570"></a>
+<h2><a class="anchor" id="autotoc_md588"></a>
 QMAKE_OPTIONS, QMAKE_OPTIONS_RELEASE, QMAKE_OPTIONS_DEBUG</h2>
 <p>options directly passed to qmake with the form QMAKE_X=something or CONFIG=something</p>
-<h2><a class="anchor" id="autotoc_md571"></a>
+<h2><a class="anchor" id="autotoc_md589"></a>
 OPTIONS, OPTIONS_RELEASE, OPTIONS_DEBUG</h2>
 <p>The options passed after &ndash; to qmake.</p>
-<h1><a class="anchor" id="autotoc_md572"></a>
+<h1><a class="anchor" id="autotoc_md590"></a>
 Source</h1>
 <p><a href="https://github.com/Microsoft/vcpkg/blob/master/ports/vcpkg-qmake/vcpkg_qmake_configure.cmake">ports/vcpkg-qmake/vcpkg_qmake_configure.cmake</a> </p>
 </div></div><!-- contents -->

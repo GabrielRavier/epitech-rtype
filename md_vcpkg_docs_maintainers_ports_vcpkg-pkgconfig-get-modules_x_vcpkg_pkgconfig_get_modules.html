@@ -68,7 +68,7 @@ $(function() {
 <div class="contents">
 <div class="textblock"><p>The latest version of this document lives in the <a href="https://github.com/Microsoft/vcpkg/blob/master/docs/maintainers/ports/vcpkg-pkgconfig-get-modules/x_vcpkg_pkgconfig_get_modules.md">vcpkg repo</a>.</p>
 <p>Experimental Retrieve required module information from pkgconfig modules</p>
-<h1><a class="anchor" id="autotoc_md556"></a>
+<h1><a class="anchor" id="autotoc_md574"></a>
 Usage</h1>
 <div class="fragment"><div class="line">x_vcpkg_pkgconfig_get_modules(</div>
 <div class="line">    PREFIX &lt;prefix&gt;</div>
@@ -79,32 +79,32 @@ Usage</h1>
 <div class="line">    [LIBRARIES_DIRS]</div>
 <div class="line">    [INCLUDE_DIRS]</div>
 <div class="line">)</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md557"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md575"></a>
 Parameters</h1>
-<h2><a class="anchor" id="autotoc_md558"></a>
+<h2><a class="anchor" id="autotoc_md576"></a>
 PREFIX</h2>
 <p>Used variable prefix to use</p>
-<h2><a class="anchor" id="autotoc_md559"></a>
+<h2><a class="anchor" id="autotoc_md577"></a>
 MODULES</h2>
 <p>List of pkgconfig modules to retrieve information for.</p>
-<h2><a class="anchor" id="autotoc_md560"></a>
+<h2><a class="anchor" id="autotoc_md578"></a>
 LIBS</h2>
 <p>Returns <code>"${PKGCONFIG}" --libs</code> in &lt;prefix&gt;_LIBS_(DEBUG|RELEASE)</p>
-<h2><a class="anchor" id="autotoc_md561"></a>
+<h2><a class="anchor" id="autotoc_md579"></a>
 LIBRARIES</h2>
 <p>Returns <code>"${PKGCONFIG}" --libs-only-l</code> in &lt;prefix&gt;_LIBRARIES_(DEBUG|RELEASE)</p>
-<h2><a class="anchor" id="autotoc_md562"></a>
+<h2><a class="anchor" id="autotoc_md580"></a>
 LIBRARIES_DIRS</h2>
 <p>Returns <code>"${PKGCONFIG}" --libs-only-L</code> in &lt;prefix&gt;_LIBRARIES_DIRS_(DEBUG|RELEASE)</p>
-<h2><a class="anchor" id="autotoc_md563"></a>
+<h2><a class="anchor" id="autotoc_md581"></a>
 INCLUDE_DIRS</h2>
 <p>Returns <code>"${PKGCONFIG}" --cflags-only-I</code> in &lt;prefix&gt;_INCLUDE_DIRS_(DEBUG|RELEASE)</p>
-<h1><a class="anchor" id="autotoc_md564"></a>
+<h1><a class="anchor" id="autotoc_md582"></a>
 Examples</h1>
 <ul>
 <li><a href="https://github.com/microsoft/vcpkg/blob/master/ports/qt5-base/portfile.cmake">qt5-base</a></li>
 </ul>
-<h1><a class="anchor" id="autotoc_md565"></a>
+<h1><a class="anchor" id="autotoc_md583"></a>
 Source</h1>
 <p><a href="https://github.com/Microsoft/vcpkg/blob/master/ports/vcpkg-pkgconfig-get-modules/x_vcpkg_pkgconfig_get_modules.cmake">ports/vcpkg-pkgconfig-get-modules/x_vcpkg_pkgconfig_get_modules.cmake</a> </p>
 </div></div><!-- contents -->

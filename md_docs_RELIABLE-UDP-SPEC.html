@@ -68,19 +68,19 @@ $(function() {
 <div class="contents">
 <div class="textblock"><p>Published: November 2022</p>
 <p>Author: Gabriel Ravier, Epitech</p>
-<h1><a class="anchor" id="autotoc_md52"></a>
+<h1><a class="anchor" id="autotoc_md70"></a>
 RFC - Reliable User Datagram Protocol (RUDP)</h1>
-<h2><a class="anchor" id="autotoc_md53"></a>
+<h2><a class="anchor" id="autotoc_md71"></a>
 1. Motivation</h2>
 <p>Computer communication systems are sometimes required to use the User Datagram Protocol (UDP) [N1] to communicate. This document focuses its attention on robustness in the presence of network unreliability and availability in the presence of congestion, and aims to provide a reliable, connection-oriented, end-to-end protocol alike to the Tranmission Control Protocol (TCP) [I1] that is capable of running on top of the User Datagram Protocol (UDP).</p>
-<h2><a class="anchor" id="autotoc_md54"></a>
+<h2><a class="anchor" id="autotoc_md72"></a>
 2. Introduction</h2>
 <p>The Reliable User Datagram Protocol (RUDP) is intended for use as a highly reliable host-to-host protocol between hosts in computer communication networks who have to communicate through the User Datagram Protocol (UDP).</p>
 <p>This document describes the basic functionality to be performed by the Reliable User Datagram Protocol, the programs that implement it and the interface for programs that require its services.</p>
-<h3><a class="anchor" id="autotoc_md55"></a>
+<h3><a class="anchor" id="autotoc_md73"></a>
 2.1. Requirements Language</h3>
 <p>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in BCP 14 when, and only when, they appear in all capitals, as shown here.</p>
-<h3><a class="anchor" id="autotoc_md56"></a>
+<h3><a class="anchor" id="autotoc_md74"></a>
 2.2. Key RUDP Concepts</h3>
 <p>RUDP provides a reliable, in-order, byte-stream service to applications.</p>
 <p>The application's byte-stream is conveyed over the network via RUDP segments, with each RUDP segment sent as a User Datagram Protocol (UDP) datagram.</p>
@@ -88,9 +88,9 @@ RFC - Reliable User Datagram Protocol (RUDP)</h1>
 <p>RUDP is connection oriented, though it does not inherently contain a liveness detection capability.</p>
 <p>Data flow is supported bidirectionally over RUDP connections (though there is no requirement for applications to use this capability.</p>
 <p>RUDP uses UDP port numbers to identify application services and to multiplex distinct flows between hosts.</p>
-<h2><a class="anchor" id="autotoc_md57"></a>
+<h2><a class="anchor" id="autotoc_md75"></a>
 3. Functional Specification</h2>
-<h3><a class="anchor" id="autotoc_md58"></a>
+<h3><a class="anchor" id="autotoc_md76"></a>
 3.1. Header Format</h3>
 <p>RUDP segments are sent as UDP datagrams. The UDP header carries several information fields, including the source and destination ports. An RUDP header follows the UDP headers, supplying information specific to RUDP.</p>
 <p>All integers and other multi-byte fields must be sent in little-endian order, as defined in Internet Experiment Note 137 [N4]</p>
@@ -132,10 +132,10 @@ RFC - Reliable User Datagram Protocol (RUDP)</h1>
 <li>Data: Variable length</li>
 </ul>
 <p>The user data carried by the RUDP segment.</p>
-<h3><a class="anchor" id="autotoc_md59"></a>
+<h3><a class="anchor" id="autotoc_md77"></a>
 3.2. RUDP Terminology Overview</h3>
 <p>This section includes an overview of the key terms needed to understand the protocol's operation.</p>
-<h4><a class="anchor" id="autotoc_md60"></a>
+<h4><a class="anchor" id="autotoc_md78"></a>
 3.2.1. Key Connection State Variables</h4>
 <p>Before we can discuss the operation of the RUDP implementation in detail, we need to introduce some detailed terminology. The maintenance of an RUDP connection requires maintaining state for several variables. We conceive of these variables being stored in a connection record called a Transmission Control Block (TCB). Among the variables stored in the TCB are the local and remote IP addresses and port numbers, pointers to the user's send and receive buffers, pointers to the retransmit queue and to the current segment. In addition, several variables relating to the send and receive packet IDs are stored in the TCB.</p>
 <div class="fragment"><div class="line">+----------+---------------------+</div>
@@ -145,7 +145,7 @@ RFC - Reliable User Datagram Protocol (RUDP)</h1>
 <div class="line">| SND.NXT  | Send Next           |</div>
 <div class="line">| RCV.NXT  | Receive Next        |</div>
 <div class="line">+----------+---------------------+</div>
-</div><!-- fragment --><h4><a class="anchor" id="autotoc_md61"></a>
+</div><!-- fragment --><h4><a class="anchor" id="autotoc_md79"></a>
 3.2.2. State Machine Overview</h4>
 <p>A connection progresses through a series of states during its lifetime. Briefly the states and their meanings are:</p>
 <p>LISTEN: Represents waiting for a connection request from any remote RUDP peer and port.</p>
@@ -153,7 +153,7 @@ RFC - Reliable User Datagram Protocol (RUDP)</h1>
 <p>ESTABLISHED: Represents an open connection, data received can be delivered to the user. The normal state of the connection when it is being used to transfer data.</p>
 <p>An RUDP connection progresses from one state to another in response to events. The events are the user-usable calls OPEN, SEND, RECEIVE and CLOSE, incoming segments (in particular the INI, ACK and LST flags) and timeouts.</p>
 <p>The OPEN call specifies whether establishment of the connection is to be pursued or waited for. A passive OPEN means the user wants to passively wait and accept incoming requests, whereas an active OPEN attempts to initiate a connection.</p>
-<h3><a class="anchor" id="autotoc_md62"></a>
+<h3><a class="anchor" id="autotoc_md80"></a>
 3.3. Packet IDs</h3>
 <p>A fundamental notion in the design of RUDP is that every segment sent over an RUDP connection has a packet ID. Since every segment is ID-ed, each of them can be acknowledged. This mechanism allows for straightforward duplicate detection in the presence of retransmission. It is essential to remember that the actual packet ID space is finite, though large. This space ranges from 0 to 2^64 - 1. Since the space is finite, all arithmetic dealing with packet IDs must be performed modulo 2^64. This unsigned arithmetic preserves the relationship of packet IDs as they cycle from 2^64 - 1 to 0 again. There are some subtleties to computer modulo arithmetic, so great care should be taken in programming the comparison of such values. The symbol "&lt;=" means "less than or equal" (modulo 2^64).</p>
 <p>The typical kinds of packet ID comparisons that the RUDP implementation must perform include:</p>
@@ -177,13 +177,13 @@ RFC - Reliable User Datagram Protocol (RUDP)</h1>
 <li><code>RCV.NXT</code> = Next <a class="el" href="classPacket.html">Packet</a> ID expected on an incoming segment</li>
 <li><code>SEG.PID</code> = <a class="el" href="classPacket.html">Packet</a> ID occupied by the incoming segment</li>
 </ul>
-<h3><a class="anchor" id="autotoc_md63"></a>
+<h3><a class="anchor" id="autotoc_md81"></a>
 3.4. UUIDs</h3>
 <p>A connection is defined by a pair of sockets. Connections can be reused. New instances of a connection will be referred to as incarnations of the connection. The problem that arises from this is &ndash; "how does the RUDP implementation identify duplicate segments from previous incarnations of the connection?" This problem becomes apparent if the connection is being opened and closed in quick succession, or if the connection breaks with loss of memory and is then reestablished. To support this, the UUID described below protects against ambiguity about which incarnation of a connection an incoming packet corresponds to.</p>
 <p>To avoid confusion, we must prevent segments from one incarnation of a connection from being used while the same packet IDs may still be present in the network from an earlier incarnation. We want to assure this even if a RUDP endpoint loses all knowledge of the packet IDs it has been using. When new connections are created, an random generator is employed that selects a new 128-bit UUID. There are security issues that result if an off-path attacker is able to predict or guess UUID values.</p>
 <p>The random generator for the UUID <b>MUST NOT</b> be predictable from the outside, or an attacker could plausibly guess at the UUID and hijack a connection.</p>
 <p>For a connection to be established, the two RUDP peers <b>MUST</b> synchronize on the UUID of the connection.</p>
-<h3><a class="anchor" id="autotoc_md64"></a>
+<h3><a class="anchor" id="autotoc_md82"></a>
 3.5. Establishing a connection</h3>
 <p>The connection procedure normally is initiated by one RUDP peer and responded to by another RUDP peer. A handshake can occur as such:</p>
 <ul>
@@ -193,7 +193,7 @@ RFC - Reliable User Datagram Protocol (RUDP)</h1>
 <li>RUDP Peer A receives the ACK from RUDP Peer B. This puts RUDP Peer A in the ESTABLISHED state.</li>
 </ul>
 <p>Note that simultaneous handshakes are not supported by RUDP.</p>
-<h3><a class="anchor" id="autotoc_md65"></a>
+<h3><a class="anchor" id="autotoc_md83"></a>
 3.6. Closing a connection</h3>
 <p>CLOSE is an operation meaning there is no more data to send. The RUDP implementation will signal a user, even if no RECEIVEs are outstanding, that the remote peer has closed, so the user can terminate their side gracefully.</p>
 <p>There are 3 cases:</p><ul>
@@ -204,15 +204,15 @@ RFC - Reliable User Datagram Protocol (RUDP)</h1>
 <p>Case 1: Local user initiates the close In this case, a number of LST segment <b>SHOULD</b> be sent (the number is implementation-defined but <b>SHOULD</b> be between around 10), after which the connection shall be closed and does not exist anymore.</p>
 <p>Case 2: RUDP endpoint receives an LST from the network If an LST arrives from the network, the receiving RUDP endpoint should tell the user that the connection is closing. The connection is aborted.</p>
 <p>Case 3: Both users close simultaneously A simultaneous CLOSE by users at both ends of a connection causes LST segments to be exchanged. Both will then delete the connection.</p>
-<h3><a class="anchor" id="autotoc_md66"></a>
+<h3><a class="anchor" id="autotoc_md84"></a>
 3.7. Data communication</h3>
 <p>Once the connection is established, data is communicated by the exchange of segments. Because segments may be lost due to errors (checksum test failure) or network congestion, RUDP uses retransmission to ensure delivery of every segment. Duplicate segments may arrive due to network or RUDP retransmission. As discussed in the section on packet IDs (Section 3.3.), the RUDP implementation performs certain tests on the packet IDs and acknowledgment packet IDs in the segments to verify their acceptability.</p>
 <p>The sender of data keeps track of the next packet ID to use in the variable <code>SND.NXT</code>. The receiver of data keeps track of the next packet ID to expect in the variable <code>RCV.NXT</code>. The sender of data keeps track of the oldest unacknowledged packet ID in the variable <code>SND.UNA</code>. If the data flow is momentarily idle and all data sent has been acknowledged, then the three variables will be equal. When the sender creates a segment and transmits it, the sender advances <code>SND.NXT</code>. When the receiver accepts a segment, it advances <code>RCV.NXT</code> and sends an acknowledgment. When the data sender receives an acknowledgment, it advances <code>SND.UNA</code>. The extent to which the values of these variables differ is a measure of the delay in the communication. Note that, once in the ESTABLISHED state, all segments must carry current acknowledgment information.</p>
 <p>Once a certain timeout is sent without a packet having been acknowledged, the peer must retransmit it. Note that the timeout is implementation-defined, although it <b>SHOULD</b> be low (~10 milliseconds) initially and implement some sort of algorithm to back off if it is observed that too many packages are being sent.</p>
-<h4><a class="anchor" id="autotoc_md67"></a>
+<h4><a class="anchor" id="autotoc_md85"></a>
 3.7.1. RUDP Connection Failures</h4>
 <p>An attempt to open an RUDP connection could fail with excessive retransmissions of the INI segment or an ICMP Port Unreachable. INI retransmissions <b>MUST</b> be handled in the general way just described for data retransmissions, and connecting must eventually fail if there is no response (note that the delay for this is implementation-defined).</p>
-<h3><a class="anchor" id="autotoc_md68"></a>
+<h3><a class="anchor" id="autotoc_md86"></a>
 3.8. Interfaces</h3>
 <p>Different RUDP implementations may have different user interfaces, but they <b>SHOULD</b> at least have OPEN, SEND, RECEIVE and CLOSE methods (or equivalents), which respectively:</p><ul>
 <li>Open a connection to a given address+port or opens a port in listening mode for connections to be initiated on</li>
@@ -220,16 +220,16 @@ RFC - Reliable User Datagram Protocol (RUDP)</h1>
 <li>Receive data from the indicated connection and fill a user-provided buffer with it</li>
 <li>Close the connection</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md69"></a>
+<h2><a class="anchor" id="autotoc_md87"></a>
 4. References</h2>
-<h3><a class="anchor" id="autotoc_md70"></a>
+<h3><a class="anchor" id="autotoc_md88"></a>
 4.1. Normative References</h3>
 <p>[N1] Postel, J., "User Datagram Protocol", STD 6, RFC 768, DOI 10.17487/RFC0768, August 1980, <a href="http://www.rfc-editor.org/info/rfc768">http://www.rfc-editor.org/info/rfc768</a>.</p>
 <p>[N2] W Wesley Peterson &amp; E J Weldon - Error Correcting Codes - First Edition 1961/Second Edition 1972.</p>
 <p>[N3] Published by Ecma as Standard ECMA-182 - Data interchange on 12,7 mm 48-track magnetic tape cartridges - DLT1 format - 1st edition, December 1992</p>
 <p>[N4] Danny Cohen, "On Holy Wars and a Plea for Peace", USC/ISI, 1 April 1980, <a href="https://www.rfc-editor.org/ien/ien137.txt">https://www.rfc-editor.org/ien/ien137.txt</a></p>
 <p>[N5] P. Leach - Microsoft &amp; M.Mealling - Refactored Networks, LLC &amp; R. Salz - DataPower Technology, Inc., July 2005, "A Universally Unique IDentifier (UUID) URN Namespace", <a href="https://www.rfc-editor.org/rfc/rfc4122">https://www.rfc-editor.org/rfc/rfc4122</a></p>
-<h3><a class="anchor" id="autotoc_md71"></a>
+<h3><a class="anchor" id="autotoc_md89"></a>
 4.2. Informative References</h3>
 <p>[I1] Postel, J., "Transmission Control Protocol", STD 7, RFC 793, DOI 10.17487/RFC0793, September 1981, <a href="https://www.rfc-editor.org/info/rfc793">https://www.rfc-editor.org/info/rfc793</a>. </p>
 </div></div><!-- contents -->
