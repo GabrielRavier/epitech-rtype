@@ -1,10 +1,14 @@
 # Developer documentation
 
-This page, along with other pages down this hierarchy, contains information useful to people who would like to work on the code of this project.
+This page, along with other pages down this hierarchy, contains information useful to people who would like to work on the code of this project
 
 General documentation on building, running and installing the game is available on the [INSTALL.md](../INSTALL.md) page
 
 The norm for contributions and other guidelines for contributing is available on the [CONTRIBUTING.md](../CONTRIBUTING.md) page
+
+## Specific tutorials
+
+A tutorial on how to edit and create levels is available [here](./LEVEL-EDITING.md)
 
 ## Protocols and specifications
 
