@@ -146,12 +146,19 @@ public:
     // amount of connections)
     void prepareReceiving(std::uint16_t port);
 
+    // This sends the given data to the given endpoint, so long as the given endpoint is tied to an active connection
     void sendPacket(const boost::asio::ip::udp::endpoint &endpoint, boost::asio::const_buffer data);
 
+    // This waits for the next packet to be received (unless isBlocking is false, in which case the operation
+    // immediately returns 0) and then fills `result` with it and `endpoint` with the endpoint from which it was
+    // received.
     std::size_t receivePacket(boost::asio::ip::udp::endpoint &endpoint, boost::asio::mutable_buffer result,
                               bool isBlocking = true);
 
+    // This function checks whether the socket associated with the ReliableUdpConnection object is open
     bool isOpen();
 
+    // This function asks for all the connections associated with this ReliableUdpConnection object to be closed, and
+    // for the associated socket to be closed.
     void close();
 };

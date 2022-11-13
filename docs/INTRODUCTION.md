@@ -40,6 +40,10 @@ The protocol specification for the game's networking use itself (i.e. what's hap
 
 [src/server/systems](../src/client/systems) contains the code for all of the systems of the [ECS](./ECS.md) as used in the server
 
+## Code organisatsion and subsystems
+
+A document that attempts to explain how the code is structured and what does what is located [here](./CODE-STRUCTURE.md)
+
 ## CI
 
 Documentation on how the CI is set up and what it does is [here](./CI.md)
