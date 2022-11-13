@@ -32,10 +32,10 @@ void NetworkManager::processServerEntityCreate(PacketServerEntityCreate *packet)
         texture->loadFromFile("./assets/players.gif");
         sprite->setTexture(*texture, false);
         sprite->setScale(sf::Vector2f(3, 3));
-        sprite->setTextureRect(sf::IntRect(0, 0, 33, 17));
+        sprite->setTextureRect(sf::IntRect(1, 3, 32, 14));
 
         gCoordinator.AddComponent<NetworkEntity>(entity, NetworkEntity{packet->entityId});
-        gCoordinator.AddComponent<Sprite>(entity, Sprite{texture, sprite, sf::Vector2i(33, 17), sf::Vector2i(0, 0), 1});
+        gCoordinator.AddComponent<Sprite>(entity, Sprite{texture, sprite, sf::Vector2i(32, 14), sf::Vector2i(1, 3), 1});
         gCoordinator.AddComponent<Transform>(
             entity, Transform{sf::Vector2f(packet->posX, packet->posY), sf::Vector2f(3, 3), 0});
 
@@ -49,11 +49,11 @@ void NetworkManager::processServerEntityCreate(PacketServerEntityCreate *packet)
         texture->loadFromFile("./assets/projectiles.gif");
         sprite->setTexture(*texture, false);
         sprite->setScale(scale);
-        sprite->setTextureRect(sf::IntRect(248, 100, 16, 16));
+        sprite->setTextureRect(sf::IntRect(248, 105, 16, 8));
 
         gCoordinator.AddComponent<NetworkEntity>(entity, NetworkEntity{packet->entityId});
         gCoordinator.AddComponent<Sprite>(entity,
-                                          Sprite{texture, sprite, sf::Vector2i(50, 50), sf::Vector2i(250, 100), 1});
+                                          Sprite{texture, sprite, sf::Vector2i(16, 8), sf::Vector2i(248, 105), 1});
         gCoordinator.AddComponent<Transform>(entity, Transform{sf::Vector2f(packet->posX, packet->posY), scale, 0});
 
     } else if (packet->entityType == EntityType::MOB) {
@@ -87,11 +87,11 @@ void NetworkManager::processServerEntityCreate(PacketServerEntityCreate *packet)
             texture->loadFromFile("./assets/crop.gif");
             sprite->setTexture(*texture, false);
             sprite->setScale(scale);
-            sprite->setTextureRect(sf::IntRect(1, 1, 29, 29));
+            sprite->setTextureRect(sf::IntRect(1, 1, 33, 32));
 
             gCoordinator.AddComponent<NetworkEntity>(entity, NetworkEntity{packet->entityId});
             gCoordinator.AddComponent<Sprite>(entity,
-                                              Sprite{texture, sprite, sf::Vector2i(29, 29), sf::Vector2i(1, 1), 1});
+                                              Sprite{texture, sprite, sf::Vector2i(33, 32), sf::Vector2i(1, 1), 1});
             gCoordinator.AddComponent<Transform>(entity, Transform{sf::Vector2f(packet->posX, packet->posY), scale, 0});
             break;
         }

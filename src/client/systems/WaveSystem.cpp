@@ -88,7 +88,7 @@ void WaveSystem::MarkLevelDone()
 
 void WaveSystem::CreateWave(std::string line)
 {
-    std::string              delimiter = " ";
+    const std::string        delimiter = " ";
     size_t                   pos       = 0;
     std::vector<std::string> mobs{};
 
@@ -101,8 +101,8 @@ void WaveSystem::CreateWave(std::string line)
     int i = 0;
 
     for (const auto &mob : mobs) {
-        int methodIndex = std::stoi(mob);
-        if (methodIndex >= 1)
+        const int methodIndex = std::stoi(mob);
+        if (methodIndex >= 3)
             continue;
         (this->*_method_function[methodIndex])(i);
         i += 1;
@@ -123,7 +123,7 @@ void WaveSystem::CreateBlop(int i)
     sprite->setTextureRect(sf::IntRect(6, 40, 23, 22));
 
     gCoordinator.AddComponent<Sprite>(entity, Sprite{texture, sprite, sf::Vector2i(23, 22), sf::Vector2i(6, 40), 1});
-    gCoordinator.AddComponent<Enemy>(entity, Enemy{Enemy::EnemyType::BLOP, 10});
+    gCoordinator.AddComponent<Enemy>(entity, Enemy{Enemy::EnemyType::BLOP, 5});
     gCoordinator.AddComponent<Weapon>(entity, Weapon{25, 0, Weapon::Type::MISSILETHROWER, Weapon::Team::ENEMY, false});
     gCoordinator.AddComponent<Movement>(entity, Movement{sf::Vector2f(-1, 0), 5});
     gCoordinator.AddComponent<Transform>(entity, Transform{position, sf::Vector2f(3, 3), 0});
@@ -142,12 +142,34 @@ void WaveSystem::CreateCrop(int i)
     texture->loadFromFile("./assets/crop.gif");
     sprite->setTexture(*texture, false);
     sprite->setScale(scale);
-    sprite->setTextureRect(sf::IntRect(1, 29, 29, 29));
+    sprite->setTextureRect(sf::IntRect(1, 1, 33, 32));
 
-    gCoordinator.AddComponent<Sprite>(entity, Sprite{texture, sprite, sf::Vector2i(29, 29), sf::Vector2i(1, 29), 1});
+    gCoordinator.AddComponent<Sprite>(entity, Sprite{texture, sprite, sf::Vector2i(33, 32), sf::Vector2i(1, 1), 1});
     gCoordinator.AddComponent<Enemy>(entity, Enemy{Enemy::EnemyType::CROP, 10});
-    gCoordinator.AddComponent<Weapon>(entity, Weapon{20, 0, Weapon::Type::MISSILETHROWER, Weapon::Team::ENEMY, false});
+    gCoordinator.AddComponent<Weapon>(entity, Weapon{25, 0, Weapon::Type::MISSILETHROWER, Weapon::Team::ENEMY, false});
     gCoordinator.AddComponent<Movement>(entity, Movement{sf::Vector2f(-1, 0), 2});
     gCoordinator.AddComponent<Transform>(entity, Transform{position, sf::Vector2f(3, 3), 0});
-    gCoordinator.AddComponent<RigidBody>(entity, RigidBody{sf::Vector2f(29, 29)});
+    gCoordinator.AddComponent<RigidBody>(entity,
+                                         RigidBody{sf::Vector2f(33 * scale.x, 32 * scale.x), RigidBody::Type::ENEMY});
+}
+
+void WaveSystem::CreateBoss(int i)
+{
+    const sf::Vector2f                 position(1200, i * 0);
+    const Entity                       entity  = gCoordinator.CreateEntity();
+    const std::shared_ptr<sf::Texture> texture = std::make_shared<sf::Texture>();
+    const std::shared_ptr<sf::Sprite>  sprite  = std::make_shared<sf::Sprite>();
+    const sf::Vector2f                 scale   = sf::Vector2f(3, 3);
+
+    texture->loadFromFile("./assets/boss.gif");
+    sprite->setTexture(*texture, false);
+    sprite->setScale(scale);
+    sprite->setTextureRect(sf::IntRect(6, 430, 180, 210));
+
+    gCoordinator.AddComponent<Sprite>(entity, Sprite{texture, sprite, sf::Vector2i(180, 210), sf::Vector2i(6, 430), 1});
+    gCoordinator.AddComponent<Enemy>(entity, Enemy{Enemy::EnemyType::BOSS, 50});
+    gCoordinator.AddComponent<Weapon>(entity, Weapon{80, 0, Weapon::Type::MISSILETHROWER, Weapon::Team::ENEMY, false});
+    gCoordinator.AddComponent<Transform>(entity, Transform{position, scale, 0});
+    gCoordinator.AddComponent<RigidBody>(entity,
+                                         RigidBody{sf::Vector2f(180 * scale.x, 210 * scale.y), RigidBody::Type::ENEMY});
 }
