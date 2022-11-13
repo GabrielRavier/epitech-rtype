@@ -50,11 +50,11 @@ An RUDP header, followed by any user data in the segment, is formatted as follow
 
 where:
 
-Magic: 4 bytes
+- Magic: 4 bytes
 
 The 4 bytes `0x7F`, `0x52`, `0x55`, `0x50`
 
-Checksum: 8 bytes
+- Checksum: 8 bytes
 
 The checksum field is a Cyclic Redundancy Check (CRC) [N2] checksum. It must be calculated as specified in ECMA-182, p. 51 [N3], with a polynomial of `0x42F0E1EBA9EA3693` and a width of 64 bits, by applying the CRC algorithm to each byte of the segment header and of the user data.
 
@@ -90,7 +90,7 @@ This section includes an overview of the key terms needed to understand the prot
 
 #### 3.2.1. Key Connection State Variables
 
-Before we can discuss the operation of the RUDP implementation in detail, we need to introduce some detailed terminology. The maintenance of an RUDP connection requires maintaining state for several variables. We conceive of these variables being stored in a connection record called a Transmission Control Block (TCB). Among the variables stored in the TCB are the local and remote IP addresses and port numbers, and compartment of the connection, pointers to the user's send and receive buffers, pointers to the retransmit queue and to the current segment. In addition, several variables relating to the send and receive packet IDs are stored in the TCB.
+Before we can discuss the operation of the RUDP implementation in detail, we need to introduce some detailed terminology. The maintenance of an RUDP connection requires maintaining state for several variables. We conceive of these variables being stored in a connection record called a Transmission Control Block (TCB). Among the variables stored in the TCB are the local and remote IP addresses and port numbers, pointers to the user's send and receive buffers, pointers to the retransmit queue and to the current segment. In addition, several variables relating to the send and receive packet IDs are stored in the TCB.
 
 ```
 +----------+---------------------+
@@ -98,6 +98,7 @@ Before we can discuss the operation of the RUDP implementation in detail, we nee
 +----------+---------------------+
 | SND.UNA  | Send Unacknowledged |
 | SND.NXT  | Send Next           |
+| RCV.NXT  | Receive Next        |
 +----------+---------------------+
 ```
 
@@ -186,7 +187,7 @@ A simultaneous CLOSE by users at both ends of a connection causes LST segments t
 
 Once the connection is established, data is communicated by the exchange of segments. Because segments may be lost due to errors (checksum test failure) or network congestion, RUDP uses retransmission to ensure delivery of every segment. Duplicate segments may arrive due to network or RUDP retransmission. As discussed in the section on packet IDs (Section 3.3.), the RUDP implementation performs certain tests on the packet IDs and acknowledgment packet IDs in the segments to verify their acceptability.
 
-The sender of data keeps track of the next packet ID to use in the variable SND.NXT. The receiver of data keeps track of the next packet ID to expect in the variable RCV.NXT. The sender of data keeps track of the oldest unacknowledged packet ID in the variable SND.UNA. If the data flow is momentarily idle and all data sent has been acknowledged, then the three variables will be equal. When the sender creates a segment and transmits it, the sender advances SND.NXT. When the receiver accepts a segment, it advances RCV.NXT and sends an acknowledgment. When the data sender receives an acknowledgment, it advances SND.UNA. The extent to which the values of these variables differ is a measure of the delay in the communication. Note that, once in the ESTABLISHED state, all segments must carry current acknowledgment information.
+The sender of data keeps track of the next packet ID to use in the variable `SND.NXT`. The receiver of data keeps track of the next packet ID to expect in the variable `RCV.NXT`. The sender of data keeps track of the oldest unacknowledged packet ID in the variable `SND.UNA`. If the data flow is momentarily idle and all data sent has been acknowledged, then the three variables will be equal. When the sender creates a segment and transmits it, the sender advances `SND.NXT`. When the receiver accepts a segment, it advances `RCV.NXT` and sends an acknowledgment. When the data sender receives an acknowledgment, it advances `SND.UNA`. The extent to which the values of these variables differ is a measure of the delay in the communication. Note that, once in the ESTABLISHED state, all segments must carry current acknowledgment information.
 
 Once a certain timeout is sent without a packet having been acknowledged, the peer must retransmit it. Note that the timeout is implementation-defined, although it **SHOULD** be low (~10 milliseconds) initially and implement some sort of algorithm to back off if it is observed that too many packages are being sent.
 
