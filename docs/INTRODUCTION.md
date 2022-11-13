@@ -6,6 +6,12 @@ General documentation on building, running and installing the game is available 
 
 The norm for contributions and other guidelines for contributing is available on the [CONTRIBUTING.md](../CONTRIBUTING.md) page
 
+## Protocols and specifications
+
+This project uses Reliable UDP, which was created for the purposes of having stable TCP-like networking on top of UDP. The specification for it can be found [here](./RELIABLE-UDP-SPEC.md).
+
+The protocol specification for the game's networking use itself (i.e. what's happening on top of the Reliable UDP layer) can be found [here](./R-TYPE-PROTOCOL-SPEC.md).
+
 ## Code hierarchy
 
 [src/client/](../src/client/) contains all R-Type client code
