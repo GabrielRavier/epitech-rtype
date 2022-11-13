@@ -90,7 +90,6 @@ set(r_type_client_SOURCES
   "src/client/systems/WeaponSystem.cpp"
   "src/client/core/SceneManager.cpp"
   "src/client/systems/ObjectsSystem.cpp"
-  "src/client/utils/Vec2.cpp"
   "src/server/utils.cpp"
   "src/server/packets/connection_state.cpp"
   "src/server/packets/packet_client_input.cpp"
