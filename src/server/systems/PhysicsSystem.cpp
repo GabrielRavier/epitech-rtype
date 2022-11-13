@@ -43,11 +43,21 @@ void PhysicsSystem::Update() const
                 // Skip same team player.
                 if (entityWeapon.team == Weapon::Team::PLAYERS && targetTransform.type == EntityType::PLAYER)
                     continue;
-            }
 
-            // Detect collision.
-            if (PhysicsSystem::Collided(entityTransform, entityRigidBody, targetTransform, targetRigidBody))
-                toDelete.emplace(target);
+                // Detect collision.
+                if (PhysicsSystem::Collided(entityTransform, entityRigidBody, targetTransform, targetRigidBody)) {
+                    if (entityWeapon.team == Weapon::Team::ENEMY) {
+                        toDelete.emplace(target);
+                        toDelete.emplace(entity);
+                    } else if (entityWeapon.team == Weapon::Team::PLAYERS) {
+                        auto &targetEnemy = gCoordinator.GetComponent<Enemy>(target);
+                        targetEnemy.life -= entityWeapon.damage;
+                        if (targetEnemy.life <= 0)
+                            toDelete.emplace(target);
+                        toDelete.emplace(entity);
+                    }
+                }
+            }
         }
     }
 

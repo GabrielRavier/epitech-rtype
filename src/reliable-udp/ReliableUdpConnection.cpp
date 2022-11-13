@@ -522,6 +522,8 @@ std::size_t ReliableUdpConnection::receivePacket(boost::asio::ip::udp::endpoint 
                 if (!j.second.empty()) {
                     receivedSize =
                         boost::asio::buffer_copy(result, boost::asio::const_buffer(j.second.data(), j.second.size()));
+                    if (receivedSize > j.second.size())
+                        std::terminate();
                     j.second.erase(j.second.begin(), j.second.begin() + receivedSize);
                     endpoint = i.first;
                     i.second.nextUnreadPacketId++;

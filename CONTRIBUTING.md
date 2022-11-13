@@ -12,11 +12,13 @@ The git hooks can be installed into the `.git` folder with the following command
 pre-commit install --hook-type pre-commit --hook-type commit-msg --hook-type pre-push
 ```
 
-(Note: this obviously requires that the pre-commit program be installed: under most environments, it can easily be installed using `pip install pre-commit` (although this itself requires pip...))
+(Note: this obviously requires that the pre-commit program be installed: under most environments, it can easily be installed using `pip install pre-commit` (although this itself requires pip))
 
-## Guidelines for contributions
+## Guidelines for contributions and norm
 
-It is highly recommended that you run git clang-format, clang-tidy and cppcheck, on your code before submitting it (the git hook you can set up above is made to do this automatically when you try to commit code)
+The norm for code contributions to this project is checked by several tools such as clang-format, clang-tidy and cppcheck.
+
+It is highly recommended that you run these tools on your code before submitting it (the git hook you can set up above is made to do this automatically when you try to commit code)
 
 You can do this manually, but it should also be noted that, should you have `pre-commit` installed, you can instead run the pre-commit checks without actually committing anything, by just running
 
@@ -24,7 +26,9 @@ You can do this manually, but it should also be noted that, should you have `pre
 pre-commit run
 ```
 
-It should be noted that alongside clang-format, clang-tidy and cppcheck, a few other minor checks (like trailing whitespace at the end of lines/files, or extremely large files) and a check on the commit message itself (mandating a format resembling `feat: some new thing` or `fix: an annoying bug` as the first line of the commit messages)
+It should be noted that alongside clang-format, clang-tidy and cppcheck, a few other minor checks (like trailing whitespace at the end of lines/files, or extremely large files) and a check on the commit message itself (mandating a format resembling `feat: some new thing` or `fix: an annoying bug` as the first line of the commit messages).
+
+Of course, one should also always make sure their code compiles with the procedure specified in the [INSTALL.md](./INSTALL.md) file before contributing it.
 
 ### Branch management
 

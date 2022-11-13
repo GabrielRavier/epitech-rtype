@@ -108,7 +108,6 @@ void SceneManager::LoadSystems()
         _physicsSystem = gCoordinator.RegisterSystem<PhysicsSystem>();
         {
             Signature signature;
-            signature.set(gCoordinator.GetComponentType<Movement>());
             signature.set(gCoordinator.GetComponentType<Transform>());
             signature.set(gCoordinator.GetComponentType<RigidBody>());
             gCoordinator.SetSystemSignature<PhysicsSystem>(signature);
@@ -211,8 +210,9 @@ void SceneManager::Loop()
     LoadScene();
 
     while (_running) {
-        start    = std::chrono::system_clock::now();
-        newScene = (this->*_method_function[_currentScene])();
+        start                  = std::chrono::system_clock::now();
+        auto methodFunctionPtr = _method_function[_currentScene];
+        newScene               = std::invoke(methodFunctionPtr, this);
         if (newScene != _currentScene) {
             _currentScene = newScene;
             LoadScene();

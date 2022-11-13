@@ -52,13 +52,13 @@ private:
     char                          *_ip;
     int                            _port;
     std::string                    _levelPath;
-    bool                           _running       = true;
-    std::shared_ptr<WindowManager> _windowManager = std::make_shared<WindowManager>();
-    SCENE                          _currentScene  = SCENE::MAINMENU;
-    SCENE                          _oldScene      = SCENE::MAINMENU;
-    SCENE(SceneManager::*_method_function[4])
-    () = {&SceneManager::MainMenuScene, &SceneManager::SinglePlayerScene, &SceneManager::MultipPlayerScene,
-          &SceneManager::LevelsMenuScene};
+    bool                           _running                       = true;
+    std::shared_ptr<WindowManager> _windowManager                 = std::make_shared<WindowManager>();
+    SCENE                          _currentScene                  = SCENE::MAINMENU;
+    SCENE                          _oldScene                      = SCENE::MAINMENU;
+    static constexpr SCENE (SceneManager::*_method_function[4])() = {
+        &SceneManager::MainMenuScene, &SceneManager::SinglePlayerScene, &SceneManager::MultipPlayerScene,
+        &SceneManager::LevelsMenuScene};
     NetworkManager                    _networkManager;
     std::thread                       _threadNetworkLoop;
     std::shared_ptr<BackgroundSystem> _backgroundSystem;

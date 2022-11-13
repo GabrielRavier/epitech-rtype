@@ -95,12 +95,20 @@ void PhysicsSystem::ClientUpdate()
                 // Skip same team player.
                 if (entityProjectile.team == Weapon::Team::PLAYERS && targetRigidBody.type == RigidBody::Type::PLAYER)
                     continue;
-            }
 
-            // Detect collision.
-            if (PhysicsSystem::Collided(entityTransform, entityRigidBody, targetTransform, targetRigidBody)) {
-                toDelete.emplace(target);
-                toDelete.emplace(entity);
+                // Detect collision.
+                if (PhysicsSystem::Collided(entityTransform, entityRigidBody, targetTransform, targetRigidBody)) {
+                    if (entityProjectile.team == Weapon::Team::ENEMY) {
+                        toDelete.emplace(target);
+                        toDelete.emplace(entity);
+                    } else if (entityProjectile.team == Weapon::Team::PLAYERS) {
+                        auto &targetEnemy = gCoordinator.GetComponent<Enemy>(target);
+                        targetEnemy.life -= entityProjectile.damage;
+                        if (targetEnemy.life <= 0)
+                            toDelete.emplace(target);
+                        toDelete.emplace(entity);
+                    }
+                }
             }
         }
         if (entityTransform.position.x < -100)
@@ -110,11 +118,10 @@ void PhysicsSystem::ClientUpdate()
     }
 
     for (auto const &entity : toDelete) {
-        if (gCoordinator.GetComponent<RigidBody>(entity).type == RigidBody::Type::PLAYER) {
+        if (gCoordinator.GetComponent<RigidBody>(entity).type == RigidBody::Type::PLAYER)
             gCoordinator.GetComponent<Player>(entity).life = 0;
-        } else {
+        else
             gCoordinator.DestroyEntity(entity);
-        }
     }
 }
 
