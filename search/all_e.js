@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['quick_20start_84',['Quick Start',['../md_vcpkg_docs_README.html',1,'']]]
+  ['quick_20start_86',['Quick Start',['../md_vcpkg_docs_README.html',1,'']]]
 ];

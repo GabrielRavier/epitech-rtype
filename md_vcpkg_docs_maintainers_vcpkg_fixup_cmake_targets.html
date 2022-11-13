@@ -70,44 +70,44 @@ $(function() {
 <p>The latest version of this document lives in the <a href="https://github.com/Microsoft/vcpkg/blob/master/docs/maintainers/vcpkg_fixup_cmake_targets.md">vcpkg repo</a>.</p>
 <p>Merge release and debug CMake targets and configs to support multiconfig generators.</p>
 <p>Additionally corrects common issues with targets, such as absolute paths and incorrectly placed binaries.</p>
-<h1><a class="anchor" id="autotoc_md838"></a>
+<h1><a class="anchor" id="autotoc_md897"></a>
 Usage</h1>
 <div class="fragment"><div class="line">vcpkg_fixup_cmake_targets([CONFIG_PATH &lt;share/${PORT}&gt;] </div>
 <div class="line">                          [TARGET_PATH &lt;share/${PORT}&gt;] </div>
 <div class="line">                          [TOOLS_PATH &lt;tools/${PORT}&gt;]</div>
 <div class="line">                          [DO_NOT_DELETE_PARENT_CONFIG_PATH])</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md839"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md898"></a>
 Parameters</h1>
-<h2><a class="anchor" id="autotoc_md840"></a>
+<h2><a class="anchor" id="autotoc_md899"></a>
 CONFIG_PATH</h2>
 <p>Subpath currently containing <code>*.cmake</code> files subdirectory (like <code>lib/cmake/${PORT}</code>). Should be relative to <code>${CURRENT_PACKAGES_DIR}</code>.</p>
 <p>Defaults to <code>share/${PORT}</code>.</p>
-<h2><a class="anchor" id="autotoc_md841"></a>
+<h2><a class="anchor" id="autotoc_md900"></a>
 TARGET_PATH</h2>
 <p>Subpath to which the above <code>*.cmake</code> files should be moved. Should be relative to <code>${CURRENT_PACKAGES_DIR}</code>. This needs to be specified if the port name differs from the <code>find_package()</code> name.</p>
 <p>Defaults to <code>share/${PORT}</code>.</p>
-<h2><a class="anchor" id="autotoc_md842"></a>
+<h2><a class="anchor" id="autotoc_md901"></a>
 DO_NOT_DELETE_PARENT_CONFIG_PATH</h2>
 <p>By default the parent directory of CONFIG_PATH is removed if it is named "cmake". Passing this option disable such behavior, as it is convenient for ports that install more than one CMake package configuration file.</p>
-<h2><a class="anchor" id="autotoc_md843"></a>
+<h2><a class="anchor" id="autotoc_md902"></a>
 NO_PREFIX_CORRECTION</h2>
 <p>Disables the correction of_IMPORT_PREFIX done by vcpkg due to moving the targets. Currently the correction does not take into account how the files are moved and applies I rather simply correction which in some cases will yield the wrong results.</p>
-<h2><a class="anchor" id="autotoc_md844"></a>
+<h2><a class="anchor" id="autotoc_md903"></a>
 TOOLS_PATH</h2>
 <p>Define the base path to tools. Default: <code>tools/&lt;PORT&gt;</code></p>
-<h1><a class="anchor" id="autotoc_md845"></a>
+<h1><a class="anchor" id="autotoc_md904"></a>
 Notes</h1>
 <p><a class="el" href="structTransform.html">Transform</a> all <code>/debug/&lt;CONFIG_PATH&gt;/*targets-debug.cmake</code> files and move them to <code>/&lt;TARGET_PATH&gt;</code>. Removes all <code>/debug/&lt;CONFIG_PATH&gt;/*targets.cmake</code> and <code>/debug/&lt;CONFIG_PATH&gt;/*config.cmake</code>.</p>
 <p><a class="el" href="structTransform.html">Transform</a> all references matching <code>/bin/*.exe</code> to <code>/${TOOLS_PATH}/*.exe</code> on Windows. <a class="el" href="structTransform.html">Transform</a> all references matching <code>/bin/*</code> to <code>/${TOOLS_PATH}/*</code> on other platforms.</p>
 <p>Fix <code>${_IMPORT_PREFIX}</code> in auto generated targets to be one folder deeper. Replace <code>${CURRENT_INSTALLED_DIR}</code> with <code>${_IMPORT_PREFIX}</code> in configs and targets.</p>
-<h1><a class="anchor" id="autotoc_md846"></a>
+<h1><a class="anchor" id="autotoc_md905"></a>
 Examples</h1>
 <ul>
 <li><a href="https://github.com/Microsoft/vcpkg/blob/master/ports/concurrentqueue/portfile.cmake">concurrentqueue</a></li>
 <li><a href="https://github.com/Microsoft/vcpkg/blob/master/ports/curl/portfile.cmake">curl</a></li>
 <li><a href="https://github.com/Microsoft/vcpkg/blob/master/ports/nlohmann-json/portfile.cmake">nlohmann-json</a></li>
 </ul>
-<h1><a class="anchor" id="autotoc_md847"></a>
+<h1><a class="anchor" id="autotoc_md906"></a>
 Source</h1>
 <p><a href="https://github.com/Microsoft/vcpkg/blob/master/scripts/cmake/vcpkg_fixup_cmake_targets.cmake">scripts/cmake/vcpkg_fixup_cmake_targets.cmake</a> </p>
 </div></div><!-- contents -->

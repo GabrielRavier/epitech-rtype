@@ -1,7 +1,6 @@
 var searchData=
 [
-  ['the_20ci_334',['The CI',['../md_docs_CI.html',1,'']]],
-  ['the_20entity_20component_20system_335',['The Entity Component System',['../md_docs_ECS.html',1,'']]],
-  ['the_20release_20workflow_336',['The release workflow',['../md_docs_RELEASE-WORKFLOW.html',1,'']]],
-  ['triplet_20files_337',['Triplet Files',['../md_vcpkg_docs_users_triplets.html',1,'']]]
+  ['scripts_20tree_20extraction_337',['Scripts Tree Extraction',['../md_vcpkg_docs_specifications_scripts-extraction.html',1,'']]],
+  ['selecting_20library_20features_338',['Selecting Library Features',['../md_vcpkg_docs_users_selecting-library-features.html',1,'']]],
+  ['security_339',['SECURITY',['../md_vcpkg_SECURITY.html',1,'']]]
 ];

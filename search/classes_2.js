@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['enemy_224',['Enemy',['../structEnemy.html',1,'']]],
-  ['entitymanager_225',['EntityManager',['../classEntityManager.html',1,'']]]
+  ['enemy_227',['Enemy',['../structEnemy.html',1,'']]],
+  ['entitymanager_228',['EntityManager',['../classEntityManager.html',1,'']]]
 ];

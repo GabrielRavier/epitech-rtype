@@ -124,13 +124,13 @@ $(function() {
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keywordtype">char</span>                          *_ip;</div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keywordtype">int</span>                            _port;</div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    std::string                    _levelPath;</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keywordtype">bool</span>                           _running       = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    std::shared_ptr&lt;WindowManager&gt; _windowManager = std::make_shared&lt;WindowManager&gt;();</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    SCENE                          _currentScene  = SCENE::MAINMENU;</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    SCENE                          _oldScene      = SCENE::MAINMENU;</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    SCENE(<a class="code" href="classSceneManager.html">SceneManager</a>::*_method_function[4])</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    () = {&amp;SceneManager::MainMenuScene, &amp;SceneManager::SinglePlayerScene, &amp;SceneManager::MultipPlayerScene,</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;          &amp;SceneManager::LevelsMenuScene};</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keywordtype">bool</span>                           _running                       = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    std::shared_ptr&lt;WindowManager&gt; _windowManager                 = std::make_shared&lt;WindowManager&gt;();</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    SCENE                          _currentScene                  = SCENE::MAINMENU;</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    SCENE                          _oldScene                      = SCENE::MAINMENU;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keyword">static</span> constexpr SCENE (<a class="code" href="classSceneManager.html">SceneManager</a>::*_method_function[4])() = {</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        &amp;SceneManager::MainMenuScene, &amp;SceneManager::SinglePlayerScene, &amp;SceneManager::MultipPlayerScene,</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        &amp;SceneManager::LevelsMenuScene};</div>
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <a class="code" href="classNetworkManager.html">NetworkManager</a>                    _networkManager;</div>
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    std::thread                       _threadNetworkLoop;</div>
 <div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    std::shared_ptr&lt;BackgroundSystem&gt; _backgroundSystem;</div>

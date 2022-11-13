@@ -68,7 +68,7 @@ $(function() {
 <div class="contents">
 <div class="textblock"><p>The latest version of this document lives in the <a href="https://github.com/Microsoft/vcpkg/blob/master/docs/maintainers/vcpkg_execute_build_process.md">vcpkg repo</a>.</p>
 <p>Execute a required build process</p>
-<h1><a class="anchor" id="autotoc_md770"></a>
+<h1><a class="anchor" id="autotoc_md829"></a>
 Usage</h1>
 <div class="fragment"><div class="line">vcpkg_execute_build_process(</div>
 <div class="line">    COMMAND &lt;cmd&gt; [&lt;args&gt;...]</div>
@@ -76,27 +76,27 @@ Usage</h1>
 <div class="line">    WORKING_DIRECTORY &lt;/path/to/dir&gt;</div>
 <div class="line">    LOGNAME &lt;log_name&gt;</div>
 <div class="line">)</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md771"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md830"></a>
 Parameters</h1>
-<h2><a class="anchor" id="autotoc_md772"></a>
+<h2><a class="anchor" id="autotoc_md831"></a>
 COMMAND</h2>
 <p>The command to be executed, along with its arguments.</p>
-<h2><a class="anchor" id="autotoc_md773"></a>
+<h2><a class="anchor" id="autotoc_md832"></a>
 NO_PARALLEL_COMMAND</h2>
 <p>Optional parameter which specifies a non-parallel command to attempt if a failure potentially due to parallelism is detected.</p>
-<h2><a class="anchor" id="autotoc_md774"></a>
+<h2><a class="anchor" id="autotoc_md833"></a>
 WORKING_DIRECTORY</h2>
 <p>The directory to execute the command in.</p>
-<h2><a class="anchor" id="autotoc_md775"></a>
+<h2><a class="anchor" id="autotoc_md834"></a>
 LOGNAME</h2>
 <p>The prefix to use for the log files.</p>
 <p>This should be a unique name for different triplets so that the logs don't conflict when building multiple at once.</p>
-<h1><a class="anchor" id="autotoc_md776"></a>
+<h1><a class="anchor" id="autotoc_md835"></a>
 Examples</h1>
 <ul>
 <li><a href="https://github.com/Microsoft/vcpkg/blob/master/ports/icu/portfile.cmake">icu</a></li>
 </ul>
-<h1><a class="anchor" id="autotoc_md777"></a>
+<h1><a class="anchor" id="autotoc_md836"></a>
 Source</h1>
 <p><a href="https://github.com/Microsoft/vcpkg/blob/master/scripts/cmake/vcpkg_execute_build_process.cmake">scripts/cmake/vcpkg_execute_build_process.cmake</a> </p>
 </div></div><!-- contents -->

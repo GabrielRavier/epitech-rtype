@@ -88,7 +88,7 @@ $(function() {
 <li><a href="#nuget-provider-configuration">NuGet Provider Configuration</a></li>
 <li><a href="#implementation-notes-internal-details-subject-to-change-without-notice">Implementation Notes</a></li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1185"></a>
+<h1><a class="anchor" id="autotoc_md1244"></a>
 Configuration</h1>
 <p>Binary caching is configured via a combination of defaults, the environment variable <code>VCPKG_BINARY_SOURCES</code> (set to <code>&lt;source&gt;;&lt;source&gt;;...</code>), and the command line option <code>--binarysource=&lt;source&gt;</code>. Source options are evaluated in order of defaults, then environment, then command line. Binary caching can be completely disabled by passing <code>--binarysource=clear</code> as the last command line option.</p>
 <p>By default, zip-based archives will be cached at the first valid location of:</p>
@@ -102,7 +102,7 @@ Configuration</h1>
 <li><code>$XDG_CACHE_HOME/vcpkg/archives</code></li>
 <li><code>$HOME/.cache/vcpkg/archives</code></li>
 </ol>
-<h2><a class="anchor" id="autotoc_md1186"></a>
+<h2><a class="anchor" id="autotoc_md1245"></a>
 Valid source strings (&lt;tt&gt;&lt;source&gt;&lt;/tt&gt;)</h2>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -127,10 +127,10 @@ Valid source strings (&lt;tt&gt;&lt;source&gt;&lt;/tt&gt;)</h2>
 </table>
 <p>The <code>&lt;rw&gt;</code> optional parameter for certain sources controls whether they will be consulted for downloading binaries (<code>read</code>)(default), whether on-demand builds will be uploaded to that remote (<code>write</code>), or both (<code>readwrite</code>).</p>
 <p>Additional configuration details for NuGet-based providers can be found below in <a href="#nuget-provider-configuration">NuGet Provider Configuration</a>.</p>
-<h1><a class="anchor" id="autotoc_md1187"></a>
+<h1><a class="anchor" id="autotoc_md1246"></a>
 CI Examples</h1>
 <p>If your CI system of choice is not listed, we welcome PRs to add them!</p>
-<h2><a class="anchor" id="autotoc_md1188"></a>
+<h2><a class="anchor" id="autotoc_md1247"></a>
 GitHub Packages</h2>
 <p>To use vcpkg with GitHub Packages, we recommend using the <code>NuGet</code> backend.</p>
 <p>&gt;**NOTE 2020-09-21**: GitHub's hosted agents come with an older, pre-installed copy of vcpkg on the path that does not support the latest binary caching. This means that direct calls to <code>bootstrap-vcpkg</code> or <code>vcpkg</code> without a path prefix may call an unintended vcpkg instance. We recommend taking the following two steps to avoid issues if you want to use your own copy of vcpkg: </p><blockquote class="doxtable">
@@ -180,7 +180,7 @@ GitHub Packages</h2>
 <div class="line">      ./vcpkg/vcpkg install sqlite3 cpprestsdk --triplet ${{ matrix.triplet }}</div>
 </div><!-- fragment --><p>If you're using ../specifications/manifests.md "manifests", you can omit the <code>vcpkg package restore</code> step: it will be run automatically as part of your build.</p>
 <p>More information about GitHub Packages' NuGet support is available on <a href="https://docs.github.com/en/packages/using-github-packages-with-your-projects-ecosystem/configuring-dotnet-cli-for-use-with-github-packages">GitHub Docs</a>.</p>
-<h2><a class="anchor" id="autotoc_md1189"></a>
+<h2><a class="anchor" id="autotoc_md1248"></a>
 Azure DevOps Artifacts</h2>
 <p>To use vcpkg with Azure DevOps Artifacts, we recommend using the <code>NuGet</code> backend.</p>
 <p>First, you need to ensure Artifacts has been enabled on your DevOps instance; this can be done by an Administrator through <code>Project Settings &gt; General &gt; Overview &gt; Azure DevOps Services &gt; Artifacts</code>.</p>
@@ -195,7 +195,7 @@ Azure DevOps Artifacts</h2>
 <div class="line">- task: NuGetAuthenticate@0</div>
 </div><!-- fragment --><p>If you are using custom agents with a non-Windows OS, you will need to install Mono to run <code>nuget.exe</code> (<code>apt install mono-complete</code>, <code>brew install mono</code>, etc).</p>
 <p>More information about Azure DevOps Artifacts' NuGet support is available in the <a href="https://docs.microsoft.com/en-us/azure/devops/artifacts/get-started-nuget?view=azure-devops">Azure DevOps Artifacts Documentation</a>.</p>
-<h2><a class="anchor" id="autotoc_md1190"></a>
+<h2><a class="anchor" id="autotoc_md1249"></a>
 Azure Blob Storage (experimental)</h2>
 <blockquote class="doxtable">
 <p>Note: This is an experimental feature and may change or be removed at any time </p>
@@ -215,7 +215,7 @@ Azure Blob Storage (experimental)</h2>
 <li>It will be passed as a command line parameter to subprocesses, such as <code>curl.exe</code></li>
 </ol>
 <p>Azure Blob Storage includes a feature to remove cache entries that haven't been accessed in a given number of days which can be used to reduce the size of your cache. See <a href="https://docs.microsoft.com/en-us/azure/storage/blobs/lifecycle-management-overview">Data Lifecycle Management on Microsoft Docs</a> for more information, or look for "Data management &gt; Lifecycle management" in the Azure Portal for your storage account. If you wish to be able to be resilient to upstream libraries' servers but still want to remove entries from the binary cache, consider using <a href="assetcaching.md#x-azurl">asset caching</a> in a different storage account without a lifecycle management policy.</p>
-<h2><a class="anchor" id="autotoc_md1191"></a>
+<h2><a class="anchor" id="autotoc_md1250"></a>
 Google Cloud Storage (experimental)</h2>
 <blockquote class="doxtable">
 <p>Note: This is an experimental feature and may change or be removed at any time </p>
@@ -230,16 +230,16 @@ Google Cloud Storage (experimental)</h2>
 <div class="fragment"><div class="line">x-gcs,gs://&lt;bucket-name&gt;/my-vcpkg-cache/maybe/with/many/slashes/,readwrite</div>
 <div class="line">x-gcs,gs://&lt;bucket-name&gt;/my-vcpkg-cache/maybe/with`,commas/too!/,readwrite</div>
 </div><!-- fragment --><p>Commas (<code>,</code>) are valid as part of a object prefix in GCS, just remember to escape them in the vcpkg configuration, as shown in the previous example. Note that GCS does not have folders (some of the GCS tools simulate folders), it is not necessary to create or otherwise manipulate the prefix used by your vcpkg cache.</p>
-<h1><a class="anchor" id="autotoc_md1192"></a>
+<h1><a class="anchor" id="autotoc_md1251"></a>
 NuGet Provider Configuration</h1>
-<h2><a class="anchor" id="autotoc_md1193"></a>
+<h2><a class="anchor" id="autotoc_md1252"></a>
 Credentials</h2>
 <p>Many NuGet servers require additional credentials to access. The most flexible way to supply credentials is via the <code>nugetconfig</code> provider with a custom <code>nuget.config</code> file. See <a href="https://docs.microsoft.com/en-us/nuget/consume-packages/consuming-packages-authenticated-feeds">https://docs.microsoft.com/en-us/nuget/consume-packages/consuming-packages-authenticated-feeds</a> for more information on authenticating via <code>nuget.config</code>.</p>
 <p>However, it is still possible to authenticate against many servers using NuGet's built-in credential providers or via customizing your environment's default <code>nuget.config</code>. The default config can be extended via nuget client calls such as </p><div class="fragment"><div class="line">nuget sources add -Name MyRemote -Source https://... -Username $user -Password $pass</div>
 </div><!-- fragment --><p>and then passed to vcpkg via <code>--binarysource=nuget,MyRemote,readwrite</code>. You can get a path to the precise copy of NuGet used by vcpkg by running <code>vcpkg fetch nuget</code>, which will report something like: </p><div class="fragment"><div class="line">$ vcpkg fetch nuget</div>
 <div class="line">/vcpkg/downloads/tools/nuget-5.5.1-linux/nuget.exe</div>
 </div><!-- fragment --><p>Non-Windows users will need to call this through mono via <code>mono /path/to/nuget.exe sources add ...</code>.</p>
-<h4><a class="anchor" id="autotoc_md1194"></a>
+<h4><a class="anchor" id="autotoc_md1253"></a>
 Credential Example for Azure Dev Ops</h4>
 <div class="fragment"><div class="line"># On Linux or OSX</div>
 <div class="line">$ mono `vcpkg fetch nuget | tail -n1` sources add \</div>
@@ -249,11 +249,11 @@ Credential Example for Azure Dev Ops</h4>
 <div class="line">  -Password $PAT</div>
 <div class="line">$ export VCPKG_BINARY_SOURCES=&quot;nuget,ADO,readwrite&quot;</div>
 </div><!-- fragment --><p>```powershell </p>
-<h1><a class="anchor" id="autotoc_md1195"></a>
+<h1><a class="anchor" id="autotoc_md1254"></a>
 On Windows Powershell</h1>
 <p>PS&gt; &amp; $(vcpkg fetch nuget | select -last 1) sources add <code> -name ADO</code> -Source <a href="https://pkgs.dev.azure.com/$ORG/_packaging/$FEEDNAME/nuget/v3/index.json">https://pkgs.dev.azure.com/$ORG/_packaging/$FEEDNAME/nuget/v3/index.json</a> <code> -Username $USERNAME</code> -Password $PAT PS&gt; $env:VCPKG_BINARY_SOURCES="nuget,ADO,readwrite" ```</p>
 <p>We recommend using a Personal Access Token (PAT) as the password for maximum security. You can generate a PAT in User Settings -&gt; Personal Access Tokens or <code><a href="https://dev.azure.com/$ORG/_usersSettings/tokens">https://dev.azure.com/$ORG/_usersSettings/tokens</a></code>.</p>
-<h4><a class="anchor" id="autotoc_md1196"></a>
+<h4><a class="anchor" id="autotoc_md1255"></a>
 &lt;tt&gt;metadata.repository&lt;/tt&gt;</h4>
 <p>The <code>nuget</code> and <code>nugetconfig</code> source providers additionally respect certain environment variables while generating nuget packages. The <code>metadata.repository</code> field of any packages will be generated as: </p><div class="fragment"><div class="line">&lt;repository type=&quot;git&quot; url=&quot;${VCPKG_NUGET_REPOSITORY}&quot;/&gt;</div>
 </div><!-- fragment --><p>or </p><div class="fragment"><div class="line">&lt;repository type=&quot;git&quot;</div>
@@ -261,10 +261,10 @@ On Windows Powershell</h1>
 <div class="line">            branch=&quot;${GITHUB_REF}&quot;</div>
 <div class="line">            commit=&quot;${GITHUB_SHA}&quot;/&gt;</div>
 </div><!-- fragment --><p>if the appropriate environment variables are defined and non-empty. This is specifically used to associate packages in GitHub Packages with the <em>building</em> project and not intended to associate with the original package sources.</p>
-<h4><a class="anchor" id="autotoc_md1197"></a>
+<h4><a class="anchor" id="autotoc_md1256"></a>
 NuGet's cache</h4>
 <p>NuGet's cache is not used by default. To use it for every nuget-based source, set the environment variable <code>VCPKG_USE_NUGET_CACHE</code> to <code>true</code> (case-insensitive) or <code>1</code>.</p>
-<h2><a class="anchor" id="autotoc_md1198"></a>
+<h2><a class="anchor" id="autotoc_md1257"></a>
 Implementation Notes (internal details subject to change without notice)</h2>
 <p>Binary caching relies on hashing everything that contributes to a particular package build. This includes:</p>
 <ul>

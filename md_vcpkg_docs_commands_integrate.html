@@ -67,7 +67,7 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>The latest version of this documentation is available on <a href="https://github.com/Microsoft/vcpkg/tree/master/docs/commands/integrate.md">GitHub</a>.</b></p>
-<h1><a class="anchor" id="autotoc_md245"></a>
+<h1><a class="anchor" id="autotoc_md304"></a>
 Synopsis</h1>
 <p><b>Buildsystem Integration</b> </p><div class="fragment"><div class="line">vcpkg integrate [options] install</div>
 <div class="line">vcpkg integrate [options] remove</div>
@@ -76,10 +76,10 @@ Synopsis</h1>
 <div class="line">vcpkg integrate [options] bash</div>
 <div class="line">vcpkg integrate [options] zsh</div>
 <div class="line">vcpkg integrate [options] x-fish</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md246"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md305"></a>
 Description</h1>
 <p>Integrate vcpkg with shells and buildsystems.</p>
-<h2><a class="anchor" id="autotoc_md247"></a>
+<h2><a class="anchor" id="autotoc_md306"></a>
 &lt;tt&gt;vcpkg integrate install&lt;/tt&gt;</h2>
 <p>Integrates with <a href="../users/buildsystems/msbuild-integration.md#user-wide-integration">Visual Studio</a> (Windows-only), sets the user-wide vcpkg instance, and displays CMake integration help.</p>
 <p>On Windows with Visual Studio 2015, this subcommand will add redirecting logic into the MSBuild installation which will automatically pick up each user's user-wide vcpkg instance. Visual Studio 2017 and newer have this logic in the box.</p>
@@ -89,37 +89,37 @@ Description</h1>
 <li><code>$HOME/.vcpkg</code> or <code>/var/.vcpkg</code> on non-Windows</li>
 </ul>
 <p>Displays the full path to the ../users/buildsystems/cmake-integration.md "CMake toolchain file". Running this command is not required to use the toolchain file.</p>
-<h2><a class="anchor" id="autotoc_md248"></a>
+<h2><a class="anchor" id="autotoc_md307"></a>
 &lt;tt&gt;vcpkg integrate remove&lt;/tt&gt;</h2>
 <p>Removes the user-wide vcpkg instance setting.</p>
 <p>This command deletes the linking files from the user-wide configuration location created by <code>vcpkg integrate install</code>.</p>
-<h2><a class="anchor" id="autotoc_md249"></a>
+<h2><a class="anchor" id="autotoc_md308"></a>
 &lt;tt&gt;vcpkg integrate project&lt;/tt&gt;</h2>
 <p>Creates a linked NuGet package for MSBuild integration.</p>
 <p>See <a href="../users/buildsystems/msbuild-integration.md#linked-nuget-package">MSBuild Per-Project Integration</a> for more information.</p>
-<h2><a class="anchor" id="autotoc_md250"></a>
+<h2><a class="anchor" id="autotoc_md309"></a>
 &lt;tt&gt;vcpkg integrate powershell&lt;/tt&gt;</h2>
 <p><b>Windows Only</b></p>
 <p>Adds vcpkg tab-completion support to the current user's Powershell profile.</p>
-<h2><a class="anchor" id="autotoc_md251"></a>
+<h2><a class="anchor" id="autotoc_md310"></a>
 &lt;tt&gt;vcpkg integrate bash&lt;/tt&gt;</h2>
 <p><b>Non-Windows Only</b></p>
 <p>Adds vcpkg tab-completion support to the current user's <code>.bashrc</code> (<code>.bash_profile</code> on MacOS).</p>
-<h2><a class="anchor" id="autotoc_md252"></a>
+<h2><a class="anchor" id="autotoc_md311"></a>
 &lt;tt&gt;vcpkg integrate zsh&lt;/tt&gt;</h2>
 <p><b>Non-Windows Only</b></p>
 <p>Adds vcpkg tab-completion support to the current user's <code>.zshrc</code>.</p>
-<h2><a class="anchor" id="autotoc_md253"></a>
+<h2><a class="anchor" id="autotoc_md312"></a>
 &lt;tt&gt;vcpkg integrate x-fish&lt;/tt&gt;</h2>
 <p><b>Non-Windows Only</b></p>
 <p>Adds vcpkg tab-completion support to the current user's fish shell completions directory.</p>
-<h1><a class="anchor" id="autotoc_md254"></a>
+<h1><a class="anchor" id="autotoc_md313"></a>
 Example</h1>
 <div class="fragment"><div class="line">$ vcpkg integrate install</div>
 <div class="line">Applied user-wide integration for this vcpkg root.</div>
 <div class="line"> </div>
 <div class="line">CMake projects should use: &quot;-DCMAKE_TOOLCHAIN_FILE=/workspaces/vcpkg/scripts/buildsystems/vcpkg.cmake&quot;</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md255"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md314"></a>
 Options</h1>
 <p>All vcpkg commands support a set of common options. </p>
 </div></div><!-- contents -->

@@ -68,7 +68,7 @@ $(function() {
 <div class="contents">
 <div class="textblock"><p>The latest version of this document lives in the <a href="https://github.com/Microsoft/vcpkg/blob/master/docs/maintainers/vcpkg_from_git.md">vcpkg repo</a>.</p>
 <p>Download and extract a project from git</p>
-<h1><a class="anchor" id="autotoc_md873"></a>
+<h1><a class="anchor" id="autotoc_md932"></a>
 Usage:</h1>
 <div class="fragment"><div class="line">vcpkg_from_git(</div>
 <div class="line">    OUT_SOURCE_PATH &lt;SOURCE_PATH&gt;</div>
@@ -77,38 +77,38 @@ Usage:</h1>
 <div class="line">    [HEAD_REF &lt;ref&gt;]</div>
 <div class="line">    [PATCHES &lt;patch1.patch&gt; &lt;patch2.patch&gt;...]</div>
 <div class="line">)</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md874"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md933"></a>
 Parameters:</h1>
-<h2><a class="anchor" id="autotoc_md875"></a>
+<h2><a class="anchor" id="autotoc_md934"></a>
 OUT_SOURCE_PATH</h2>
 <p>Specifies the out-variable that will contain the extracted location.</p>
 <p>This should be set to <code>SOURCE_PATH</code> by convention.</p>
-<h2><a class="anchor" id="autotoc_md876"></a>
+<h2><a class="anchor" id="autotoc_md935"></a>
 URL</h2>
 <p>The url of the git repository.</p>
-<h2><a class="anchor" id="autotoc_md877"></a>
+<h2><a class="anchor" id="autotoc_md936"></a>
 REF</h2>
 <p>The git sha of the commit to download.</p>
-<h2><a class="anchor" id="autotoc_md878"></a>
+<h2><a class="anchor" id="autotoc_md937"></a>
 FETCH_REF</h2>
 <p>The git branch to fetch in non-HEAD mode. After this is fetched, then <code>REF</code> is checked out. This is useful in cases where the git server does not allow checking out non-advertised objects.</p>
-<h2><a class="anchor" id="autotoc_md879"></a>
+<h2><a class="anchor" id="autotoc_md938"></a>
 HEAD_REF</h2>
 <p>The git branch to use when the package is requested to be built from the latest sources.</p>
 <p>Example: <code>main</code>, <code>develop</code>, <code>HEAD</code></p>
-<h2><a class="anchor" id="autotoc_md880"></a>
+<h2><a class="anchor" id="autotoc_md939"></a>
 PATCHES</h2>
 <p>A list of patches to be applied to the extracted sources.</p>
 <p>Relative paths are based on the port directory.</p>
-<h1><a class="anchor" id="autotoc_md881"></a>
+<h1><a class="anchor" id="autotoc_md940"></a>
 Notes:</h1>
 <p><code>OUT_SOURCE_PATH</code>, <code>REF</code>, and <code>URL</code> must be specified.</p>
-<h1><a class="anchor" id="autotoc_md882"></a>
+<h1><a class="anchor" id="autotoc_md941"></a>
 Examples:</h1>
 <ul>
 <li><a href="https://github.com/Microsoft/vcpkg/blob/master/ports/fdlibm/portfile.cmake">fdlibm</a></li>
 </ul>
-<h1><a class="anchor" id="autotoc_md883"></a>
+<h1><a class="anchor" id="autotoc_md942"></a>
 Source</h1>
 <p><a href="https://github.com/Microsoft/vcpkg/blob/master/scripts/cmake/vcpkg_from_git.cmake">scripts/cmake/vcpkg_from_git.cmake</a> </p>
 </div></div><!-- contents -->

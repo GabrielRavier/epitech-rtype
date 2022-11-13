@@ -103,14 +103,16 @@ $(function() {
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="keywordtype">void</span>                                  CreateWave(std::string line);</div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keywordtype">void</span>                                  CreateBlop(<span class="keywordtype">int</span> i);</div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keywordtype">void</span>                                  CreateCrop(<span class="keywordtype">int</span> i);</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keywordtype">void</span>                                  MarkLevelDone();</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    std::string                           _levelPath;</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keywordtype">int</span>                                   _waveIndex;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keywordtype">bool</span>                                  _finish;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    std::mt19937                          _mt;</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    std::uniform_real_distribution&lt;float&gt; _dist;</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    void (<a class="code" href="classWaveSystem.html">WaveSystem</a>::*_method_function[1])(int) = {&amp;WaveSystem::CreateBlop};</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;};</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keywordtype">void</span>                                  CreateBoss(<span class="keywordtype">int</span> i);</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="keywordtype">void</span>                                  MarkLevelDone();</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    std::string                           _levelPath;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keywordtype">int</span>                                   _waveIndex;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keywordtype">bool</span>                                  _finish;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    std::mt19937                          _mt;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    std::uniform_real_distribution&lt;float&gt; _dist;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    void (<a class="code" href="classWaveSystem.html">WaveSystem</a>::*_method_function[3])(int) = {&amp;WaveSystem::CreateBlop, &amp;WaveSystem::CreateCrop,</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;                                                    &amp;WaveSystem::CreateBoss};</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;};</div>
 </div><!-- fragment --></div><!-- contents -->
 <div class="ttc" id="aclassSystem_html"><div class="ttname"><a href="classSystem.html">System</a></div><div class="ttdef"><b>Definition:</b> System.hpp:6</div></div>
 <div class="ttc" id="aclassWaveSystem_html"><div class="ttname"><a href="classWaveSystem.html">WaveSystem</a></div><div class="ttdef"><b>Definition:</b> WaveSystem.hpp:23</div></div>

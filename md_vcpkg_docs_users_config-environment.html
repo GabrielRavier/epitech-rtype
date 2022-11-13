@@ -67,66 +67,66 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>The latest version of this documentation is available on <a href="https://github.com/Microsoft/vcpkg/tree/master/docs/users/config-environment.md">GitHub</a>.</b></p>
-<h2><a class="anchor" id="autotoc_md1242"></a>
+<h2><a class="anchor" id="autotoc_md1301"></a>
 Environment Variables</h2>
-<h3><a class="anchor" id="autotoc_md1243"></a>
+<h3><a class="anchor" id="autotoc_md1302"></a>
 VCPKG_DOWNLOADS</h3>
 <p>This environment variable can be set to an existing directory to use for storing downloads instead of the internal <code>downloads/</code> directory. It should always be set to an absolute path.</p>
-<h3><a class="anchor" id="autotoc_md1244"></a>
+<h3><a class="anchor" id="autotoc_md1303"></a>
 VCPKG_FEATURE_FLAGS</h3>
 <p>This environment variable can be set to a comma-separated list of off-by-default features in vcpkg. These features are subject to change without notice and should be considered highly unstable.</p>
 <p>There are no off-by-default feature flags at this time.</p>
-<h3><a class="anchor" id="autotoc_md1245"></a>
+<h3><a class="anchor" id="autotoc_md1304"></a>
 EDITOR</h3>
 <p>This environment variable can be set to the full path of an executable to be used for <code>vcpkg edit</code>. Please see <code>vcpkg help edit</code> for command-specific help.</p>
-<h3><a class="anchor" id="autotoc_md1246"></a>
+<h3><a class="anchor" id="autotoc_md1305"></a>
 VCPKG_ROOT</h3>
 <p>This environment variable can be set to a directory to use as the root of the vcpkg instance. Note that mixing vcpkg repo versions and executable versions can cause issues.</p>
-<h3><a class="anchor" id="autotoc_md1247"></a>
+<h3><a class="anchor" id="autotoc_md1306"></a>
 VCPKG_VISUAL_STUDIO_PATH</h3>
 <p>This environment variable can be set to the full path to a Visual Studio instance on the machine. This Visual Studio instance will be used if the triplet does not override it via the <a href="triplets.md#VCPKG_VISUAL_STUDIO_PATH"><code>VCPKG_VISUAL_STUDIO_PATH</code></a> triplet setting.</p>
 <p>Example: <code>D:\2017</code></p>
-<h3><a class="anchor" id="autotoc_md1248"></a>
+<h3><a class="anchor" id="autotoc_md1307"></a>
 VCPKG_DEFAULT_TRIPLET</h3>
 <p>This environment variable can be set to a triplet name which will be used for unqualified triplet references in command lines.</p>
-<h3><a class="anchor" id="autotoc_md1249"></a>
+<h3><a class="anchor" id="autotoc_md1308"></a>
 VCPKG_DEFAULT_HOST_TRIPLET</h3>
 <p>This environment variable can be set to a triplet name which will be used for unqualified host port references in command lines and all host port references in dependency lists. See the host-dependencies documentation for more information.</p>
-<h3><a class="anchor" id="autotoc_md1250"></a>
+<h3><a class="anchor" id="autotoc_md1309"></a>
 VCPKG_OVERLAY_PORTS</h3>
 <p>This environment variable allows users to override ports with alternate versions according to the ../specifications/ports-overlay.md "ports overlay" specification. List paths to overlays using the platform dependent PATH separator (Windows <code>;</code> | others <code>:</code>)</p>
 <p>Example (Windows): <code>C:\custom-ports\boost;C:\custom-ports\sqlite3</code></p>
-<h3><a class="anchor" id="autotoc_md1251"></a>
+<h3><a class="anchor" id="autotoc_md1310"></a>
 VCPKG_OVERLAY_TRIPLETS</h3>
 <p>This environment variable allows users to add directories to search for triplets. ../examples/overlay-triplets-linux-dynamic.md "Example: overlay triplets". List paths to overlays using the platform dependent PATH separator (Windows <code>;</code>, others <code>:</code>)</p>
-<h3><a class="anchor" id="autotoc_md1252"></a>
+<h3><a class="anchor" id="autotoc_md1311"></a>
 VCPKG_FORCE_SYSTEM_BINARIES</h3>
 <p>This environment variable, if set, suppresses the downloading of CMake and Ninja and forces the use of the system binaries.</p>
-<h3><a class="anchor" id="autotoc_md1253"></a>
+<h3><a class="anchor" id="autotoc_md1312"></a>
 VCPKG_FORCE_DOWNLOADED_BINARIES</h3>
 <p>This environment variable, if set, ignores the use of the system binaries and will always download and use the version defined by vcpkg.</p>
-<h3><a class="anchor" id="autotoc_md1254"></a>
+<h3><a class="anchor" id="autotoc_md1313"></a>
 VCPKG_KEEP_ENV_VARS</h3>
 <p>This environment variable can be set to a list of environment variables, separated by <code>;</code>, which will be propagated to the build environment.</p>
 <p>The values of the kept variables will not be tracked in package ABIs and will not cause rebuilds when they change. To pass in environment variables that should cause rebuilds on change, see <a href="triplets.md#VCPKG_ENV_PASSTHROUGH"><code>VCPKG_ENV_PASSTHROUGH</code></a>.</p>
 <p>Example: <code>FOO_SDK_DIR;BAR_SDK_DIR</code></p>
 <p><a class="anchor" id="VCPKG_MAX_CONCURRENCY"></a> </p>
-<h3><a class="anchor" id="autotoc_md1255"></a>
+<h3><a class="anchor" id="autotoc_md1314"></a>
 VCPKG_MAX_CONCURRENCY</h3>
 <p>This environment variables limits the amount of concurrency used by underlying buildsystems. If unspecified, this defaults to logical cores + 1.</p>
-<h3><a class="anchor" id="autotoc_md1256"></a>
+<h3><a class="anchor" id="autotoc_md1315"></a>
 VCPKG_DEFAULT_BINARY_CACHE</h3>
 <p>This environment variable redirects the default location to store binary packages. See <a href="binarycaching.md#configuration">Binary Caching</a> for more details.</p>
-<h3><a class="anchor" id="autotoc_md1257"></a>
+<h3><a class="anchor" id="autotoc_md1316"></a>
 VCPKG_BINARY_SOURCES</h3>
 <p>This environment variable adds or removes binary sources. See <a href="binarycaching.md#configuration">Binary Caching</a> for more details.</p>
-<h3><a class="anchor" id="autotoc_md1258"></a>
+<h3><a class="anchor" id="autotoc_md1317"></a>
 VCPKG_NUGET_REPOSITORY</h3>
 <p>This environment variable changes the metadata of produced NuGet packages. See <a href="binarycaching.md#configuration">Binary Caching</a> for more details.</p>
-<h3><a class="anchor" id="autotoc_md1259"></a>
+<h3><a class="anchor" id="autotoc_md1318"></a>
 VCPKG_USE_NUGET_CACHE</h3>
 <p>This environment variable allows using NuGet's cache for every nuget-based binary source. See <a href="binarycaching.md#nuget-provider-configuration">Binary Caching</a> for more details.</p>
-<h3><a class="anchor" id="autotoc_md1260"></a>
+<h3><a class="anchor" id="autotoc_md1319"></a>
 X_VCPKG_ASSET_SOURCES</h3>
 <blockquote class="doxtable">
 <p>Note: This is an experimental feature and may change or be removed at any time </p>

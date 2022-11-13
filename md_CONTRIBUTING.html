@@ -72,13 +72,15 @@ Setting up Git</h1>
 <p>This project uses a few git hooks in order to make it possible to automatically review all submitted code for formatting and linting errors, before it even hits the CI (which mostly serves as a backup in case you fail to properly set this up, or if your environment fails to find some errors the CI does (for example if you have an old version of <code>clang-tidy</code>/<code>clang-format</code>, or even just lack the programs))</p>
 <p>The git hooks can be installed into the <code>.git</code> folder with the following command</p>
 <div class="fragment"><div class="line">pre-commit install --hook-type pre-commit --hook-type commit-msg --hook-type pre-push</div>
-</div><!-- fragment --><p>(Note: this obviously requires that the pre-commit program be installed: under most environments, it can easily be installed using <code>pip install pre-commit</code> (although this itself requires pip...))</p>
+</div><!-- fragment --><p>(Note: this obviously requires that the pre-commit program be installed: under most environments, it can easily be installed using <code>pip install pre-commit</code> (although this itself requires pip))</p>
 <h1><a class="anchor" id="autotoc_md2"></a>
-Guidelines for contributions</h1>
-<p>It is highly recommended that you run git clang-format, clang-tidy and cppcheck, on your code before submitting it (the git hook you can set up above is made to do this automatically when you try to commit code)</p>
+Guidelines for contributions and norm</h1>
+<p>The norm for code contributions to this project is checked by several tools such as clang-format, clang-tidy and cppcheck.</p>
+<p>It is highly recommended that you run these tools on your code before submitting it (the git hook you can set up above is made to do this automatically when you try to commit code)</p>
 <p>You can do this manually, but it should also be noted that, should you have <code>pre-commit</code> installed, you can instead run the pre-commit checks without actually committing anything, by just running</p>
 <div class="fragment"><div class="line">pre-commit run</div>
-</div><!-- fragment --><p>It should be noted that alongside clang-format, clang-tidy and cppcheck, a few other minor checks (like trailing whitespace at the end of lines/files, or extremely large files) and a check on the commit message itself (mandating a format resembling <code>feat: some new thing</code> or <code>fix: an annoying bug</code> as the first line of the commit messages)</p>
+</div><!-- fragment --><p>It should be noted that alongside clang-format, clang-tidy and cppcheck, a few other minor checks (like trailing whitespace at the end of lines/files, or extremely large files) and a check on the commit message itself (mandating a format resembling <code>feat: some new thing</code> or <code>fix: an annoying bug</code> as the first line of the commit messages).</p>
+<p>Of course, one should also always make sure their code compiles with the procedure specified in the <a class="el" href="md_INSTALL.html">INSTALL.md</a> file before contributing it.</p>
 <h2><a class="anchor" id="autotoc_md3"></a>
 Branch management</h2>
 <p>When directly contributing to this repository, it is also recommended that you never directly commit to <code>main</code>, unless some sort of emergency requires it.</p>

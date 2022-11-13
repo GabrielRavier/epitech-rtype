@@ -66,20 +66,33 @@ $(function() {
 <div class="title">Developer documentation </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p>This page, along with other pages down this hierarchy, contains information useful to people who would like to work on the code of this project.</p>
+<div class="textblock"><p>This page, along with other pages down this hierarchy, contains information useful to people who would like to work on the code of this project</p>
+<p>General documentation on building, running and installing the game is available on the ../INSTALL.md "INSTALL.md" page</p>
+<p>The norm for contributions and other guidelines for contributing is available on the ../CONTRIBUTING.md "CONTRIBUTING.md" page</p>
 <h1><a class="anchor" id="autotoc_md11"></a>
+Specific tutorials</h1>
+<p>A tutorial on how to edit and create levels is available here</p>
+<h1><a class="anchor" id="autotoc_md12"></a>
+Protocols and specifications</h1>
+<p>This project uses Reliable UDP, which was created for the purposes of having stable TCP-like networking on top of UDP. The specification for it can be found here.</p>
+<p>The protocol specification for the game's networking use itself (i.e. what's happening on top of the Reliable UDP layer) can be found here.</p>
+<h1><a class="anchor" id="autotoc_md13"></a>
 Code hierarchy</h1>
 <p><a href="../src/client/">src/client/</a> contains all R-Type client code</p>
-<p><a href="../src/client/components">src/client/components</a> contains the code for all of the components of the ECS</p>
-<p><a href="../src/client/core">src/client/core</a> contains the core code of the R-Type client, i.e. code necessary to all the other parts, such as much of the ECS's base code or code that wraps around window handling, and other things like that</p>
-<p><a href="../src/client/systems">src/client/systems</a> contains the code for all of the systems of the ECS</p>
+<p><a href="../src/client/components">src/client/components</a> contains the code for all of the components of the ECS as used in the client</p>
+<p><a href="../src/client/core">src/client/core</a> contains the core code of the R-Type client, i.e. code necessary to all the other parts, such as much of the ECS's base code, code that wraps around window handling or code that handles networking</p>
+<p><a href="../src/client/systems">src/client/systems</a> contains the code for all of the systems of the ECS as used in the client</p>
 <p><a href="../src/client/utils">src/client/utils</a> contains code for a few miscellaneous things used all throughout the project but aren't some "core" part of it like the ECS</p>
+<p><a href="../src/reliable-udp">src/reliable-udp</a> contains the code used for reliable networking on top of UDP, as specified in the Reliable UDP specification</p>
 <p><a href="../src/server/">src/server/</a> contains all R-Type server code</p>
-<p>Note: Need to add UML or something like that, see if we can generate it with Doxygen</p>
-<h1><a class="anchor" id="autotoc_md12"></a>
+<p><a href="../src/client/components">src/server/components</a> contains the code for all of the components of the ECS as used in the server</p>
+<p><a href="../src/client/core">src/server/core</a> contains the core code of the R-Type server, i.e. code necessary to all the other parts, such as all of the core code around networking used by the rest of the server</p>
+<p><a href="../src/client/packets">src/server/packets</a> contains the code for all of the packet types used with the R-Type networking, as specified in the R-Type Protocol specification</p>
+<p><a href="../src/client/systems">src/server/systems</a> contains the code for all of the systems of the ECS as used in the server</p>
+<h1><a class="anchor" id="autotoc_md14"></a>
 CI</h1>
 <p>Documentation on how the CI is set up and what it does is here</p>
-<h1><a class="anchor" id="autotoc_md13"></a>
+<h1><a class="anchor" id="autotoc_md15"></a>
 The release workflow</h1>
 <p>Documentation on the workflow associated with creating a release is located here </p>
 </div></div><!-- contents -->

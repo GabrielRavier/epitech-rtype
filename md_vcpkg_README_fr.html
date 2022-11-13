@@ -77,7 +77,7 @@ $(function() {
 <li>Docs: Documentation</li>
 </ul>
 <p><a href="https://dev.azure.com/vcpkg/public/_build/latest?definitionId=29&amp;branchName=master"><img src="https://dev.azure.com/vcpkg/public/_apis/build/status/microsoft.vcpkg.ci?branchName=master" alt="Build Status" class="inline"/></a></p>
-<h1><a class="anchor" id="autotoc_md1402"></a>
+<h1><a class="anchor" id="autotoc_md1461"></a>
 Sommaire</h1>
 <ul>
 <li>[Vcpkg: Vue d'ensemble](#vcpkg-vue-d'ensemble)</li>
@@ -105,14 +105,14 @@ Sommaire</h1>
 </ul>
 </li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1403"></a>
+<h1><a class="anchor" id="autotoc_md1462"></a>
 Introduction</h1>
 <p>Premièrement, suivez le guide d'introduction <a href="#Introduction:-Windows">Windows</a>, ou <a href="#Unix">macOS et Linux</a>, en fonction de vos besoins.</p>
 <p>Pour plus d'information, regardez utiliser des paquets. <br  />
  Si la bibliothèque dont vous avez besoin n'est pas présente dans la liste, vous pouvez [ouvrir une issue sur le repo github](contribuer:faire-une-issue) où l'équipe de vcpkg et la communauté peuvent le voir, et possiblement ajouter le port de vcpkg.</p>
 <p>Après avoir installé et lancé vcpkg vous pourriez vouloir ajouter [l'auto-complétion](auto-completion) à votre shell.</p>
 <p>Si vous êtes intéressé par le futur de vcpkg, regardez le guide du manifeste ! C'est une fonctionnalité expérimentale et possiblement boguée, donc essayez d'[ouvrir des issues](contribuer:envoyer-une-issue) !</p>
-<h1><a class="anchor" id="autotoc_md1404"></a>
+<h1><a class="anchor" id="autotoc_md1463"></a>
 Introduction: Windows</h1>
 <p>Prérequis :</p><ul>
 <li>Windows 7 ou plus</li>
@@ -136,7 +136,7 @@ Introduction: Windows</h1>
 </div><!-- fragment --><p>Avec CMake, vous devrez utiliser <code>find_package</code> notamment, et autres, pour compiler.</p>
 <p>Regardez la <a href="#utiliser-vcpkg-avec-cmake">section CMake</a> pour plus d'information, notamment utiliser CMake avec un IDE.</p>
 <p>Pour les autres éditeurs, y compris Visual Studio Code regardez le [guide d'intégration](getting-started:integration).</p>
-<h2><a class="anchor" id="autotoc_md1405"></a>
+<h2><a class="anchor" id="autotoc_md1464"></a>
 Introduction aux Systèmes Unix</h2>
 <p>Prérequis pour Linux :</p><ul>
 <li><a href="https://git-scm.com/downloads">Git</a></li>
@@ -163,7 +163,7 @@ Introduction aux Systèmes Unix</h2>
 </div><!-- fragment --><p>Avec CMake, vous devrez utiliser <code>find_package</code> notamment, et autres, pour compiler.</p>
 <p>Lisez la <a href="#utiliser-vcpkg-avec-cmake">section CMake</a> pour plus d'information, notamment utiliser CMake avec un IDE.</p>
 <p>Pour les autres éditeurs, y compris Visual Studio Code lisez le guide d'intégration.</p>
-<h2><a class="anchor" id="autotoc_md1406"></a>
+<h2><a class="anchor" id="autotoc_md1465"></a>
 Installation des prérequis linux</h2>
 <p>Pour les différentes distros Linux, il y a différents paquets que vous aurez besoin d'installer :</p>
 <ul>
@@ -178,13 +178,13 @@ Installation des prérequis linux</h2>
 <div class="line">$ sudo yum install devtoolset-7</div>
 <div class="line">$ scl enable devtoolset-7 bash</div>
 </div><!-- fragment --><p>Pour les autres distributions, installez au minimum g++ 6. Si vous voulez ajouter des instructions spécifiques pour votre distro, [ouvrez une PR svp][contribuer:faire-une-pr] !</p>
-<h2><a class="anchor" id="autotoc_md1407"></a>
+<h2><a class="anchor" id="autotoc_md1466"></a>
 Installation des prérequis macOS</h2>
 <p>Pour macOS 10.15, la seule chose dont vous avez besoin est de lancer cette commande :</p>
 <div class="fragment"><div class="line">$ xcode-select --install</div>
 </div><!-- fragment --><p>Ensuite suivez les instructions qui s'afficheront dans la fenêtre.</p>
 <p>Pour macOS 10.14 et les versions précédentes, vous aurez besoin d'installer g++ avec homebrew; suivez les instructions dans la section suivante.</p>
-<h3><a class="anchor" id="autotoc_md1408"></a>
+<h3><a class="anchor" id="autotoc_md1467"></a>
 Installer GCC pour macOS antérieur à 10.15</h3>
 <p>Cette partie est seulement nécessaire si vous avez une version de macOS antérieure à 10.15.</p>
 <p>Installer homebrew devrait être très simple; pour plus d'informations allez sur &lt;brew.sh&gt;, mais le plus simple est de lancer la commande suivante :</p>
@@ -192,44 +192,44 @@ Installer GCC pour macOS antérieur à 10.15</h3>
 </div><!-- fragment --><p>Ensuite, afin d'obtenir une version à jour de gcc, lancez la commande suivante :</p>
 <div class="fragment"><div class="line">$ brew install gcc</div>
 </div><!-- fragment --><p>Ensuite suivez l'<a href="#Introduction-aux-Systèmes-Unix">introduction Unix</a></p>
-<h2><a class="anchor" id="autotoc_md1409"></a>
+<h2><a class="anchor" id="autotoc_md1468"></a>
 Utiliser vcpkg avec CMake</h2>
 <p>Si vous utilisez vcpkg avec CMake, la suite pourrait vous aider !</p>
-<h2><a class="anchor" id="autotoc_md1410"></a>
+<h2><a class="anchor" id="autotoc_md1469"></a>
 Visual Studio Code avec CMake tools</h2>
 <div class="fragment"><div class="line">{</div>
 <div class="line">  &quot;cmake.configureSettings&quot;: {</div>
 <div class="line">    &quot;CMAKE_TOOLCHAIN_FILE&quot;: &quot;[vcpkg root]/scripts/buildsystems/vcpkg.cmake&quot;</div>
 <div class="line">  }</div>
 <div class="line">}</div>
-</div><!-- fragment --><h3><a class="anchor" id="autotoc_md1411"></a>
+</div><!-- fragment --><h3><a class="anchor" id="autotoc_md1470"></a>
 Vcpkg avec des projets CMake Visual Studio</h3>
 <p>Ouvrez les paramètres CMake, et ajoutez le chemin ci-dessous à <code>CMake toolchain file</code> :</p>
 <div class="fragment"><div class="line">[vcpkg root]/scripts/buildsystems/vcpkg.cmake</div>
-</div><!-- fragment --><h3><a class="anchor" id="autotoc_md1412"></a>
+</div><!-- fragment --><h3><a class="anchor" id="autotoc_md1471"></a>
 Vcpkg avec CLion</h3>
 <p>Ouvrez les paramètres de Toolchains (File &gt; Settings sur Windows et Linux, CLion &gt; Preference pour macOS) et allez dans les paramètres CMake (Build, Execution, Deployment &gt; CMake). Finalement, dans <code>CMake options</code>, ajoutez la ligne suivante :</p>
 <div class="fragment"><div class="line">-DCMAKE_TOOLCHAIN_FILE=[vcpkg root]/scripts/buildsystems/vcpkg.cmake</div>
 </div><!-- fragment --><p>Malheureusement, vous devrez le refaire pour chaque projet.</p>
-<h3><a class="anchor" id="autotoc_md1413"></a>
+<h3><a class="anchor" id="autotoc_md1472"></a>
 Vcpkg en tant que sous-module</h3>
 <p>Quand vous utilisez vcpkg comme un sous-module de votre projet, vous pouvez l'ajouter à votre CMakeLists.txt avant le premier appel de <code>project()</code>, au lieu d'utiliser <code>CMAKE_TOOLCHAIN_FILE</code> dans les paramètres d'appel de cmake.</p>
 <div class="fragment"><div class="line">set(CMAKE_TOOLCHAIN_FILE &quot;${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/scripts/buildsystems/vcpkg.cmake&quot;</div>
 <div class="line">  CACHE STRING &quot;Vcpkg toolchain file&quot;)</div>
 </div><!-- fragment --><p>Cela permettra toujours aux gens de ne pas utiliser vcpkg, en passant directement le CMAKE_TOOLCHAIN_FILE, mais cela rendra l'étape de configuration-construction légèrement plus facile.</p>
-<h1><a class="anchor" id="autotoc_md1414"></a>
+<h1><a class="anchor" id="autotoc_md1473"></a>
 Tab-complétion/Auto-complétion</h1>
 <p><code>vcpkg</code> supporte l'auto-complétion des commandes, nom de paquets, et options dans powershell et bash. Pour activer la tab-complétion dans le shell de votre choix :</p>
 <div class="fragment"><div class="line">&gt; .\vcpkg integrate powershell</div>
 </div><!-- fragment --><p>ou</p>
 <div class="fragment"><div class="line">$ ./vcpkg integrate bash</div>
 </div><!-- fragment --><p>selon le shell que vous utilisez, puis redémarrez la console.</p>
-<h1><a class="anchor" id="autotoc_md1415"></a>
+<h1><a class="anchor" id="autotoc_md1474"></a>
 Exemples</h1>
 <p>Lisez la documentation pour des instructions plus spécifiques ainsi que l'installation et l'utilisation des paquets, ajouter un nouveau paquet depuis un fichier zip, et ajouter un nouveau paquet depuis un dépôt GitHub.</p>
 <p>La documentation est aussi disponible en ligne sur ReadTheDocs : <a href="https://vcpkg.readthedocs.io/">https://vcpkg.readthedocs.io/</a> !</p>
 <p>Regardez une [démo vidéo]((<a href="https://www.youtube.com/watch?v=y41WFKbQFTw">https://www.youtube.com/watch?v=y41WFKbQFTw</a>) de 4 minutes en anglais.</p>
-<h1><a class="anchor" id="autotoc_md1416"></a>
+<h1><a class="anchor" id="autotoc_md1475"></a>
 Contribuer</h1>
 <p>Vcpkg est un projet open source, et évolue ainsi avec vos contributions. Voici quelques moyens pour vous d'y contribuer :</p><ul>
 <li><a href="https://github.com/microsoft/vcpkg/issues/new/choose">Soumettre des Issues</a> sur vcpkg ou des paquets existants</li>
@@ -237,10 +237,10 @@ Contribuer</h1>
 </ul>
 <p>Veuillez vous référer au <a class="el" href="md_CONTRIBUTING.html">guide de contribution</a> pour plus de détails.</p>
 <p>Ce projet a adopté le [Code de Conduite Open Source de Microsoft][contribuer:coc].</p>
-<h1><a class="anchor" id="autotoc_md1417"></a>
+<h1><a class="anchor" id="autotoc_md1476"></a>
 Licence</h1>
 <p>Le code sur ce dépôt est distribué sous <a href="LICENSE.txt">licence MIT</a>.</p>
-<h1><a class="anchor" id="autotoc_md1418"></a>
+<h1><a class="anchor" id="autotoc_md1477"></a>
 Télémétrie</h1>
 <p>vcpkg collecte des données pour nous aider à améliorer votre expérience. Les données collectées par Microsoft sont anonymes. Vous pouvez désactiver la télémétrie en relançant le bootstrap-vcpkg avec l'argument <code>-disableMetrics</code>, passer l'argument <code>--disable-metrics</code> à chaque exécution de vcpkg, ou en créant une variable d'environnement nommée <code>VCPKG_DISABLE_METRICS</code>.</p>
 <p>Vous trouverez plus d'informations à propos de la télémétrie dans vcpkg sur cette page. </p>

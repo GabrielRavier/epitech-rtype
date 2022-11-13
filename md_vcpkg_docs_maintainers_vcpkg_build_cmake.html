@@ -69,24 +69,24 @@ $(function() {
 <div class="textblock"><p>**This function has been deprecated in favor of `vcpkg_cmake_build` from the vcpkg-cmake port.**</p>
 <p>The latest version of this document lives in the <a href="https://github.com/Microsoft/vcpkg/blob/master/docs/maintainers/vcpkg_build_cmake.md">vcpkg repo</a>.</p>
 <p>Build a cmake project.</p>
-<h1><a class="anchor" id="autotoc_md546"></a>
+<h1><a class="anchor" id="autotoc_md605"></a>
 Usage:</h1>
 <div class="fragment"><div class="line">vcpkg_build_cmake([DISABLE_PARALLEL] [TARGET &lt;target&gt;])</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md547"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md606"></a>
 Parameters:</h1>
-<h2><a class="anchor" id="autotoc_md548"></a>
+<h2><a class="anchor" id="autotoc_md607"></a>
 DISABLE_PARALLEL</h2>
 <p>The underlying buildsystem will be instructed to not parallelize</p>
-<h2><a class="anchor" id="autotoc_md549"></a>
+<h2><a class="anchor" id="autotoc_md608"></a>
 TARGET</h2>
 <p>The target passed to the cmake build command (<code>cmake --build . --target &lt;target&gt;</code>). If not specified, no target will be passed.</p>
-<h2><a class="anchor" id="autotoc_md550"></a>
+<h2><a class="anchor" id="autotoc_md609"></a>
 ADD_BIN_TO_PATH</h2>
 <p>Adds the appropriate Release and Debug <code>bin</code> directories to the path during the build such that executables can run against the in-tree DLLs.</p>
-<h1><a class="anchor" id="autotoc_md551"></a>
+<h1><a class="anchor" id="autotoc_md610"></a>
 Notes:</h1>
 <p>This command should be preceded by a call to `vcpkg_configure_cmake()`. You can use the alias `vcpkg_install_cmake()` function if your CMake script supports the "install" target</p>
-<h1><a class="anchor" id="autotoc_md552"></a>
+<h1><a class="anchor" id="autotoc_md611"></a>
 Examples:</h1>
 <ul>
 <li><a href="https://github.com/Microsoft/vcpkg/blob/master/ports/zlib/portfile.cmake">zlib</a></li>
@@ -94,7 +94,7 @@ Examples:</h1>
 <li><a href="https://github.com/Microsoft/vcpkg/blob/master/ports/poco/portfile.cmake">poco</a></li>
 <li><a href="https://github.com/Microsoft/vcpkg/blob/master/ports/opencv/portfile.cmake">opencv</a></li>
 </ul>
-<h1><a class="anchor" id="autotoc_md553"></a>
+<h1><a class="anchor" id="autotoc_md612"></a>
 Source</h1>
 <p><a href="https://github.com/Microsoft/vcpkg/blob/master/scripts/cmake/vcpkg_build_cmake.cmake">scripts/cmake/vcpkg_build_cmake.cmake</a> </p>
 </div></div><!-- contents -->

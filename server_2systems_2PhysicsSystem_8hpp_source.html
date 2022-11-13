@@ -80,15 +80,16 @@ $(function() {
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &quot;../components/Projectile.hpp&quot;</span></div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &quot;../components/Transform.hpp&quot;</span></div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &quot;../components/RigidBody.hpp&quot;</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">class </span><a class="code" href="classPhysicsSystem.html">PhysicsSystem</a> : <span class="keyword">public</span> <a class="code" href="classSystem.html">System</a></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;{</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    <span class="keywordtype">void</span>        Init();</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <span class="keywordtype">void</span>        Update() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">bool</span> Collided(<span class="keyword">const</span> <a class="code" href="structTransform.html">Transform</a> &amp;transformA, <span class="keyword">const</span> <a class="code" href="structRigidBody.html">RigidBody</a> &amp;bodyA, <span class="keyword">const</span> <a class="code" href="structTransform.html">Transform</a> &amp;transformB,</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;                         <span class="keyword">const</span> <a class="code" href="structRigidBody.html">RigidBody</a> &amp;bodyB);</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;};</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &quot;../components/Enemy.hpp&quot;</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">class </span><a class="code" href="classPhysicsSystem.html">PhysicsSystem</a> : <span class="keyword">public</span> <a class="code" href="classSystem.html">System</a></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;{</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <span class="keywordtype">void</span>        Init();</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <span class="keywordtype">void</span>        Update() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">bool</span> Collided(<span class="keyword">const</span> <a class="code" href="structTransform.html">Transform</a> &amp;transformA, <span class="keyword">const</span> <a class="code" href="structRigidBody.html">RigidBody</a> &amp;bodyA, <span class="keyword">const</span> <a class="code" href="structTransform.html">Transform</a> &amp;transformB,</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;                         <span class="keyword">const</span> <a class="code" href="structRigidBody.html">RigidBody</a> &amp;bodyB);</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;};</div>
 </div><!-- fragment --></div><!-- contents -->
 <div class="ttc" id="aclassPhysicsSystem_html"><div class="ttname"><a href="classPhysicsSystem.html">PhysicsSystem</a></div><div class="ttdef"><b>Definition:</b> PhysicsSystem.hpp:19</div></div>
 <div class="ttc" id="aclassSystem_html"><div class="ttname"><a href="classSystem.html">System</a></div><div class="ttdef"><b>Definition:</b> System.hpp:6</div></div>
