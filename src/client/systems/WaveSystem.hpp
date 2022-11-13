@@ -31,7 +31,7 @@ private:
     void                                  CreateWave(std::string line);
     void                                  CreateBlop(int i);
     void                                  CreateCrop(int i);
-    void                                  CreateBoss(int i);
+    void                                  CreateBoss(int i); // NOLINT
     void                                  MarkLevelDone();
     std::string                           _levelPath;
     int                                   _waveIndex;
